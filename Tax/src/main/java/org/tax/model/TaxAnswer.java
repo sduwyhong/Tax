@@ -3,7 +3,7 @@ package org.tax.model;
 import java.util.Date;
 
 import lombok.Data;
-@Data
+
 public class TaxAnswer extends TaxAnswerKey {
     /**
      *
