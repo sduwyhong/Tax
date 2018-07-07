@@ -1,0 +1,2 @@
+1、创建外键出错时检查是否存在引用方或被引用方用的是MyISAM引擎，MyISAM不支持外键，只有InnoDB支持
+2、是int unsigned而不是unsigned int
