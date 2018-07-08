@@ -3,6 +3,7 @@ package org.tax.service.impl;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.multipart.MultipartRequest;
 import org.tax.VO.LoginInfo;
 import org.tax.model.TaxUser;
 import org.tax.service.TaxGuestService;

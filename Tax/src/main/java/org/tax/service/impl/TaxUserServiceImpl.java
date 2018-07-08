@@ -1,5 +1,8 @@
 package org.tax.service.impl;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.web.multipart.MultipartRequest;
 import org.tax.VO.PasswordModification;
 import org.tax.model.TaxAnswer;
 import org.tax.model.TaxQuestion;
@@ -45,6 +48,13 @@ public class TaxUserServiceImpl implements TaxUserService {
 	@Override
 	public String collect(int questionId) {
 
+		return null;
+	}
+
+	@Override
+	public String modifyAvatar(HttpServletRequest request,
+			MultipartRequest multipartRequest) {
+		
 		return null;
 	}
 
