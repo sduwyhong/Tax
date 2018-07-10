@@ -179,6 +179,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.3</version>
 			</plugin>
+			
 		</plugins>
 		<resources>
 			<resource>
