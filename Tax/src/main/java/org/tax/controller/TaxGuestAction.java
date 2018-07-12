@@ -22,7 +22,7 @@ import org.tax.service.TaxGuestService;
  */
 @Component
 @Controller
-@RequestMapping("/guest")
+@RequestMapping("/api/v1/guest")
 public class TaxGuestAction {
 	
 	final String JSON = MediaType.JSON;

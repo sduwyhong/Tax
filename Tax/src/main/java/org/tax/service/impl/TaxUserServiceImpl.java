@@ -1,29 +1,34 @@
 package org.tax.service.impl;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartRequest;
 import org.tax.VO.PasswordModification;
+import org.tax.constant.CookieConst;
 import org.tax.constant.Message;
 import org.tax.constant.SessionConst;
 import org.tax.constant.StatusCode;
 import org.tax.factory.MapperFactory;
 import org.tax.model.TaxAnswer;
+import org.tax.model.TaxFavourite;
 import org.tax.model.TaxQuestion;
 import org.tax.model.TaxQuestionExample;
-import org.tax.model.TaxQuestionKey;
 import org.tax.model.TaxUser;
 import org.tax.model.TaxUserExample;
-import org.tax.model.TaxUserKey;
 import org.tax.result.Result;
 import org.tax.service.TaxUserService;
+import org.tax.session.MySession;
+import org.tax.session.SessionControl;
 import org.tax.util.FormatUtil;
 
 import com.alibaba.fastjson.JSON;
@@ -89,7 +94,9 @@ public class TaxUserServiceImpl implements TaxUserService {
 		/***************************************************************/
 		
 		//从Session取出用户,确定旧密码是否正确
-		TaxUser user = (TaxUser)request.getSession().getAttribute(SessionConst.USER);
+//		TaxUser user = (TaxUser)request.getSession().getAttribute(SessionConst.USER);
+		//2018/7/12:wyhong
+		TaxUser user = getUserFromRequest(request);
 		if(!user.getPassword().equals(info.getPassword())){
 			result.setMessage(Message.INVALID_PARAMS);
 			result.setStatus(StatusCode.INVALID_PARAMS);
@@ -119,7 +126,8 @@ public class TaxUserServiceImpl implements TaxUserService {
 		Result result = new Result();
 		//Question id 自增那么不需要管直接插入即可
 		//设置问题的authorId
-		TaxUser author = (TaxUser) request.getSession().getAttribute(SessionConst.USER);
+		//2018/7/12:wyhong
+		TaxUser author = getUserFromRequest(request);
 		question.setAuthorId(author.getId());
 		//设置问题的publishDate
 		question.setPublishDate(new Date());
@@ -132,6 +140,25 @@ public class TaxUserServiceImpl implements TaxUserService {
 		return JSON.toJSONString(result);
 	}
 	
+	private TaxUser getUserFromRequest(HttpServletRequest request) {
+		String userId = null;
+		Cookie[] cookies = request.getCookies();
+		for(Cookie cookie : cookies) {
+			if(cookie.getName().equals(CookieConst.USER)) {
+				try {
+					userId = URLDecoder.decode(cookie.getValue(), "UTF-8").split(";")[0];
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		LOGGER.debug("userId:"+userId);
+		MySession session = SessionControl.getInstance().getSession(userId);
+		LOGGER.debug("session num:"+SessionControl.getInstance().getNumOnline());
+		LOGGER.debug("*****************sessionId in user services:"+session.getId()+";userId:"+userId);
+		return (TaxUser) session.getAttribute(SessionConst.USER);
+	}
+
 	/**以后修改为从鸿哥的Factory获取Session
 	 * 更改需要：
 	 * 细化检验各个字段
@@ -141,7 +168,9 @@ public class TaxUserServiceImpl implements TaxUserService {
 		Result result = new Result();
 		//Question id 自增那么不需要管直接插入即可
 		//设置问题的authorId
-		TaxUser author = (TaxUser) request.getSession().getAttribute(SessionConst.USER);
+//		TaxUser author = (TaxUser) request.getSession().getAttribute(SessionConst.USER);
+		//2018/7/12:wyhong
+		TaxUser author = getUserFromRequest(request);
 		answer.setAuthorId(author.getId());
 		//设置问题的publishDate
 		answer.setPublishDate(new Date());
@@ -178,7 +207,7 @@ public class TaxUserServiceImpl implements TaxUserService {
 	}
 
 	@Override
-	public String collect(int questionId) {
+	public String collect(int questionId, HttpServletRequest request) {
 		Result result = new Result();
 		TaxQuestionExample exampleOfQuestion = new TaxQuestionExample();
 		exampleOfQuestion.createCriteria().andIdEqualTo(questionId);
@@ -196,6 +225,11 @@ public class TaxUserServiceImpl implements TaxUserService {
 				result.setMessage(Message.INVALID_PARAMS);
 				result.setStatus(StatusCode.INVALID_PARAMS);
 			}
+			//2018/7/12 wyhong:插入收藏实体
+			TaxFavourite favourite = new TaxFavourite();
+			favourite.setQuestionId(questionId);
+			favourite.setUserId(getUserFromRequest(request).getId());
+			mapperFactory.getTaxFavouriteMapper().insert(favourite);
 		}
 		return JSON.toJSONString(result);
 	}

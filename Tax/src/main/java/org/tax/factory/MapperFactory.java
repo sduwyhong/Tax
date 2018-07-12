@@ -7,6 +7,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tax.dao.TaxAnswerMapper;
 import org.tax.dao.TaxExpertMapper;
+import org.tax.dao.TaxFavouriteMapper;
 import org.tax.dao.TaxProMapper;
 import org.tax.dao.TaxQuestionMapper;
 import org.tax.dao.TaxShareMapper;
@@ -28,6 +29,8 @@ public class MapperFactory {
 	private TaxProMapper taxProMapper;
 	@Autowired
 	private TaxAnswerMapper taxAnswerMapper;
+	@Autowired
+	private TaxFavouriteMapper taxFavouriteMapper;
 	
 //	public TaxUserMapper getTaxUserMapper() {
 //		return taxUserMapper;

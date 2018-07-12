@@ -23,7 +23,7 @@ import org.tax.service.TaxUserService;
  */
 @Component
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/api/v1/user")
 public class TaxUserAction {
 
 	final String JSON = MediaType.JSON;
@@ -63,8 +63,8 @@ public class TaxUserAction {
 	
 	@RequestMapping(value="/collect/{questionId}",method=RequestMethod.POST,produces=JSON)
 	@ResponseBody
-	public String collect(@PathVariable("questionId") int questionId) {
-		return taxUserService.collect(questionId);
+	public String collect(@PathVariable("questionId") int questionId, HttpServletRequest request) {
+		return taxUserService.collect(questionId, request);
 	}
 	
 	@RequestMapping(value="/avatar/{userId}",method=RequestMethod.POST,produces=JSON)

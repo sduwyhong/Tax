@@ -3,6 +3,7 @@ package org.tax.service.impl;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -42,7 +43,10 @@ import org.tax.model.TaxUserExample;
 import org.tax.model.TaxUserKey;
 import org.tax.result.Result;
 import org.tax.service.TaxGuestService;
+import org.tax.session.MySession;
+import org.tax.session.SessionControl;
 import org.tax.util.LuceneUtil;
+import org.tax.util.UUIDUtil;
 
 import com.alibaba.fastjson.JSON;
 
@@ -72,6 +76,13 @@ public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
 		if(list.size() > 0) {
 			result.setStatus(StatusCode.INVALID_PARAMS);
 			result.setMessage(Message.INVALID_PARAMS);
+			List<String> errors = new ArrayList<String>();
+			for (Iterator iterator = list.iterator(); iterator.hasNext();) {
+				ConstraintViolation constraintViolation = (ConstraintViolation) iterator
+						.next();
+				errors.add(constraintViolation.getMessage());
+			}
+			result.setResult(errors);
 			return JSON.toJSONString(result);
 		}
 //		if (user.getUsername() == null) {
@@ -98,9 +109,12 @@ public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
 //		}
 		try {
 			// 添加注册时间字段(不知道是否需要)
+			user.setId(UUIDUtil.genUUID());
+			user.setLastVisit(new Date());
 			mapperFactory.getTaxUserMapper().insert(user);
 		} catch (Exception e) {
 			e.printStackTrace();
+			//invaild params 有歧义
 			result.setMessage(Message.INVALID_PARAMS);
 			result.setStatus(StatusCode.INVALID_PARAMS);
 		}
@@ -138,17 +152,31 @@ public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
 			user.setLastVisit(new Date());
 			/** 标志是否记住密码 */
 			boolean flag = false;
+			//2018/7/12 wyhong
+			//id;username;password
+			Cookie newCookie = new Cookie(CookieConst.USER,
+					URLEncoder.encode(user.getId()+";"
+							+loginInfo.getUsername() + ";"
+							+ loginInfo.getPassword()));
+			newCookie.setPath(CookieConst.PATH);
+			// 默认cookie 30min后失效
+			int maxAge = 60 * 30;
 			if (flag) {
 				// 设置cookie 一个月后失效
-				Cookie newCookie = new Cookie(CookieConst.USER,
-						URLEncoder.encode(loginInfo.getUsername() + ";"
-								+ loginInfo.getPassword()));
-				newCookie.setPath(CookieConst.PATH);
-				newCookie.setMaxAge(30 * 24 * 60 * 60);
-				response.addCookie(newCookie);
+				maxAge = 30 * 24 * 60 * 60;
 			}
+			newCookie.setMaxAge(maxAge);
+			newCookie.setPath(CookieConst.PATH);
+			response.addCookie(newCookie);
 			// get 跨域session
-			request.getSession().setAttribute(SessionConst.USER, user);
+			//2018/7/12 wyhong
+			MySession session = new MySession(UUIDUtil.genUUID());
+			SessionControl.getInstance().addSession(user.getId(), session);
+			session.setAttribute(SessionConst.USER, user);
+			LOGGER.debug("*****************sessionId in login section:"+session.getId()+";userId:"+user.getId());
+			//test getting a session
+			LOGGER.debug("session num:"+SessionControl.getInstance().getNumOnline());
+			LOGGER.debug("get session:"+SessionControl.getInstance().getSession(user.getId()).getId());
 			return JSON.toJSONString(result);
 		}
 	}

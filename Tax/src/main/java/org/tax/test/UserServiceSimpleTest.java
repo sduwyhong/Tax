@@ -67,8 +67,8 @@ public class UserServiceSimpleTest {
 	@Test
 	public void testCollect(){
 		//String resultJsonStr = userService.collect(4);//有效
-		String resultJsonStr = userService.collect(100);//无效qid
-		System.out.println(resultJsonStr);
+//		String resultJsonStr = userService.collect(100);//无效qid
+//		System.out.println(resultJsonStr);
 	}
 	
 	/**其他要从session取出user的暂时先没有写测试 懒得手动注入 等下查查其他测试工具*/
