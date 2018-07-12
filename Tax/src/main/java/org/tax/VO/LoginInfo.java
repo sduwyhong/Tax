@@ -10,7 +10,6 @@ import org.tax.model.TaxAnswer;
  */
 @Data
 public class LoginInfo {
-
 	private String username;
 	private String password;
 }

@@ -2,7 +2,7 @@ package org.tax.model;
 
 import lombok.Data;
 
-
+@Data
 public class TaxPro extends TaxProKey {
     /**
      *

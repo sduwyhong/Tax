@@ -42,4 +42,6 @@
 	 </bean>
 	 <!-- enable transaction annotation support -->
 	 <tx:annotation-driven transaction-manager="txManager" />
+	 
+	 <bean id="mapperFactory" class="org.tax.factory.MapperFactory"></bean>
 </beans>

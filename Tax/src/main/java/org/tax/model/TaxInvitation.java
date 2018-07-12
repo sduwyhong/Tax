@@ -2,7 +2,7 @@ package org.tax.model;
 
 import lombok.Data;
 
-
+@Data
 public class TaxInvitation extends TaxInvitationKey {
     /**
      *

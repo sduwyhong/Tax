@@ -110,6 +110,10 @@
     <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
+    <!-- 新添加的limitClause -->
+    <if test="limitClause != null">
+      limit ${limitClause}
+    </if>
   </select>
   <delete id="deleteByExample" parameterType="org.tax.model.TaxShareExample">
     <!--
