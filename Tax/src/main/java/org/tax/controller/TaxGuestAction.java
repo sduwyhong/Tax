@@ -30,6 +30,18 @@ public class TaxGuestAction {
 	@Autowired
 	TaxGuestService taxGuestService;
 	
+	@RequestMapping(value="/validateTelephone",method=RequestMethod.POST,produces=JSON)
+	@ResponseBody
+	public String validateTelephone(String telephone) {
+		return taxGuestService.validateTelephone(telephone);
+	}
+	
+	@RequestMapping(value="/validateUsername",method=RequestMethod.POST,produces=JSON)
+	@ResponseBody
+	public String validateUsername(String username) {
+		return taxGuestService.validateUsername(username);
+	}
+	
 	@RequestMapping(value="/register",method=RequestMethod.POST,produces=JSON)
 	@ResponseBody
 	public String register(TaxUser user) {

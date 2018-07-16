@@ -1,0 +1,570 @@
+<!-- 个人信息修改 -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>安徽省国家税务局税企互助交流平台</title>
+<script type="text/javascript" src="../js/jquery.min.js "> </script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="icon" href="../image/home/favicon.gif" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="../css/userEditor/myData.css">
+<!--  <link rel="stylesheet" href="../css/userEditor/bootstrap.min.css">-->
+<link rel="stylesheet" href="../css/userEditor/cropper.css">
+<link rel="stylesheet" href="../css/userEditor/main.css">
+<link rel="stylesheet" href="../css/zeroModal.css">
+<style type="text/css">
+.avatar-view img {
+	margin: 0;
+}
+
+.user_text {
+	margin-top: 7px;
+}
+
+.user_text_one {
+	margin-top: 7px;
+}
+
+.user_text_two {
+	margin-top: 7px;
+}
+
+::-ms-clear, ::-ms-reveal {
+	display: none;
+}
+</style>
+<link type="text/css" rel="stylesheet"
+	href="chrome-extension://pioclpoplcdbaefihamjohnefbikjilc/content.css">
+</head>
+<body>
+
+	<style type="text/css">
+body {
+	min-height: 900px;
+	background: #eee;
+}
+
+.header {
+	width: 100%;
+	height: 100px;
+	display: -webkit-box;
+	position: relative;
+	min-width: 1200px;
+	background: rgba(255, 255, 255, 255);
+}
+
+.header .logo {
+	width: 614px;
+	height: 42px;
+	background: url(../image/home/logo.png) no-repeat;
+	position: relative;
+	background-size: 100% 100%;
+	margin: 30px 30px;
+}
+
+.header .nav {
+	-webkit-box-flex: 1;
+	width: 750px;
+	margin-right: 70px;
+}
+
+.header .nav ul {
+	display: -webkit-box;
+	list-style: none;
+}
+
+.header .nav ul li {
+	-webkit-box-flex: 1;
+	line-height: 100px;
+	font-size: 16px;
+	text-align: center;
+	height: 85px;
+	width: 85px;
+}
+
+.header .nav ul li a {
+	text-decoration: none;
+	font-size: 19px;
+	color: #2057a6;
+}
+
+.header .but {
+	width: 185px;
+	height: 100px;
+	position: relative;
+	overflow: hidden;
+	box-sizing: content-box;
+}
+
+.but_content {
+	width: 150px;
+	height: 100px;
+	position: absolute;
+	bottom: 0;
+}
+
+.but_content div {
+	float: left;
+	height: 20px;
+	line-height: 83px;
+	color: #1B55A9;
+	cursor: pointer;
+	font-size: 15px;
+	text-align: right;
+}
+
+.but_content div a {
+	color: #1B55A9;
+	font-size: 15px;
+	text-decoration: none;
+}
+
+.message {
+	width: 14px;
+	cursor: pointer;
+}
+
+.your_meaasge span {
+	color: #1B55A9;
+}
+
+.your_meaasge {
+	height: 23px;
+	position: absolute;
+	margin-top: 55px;
+	z-index: 999;
+	margin-left: 15px;
+}
+
+.newss {
+	color: #1B55A9;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/*	导航栏搜索	*/
+/*new*/
+.s_wrap {
+	width: 145px;
+	height: 30px;
+	border: 1px solid #1B55A9;
+	line-height: 100px;
+	margin-top: 33px;
+	border-radius: 7px;
+	margin-left: 10px;
+}
+
+.magnifying {
+	width: 18px;
+	height: 18px;
+	float: left;
+	margin: 6px 10px;
+	cursor: pointer;
+}
+
+.ssearch {
+	float: right;
+	width: 76px;
+	height: 30px;
+	border: none;
+	border-left: 1px solid #1B55A9;
+	box-sizing: border-box;
+	margin: 0px 28px 0 0;
+	padding-left: 8px;
+	color: #1B55A9;
+	resize: none;
+	outline: none;
+	background: none;
+}
+
+.person {
+	width: 35px;
+	height: 35px;
+	margin-top: 22px;
+}
+
+@media screen and (max-width: 1440px) {
+	.header .logo {
+		width: 720px;
+		height: 34px;
+		background: url(../image/header/520.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 35px 30px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 19px;
+	}
+}
+
+@media screen and (max-width: 1366px) {
+	.header .logo {
+		width: 720px;
+		height: 34px;
+		background: url(../image/header/520.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 35px 30px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 18px;
+	}
+}
+
+@media screen and (max-width: 1280px) {
+	.header .logo {
+		width: 640px;
+		height: 32px;
+		background: url(../image/header/490.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 35px 30px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 17px;
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	.header .logo {
+		width: 480px;
+		height: 24px;
+		background: url(../image/header/380.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 40px 35px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 15px;
+	}
+}
+/* .logo,.nav,.but{
+	border:1px solid;
+}  */
+</style>
+
+
+	<!-- header start -->
+	<div id="headerpage"></div>
+	<!-- header end -->
+
+	<script>
+		// 窗体加载完成时轮询
+		var t, notifyNum = 0;
+		window.onload = function() {
+			loadNotifies();
+			t = setInterval(loadNotifies, 10000); //每10秒执行一次
+		}
+		// 窗体关闭之前清除此定时器
+		window.onbeforeunload = function() {
+			clearInterval(t);
+		}
+
+		//消息提示
+		function loadNotifies() {
+			var param = {
+				pagingOrNot : "not",
+				readOrUnread : "0"
+			};
+			// 获取所有的通知
+			$.get('/lagsms/notifies/count', param, function(data) {
+				if (notifyNum == data) {
+					return;
+				}
+				notifyNum = data;
+				var numTxt = "";
+				if (notifyNum >= 100) {
+					numTxt = "99+";
+				} else if (notifyNum == 0) {
+					numTxt = "";
+				}
+				$("#news").text(numTxt);
+			});
+		}
+	</script>
+
+	<script>
+		$(function() {
+			$(".user_text").hover(function() {
+				var width_a = $(this).width();
+				var width_b = $(this).find(".user_id").width();
+				var indent_px = width_a - width_b;
+				if (width_a <= width_b) {
+					$(this).css("text-indent", indent_px);
+				}
+			}, function() {
+				$(this).css("text-indent", "0");
+			});
+		});
+	</script>
+	<!-- input点击清除value值 -->
+	<script type="text/javascript">
+		wap_val = [];
+		$(".ssearch").each(function(i) {
+			wap_val[i] = $(this).val();
+			$(this).focusin(function() {
+				if ($(this).val() == wap_val[i]) {
+					$(this).val("");
+				}
+			}).focusout(function() {
+				if ($.trim($(this).val()) == "") {
+					$(this).val(wap_val[i]);
+				}
+			});
+		});
+		//  用户名显示
+		$(".user_id").each(function() {
+			var maxwidth = 4;
+			if ($(this).text().length > maxwidth) {
+				$(this).text($(this).text().substring(0, maxwidth));
+				$(this).html($(this).html() + '...');
+			}
+		});
+	</script>
+
+
+	<!-- 头部标题end -->
+
+	<!-- 中间部分start -->
+
+	<div class="content" style="height: 680px; min-height: 800px;">
+		<div style="margin-left: 50px; margin-top: 25px; color: black">
+			<span class="">当前位置：<a style="color: black"
+				href="javascript:history.go(-1);" class="nav_style">个人中心</a></span> <span
+				class="">&nbsp;&gt;&nbsp;</span> <span class=""><a href=""
+				style="color: black"> 个人资料编辑</a></span>
+		</div>
+		<div class="content_main">
+			<div class="content_top">
+				<div class="personal_left">个人资料</div>
+				<div class="personal_right">
+					<a href="/lagsms/users/updatePwd">修改密码</a> <img
+						src="../image/home/blue_head.png">
+				</div>
+			</div>
+			<div class="gary">
+				<div class="darkblue"></div>
+			</div>
+			<div class="content_middle clearfix">
+				<div class="lefts" style="margin-left:200px">
+					<!-- cropper  -->
+					<div class="container" id="crop-avatar">
+						<!-- Current avatar -->
+						<div class="avatar-view" title=""
+							data-original-title="Change the avatar">
+
+
+
+							<img src="../image/u2815.png" id="avatarImg" alt="Avatar">
+
+
+						</div>
+						<!-- Cropping modal -->
+						<div class="modal fade" id="avatar-modal" aria-hidden="true"
+							aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<form class="avatar-form" action="/lagsms/file/fileUpLoad"
+										enctype="multipart/form-data" method="post">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">×</button>
+											<h4 class="modal-title" id="avatar-modal-label">Change
+												Avatar</h4>
+										</div>
+										<div class="modal-body">
+											<div class="avatar-body">
+												<!-- Upload image and data -->
+												<div class="avatar-upload">
+													<!--  <input type="hidden" class="avatar-src" name="uploadFile">
+					                  <input type="hidden" class="avatar-data" name="uploadFile"> -->
+													<label for="avatarInput">图片上传</label> <input type="file"
+														class="avatar-input" id="avatarInput" name="uploadFile">
+												</div>
+												<!-- Crop and preview -->
+												<div class="row">
+													<div class="col-md-9">
+														<div class="avatar-wrapper"></div>
+													</div>
+													<div class="col-md-3">
+														<div id="avatarPreview" class="avatar-preview preview-lg"></div>
+													</div>
+												</div>
+												<div class="row avatar-btns">
+													<div class="col-md-9">
+														<div class="btn-group">
+															<button type="button" class="btn btn-primary"
+																data-method="rotate" data-option="-90"
+																title="Rotate -90 degrees">Rotate Left</button>
+															<button type="button" class="btn btn-primary"
+																data-method="rotate" data-option="-15">-15deg</button>
+															<button type="button" class="btn btn-primary"
+																data-method="rotate" data-option="-30">-30deg</button>
+															<button type="button" class="btn btn-primary"
+																data-method="rotate" data-option="-45">-45deg</button>
+														</div>
+														<div class="btn-group">
+															<button type="button" class="btn btn-primary"
+																data-method="rotate" data-option="90"
+																title="Rotate 90 degrees">Rotate Right</button>
+															<button type="button" class="btn btn-primary"
+																data-method="rotate" data-option="15">15deg</button>
+															<button type="button" class="btn btn-primary"
+																data-method="rotate" data-option="30">30deg</button>
+															<button type="button" class="btn btn-primary"
+																data-method="rotate" data-option="45">45deg</button>
+														</div>
+													</div>
+													<div class="col-md-3">
+														<button type="submit"
+															class="btn btn-primary btn-block avatar-save">开始上传</button>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal">关闭</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<!-- /.modal -->
+						<!-- Loading state -->
+						<div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+					</div>
+					<!-- cropper end -->
+					<!-- lb -->
+				</div>
+				<!-- left end -->
+				<div class="rights" style="margin-left:50px;">
+
+					<form id="dataForm" action="/lagsms/updateMyData" method="POST">
+						<input type="hidden" name="avatar" id="userAvatarId">
+						<div class="all_message">
+							<div class="uesrname">
+								<span class="write_left">用户姓名：</span> <input type="text"
+									name="userName" class="usermassage" value="temp01">
+							</div>
+							<div class="uesrname">
+								<span class="write_left">用户类型：</span> <span class="type">
+
+
+
+									普通用户 </span>
+							</div>
+							<div class="uesrname">
+								<span class="write_left">电话号码：</span> <input type="text"
+									name="userTelephone" value="17864151111" class="usermassage">
+							</div>
+							<div class="uesrname">
+								<span class="write_left">单位名称：</span> <input type="text"
+									readonly="readonly" name="" value="temp01" class="usermassage">
+							</div>
+							<div class="uesrname">
+								<span class="write_left">邮箱号码：</span> <input type="text"
+									name="mail" value="184415385@qq.com" class="usermassage">
+							</div>
+							<div class="uesrname clearfix" id="selectMajor">
+								<span class="write_left">选择专业分类:</span> 
+								<span class="professional" style="width:130%;"> 
+									<form action="#" method="GET">
+										<p>
+											<input type="checkbox" id="040001"><label for="040001">发票系统故障及操作指导</label>
+											<input type="checkbox" id="040002"><label for="040002">发票领购</label>
+											<input type="checkbox" id="040003"><label for="040003">发票代开</label>
+											<input type="checkbox" id="040004"><label for="040004">发票开具</label>
+										</p>
+										<p>
+											<input type="checkbox" id="040005"><label for="040005">红字增值税发票开具</label>
+											<input type="checkbox" id="040006"><label for="040006">申报有误能否作废</label>
+											<input type="checkbox" id="040007"><label for="040007">一般纳税人资格</label>
+											<input type="checkbox" id="040008"><label for="040008">辅导期一般纳税人</label>
+										</p>
+										<p>
+											<input type="checkbox" id="040009"><label for="040009">专用发票认证抵扣</label>
+											<input type="checkbox" id="040010"><label for="040010">小规模纳税人增值税起征点是否有调整</label>
+											<input type="checkbox" id="040011"><label for="040011">认定为一般纳税人之后是否可以转为小规模纳税人</label>
+											<input type="checkbox" id="040012"><label for="040012">小规模纳税人自行开具的增值税专用发票如何填写申报表</label>
+										</p>
+										<p>
+											<input type="checkbox" id="040013"><label for="040013">注销登记</label>
+											<input type="checkbox" id="040014"><label for="040014">发票检查</label>
+											<input type="checkbox" id="040015"><label for="040015">专用发票丢失</label>
+											<input type="checkbox" id="040016"><label for="040016">征收率</label>
+										</p>
+										<p>
+											<input type="checkbox" id="040017"><label for="040017">非国税业务</label>
+											<input type="checkbox" id="040018"><label for="040018">信用等级</label>
+											<input type="checkbox" id="040019"><label for="040019">营改增</label>
+											<input type="checkbox" id="040020"><label for="040020">金税管理</label>
+										</p>
+										<p>
+											<input type="checkbox" id="040021"><label for="040021">进出口税收</label>
+											<input type="checkbox" id="040022"><label for="040022">征收管理</label>
+											<input type="checkbox" id="040023"><label for="040023">发票保管</label>
+										</p>																																																																			
+									</form>
+								</span>
+							</div>
+							<div class="save">
+								<button class="save_btn" type="submit">保存信息</button>
+							</div>
+							<input type="hidden" name="userOrg" value="user_1530497588928">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 中间部分start -->
+
+	<!-- footer start -->
+	<div id="footerpage"></div>
+	<!-- footer end -->
+	
+	<!-- load js -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../js/zeroModel.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/Materialize/materialize.min.js"></script>
+	<script type="text/javascript" src="../js/Materialize/adbeus.js"></script>
+	
+	<!-- load header and footer -->
+	<script type="text/javascript">
+		$("#headerpage").load("../header.html");
+		$("#footerpage").load("../footer.html");
+	</script>
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="../js/cropper.min.js"></script> 
+	<script src="../js/main.js"></script> 
+	<script type="text/javascript">
+		function updateVerifyCode() {
+			event.target.src = event.target.src + "?t=" + Date.now();
+		}
+
+		var boxObj = $('#selectMajor').find("input"); //获取所有的复选框值  
+		var userMajor = '040001'; //用el表达式获取在控制层存放的复选框的值为字符串类型  
+		var userMajorArr = userMajor.split(',');
+		$.each(userMajorArr, function(index, major) {
+			boxObj.each(function() {
+				if ($(this).val() == major) {
+					$(this).attr("checked", true);
+				}
+			});
+		});
+	</script>
+</body>
+</html>

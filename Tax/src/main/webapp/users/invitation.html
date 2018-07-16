@@ -1,0 +1,429 @@
+<!-- 用户专区——邀请回答界面 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="width=device-width" name="viewport">
+<title>安徽省国家税务局税企互助交流平台</title>
+<link rel="stylesheet" type="text/css" href="../css/user/inviteAnswer.css">
+<link rel="icon" href="../image/home/favicon.gif" type="image/x-icon">
+<link rel="stylesheet" href="../css/zeroModal.css">
+<script type="text/javascript">
+/* 	window.onload=function(){
+		console.log(user_1530497588928);
+		console.log(u0001);
+	} */
+	function sendInvitation(){
+		var text = $("#text").val();
+		var title = $("#title").val();
+		if(title===""){
+			zeroModal.alert("请填写标题");
+			return;
+		}
+		if(text===""){
+			zeroModal.alert("请填写问题描述");
+			return;
+		}
+		var form = document.getElementById("invitationForm");
+		 console.log(JSON.stringify(new FormData(form)));
+		 console.log($("invitationForm").serialize());
+		 $.ajax({
+			 url:'/lagsms/invitationqQuestion',
+			 type: 'POST',
+			 processData: false,
+			 contentType: false,
+			 data: new FormData(form),
+			 success: function(data) {
+				 console.log(data);
+				 alert(data.mes);
+				 history.go(-1);
+			 }
+		 });
+	}
+</script>
+<style type="text/css">
+.liuan_footers{
+	position:relative;
+	bottom:0;
+}
+</style>
+</head>
+<body>	
+<style type="text/css">
+
+body {
+	min-height: 900px;
+	background:#eee;
+}
+.header {
+	width: 100%;
+	height: 100px;
+	display: -webkit-box;
+	position: relative;
+	min-width: 1200px;
+	background:rgba(255,255,255,255);
+}
+
+.header .logo {
+	width: 614px;
+	height: 42px;
+	background: url(../image/home/logo.png) no-repeat;
+	position: relative;
+	background-size: 100% 100%;
+	margin: 30px 30px;
+}
+
+.header .nav {
+	-webkit-box-flex: 1;
+	width: 750px;
+	margin-right:70px;
+}
+
+.header .nav ul {
+	display: -webkit-box;
+	list-style: none;
+}
+
+.header .nav ul li {
+	-webkit-box-flex: 1;
+	line-height: 100px;
+	font-size: 16px;
+	text-align: center;
+	height: 85px;
+	width:85px;
+}
+
+.header .nav ul li a {
+	text-decoration: none;
+	font-size: 19px;
+	 color:#2057a6;
+}
+
+.header .but {
+	width: 185px;
+	height: 100px;
+	position: relative;
+	overflow: hidden;
+	box-sizing: content-box;
+}
+
+.but_content {
+    width:150px;
+	height: 100px;
+	position: absolute;
+	bottom: 0;
+}
+
+.but_content div {
+	float: left;
+	height: 20px;
+	line-height: 83px;
+	color: #1B55A9;
+	cursor: pointer;
+	font-size: 15px;
+	text-align: right;
+}
+
+.but_content div a {
+	color: #1B55A9;
+	font-size: 15px;
+	text-decoration: none;
+}
+
+.message {
+	width: 14px;
+	cursor: pointer;
+}
+
+.your_meaasge span {
+	color: #1B55A9;
+}
+
+.your_meaasge {
+    height: 23px;
+    position: absolute;
+    margin-top: 55px;
+    z-index:999;
+    margin-left:15px;
+    
+}
+.newss {
+	color: #1B55A9;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+
+/*	导航栏搜索	*/
+/*new*/
+.s_wrap{
+    width: 145px; 
+	height:30px;
+	border:1px solid #1B55A9;
+	line-height:100px;
+	margin-top: 33px;
+	border-radius:7px;
+    margin-left: 10px;
+}
+.magnifying{
+	width: 18px;
+    height: 18px;
+    float: left;
+    margin: 6px 10px;
+    cursor: pointer;
+}
+.ssearch{
+	float: right;
+    width: 76px;
+    height: 30px;
+    border: none;
+    border-left:1px solid #1B55A9;
+    box-sizing: border-box;
+    margin:0px 28px 0 0;
+    padding-left: 8px;
+    color:#1B55A9;
+    resize:none;
+    outline:none;
+    background:none;
+}
+.person{
+	width:35px;
+	height:35px;
+	margin-top: 22px;
+}
+@media screen and (max-width: 1440px) {
+	.header .logo {
+		width: 720px;
+		height: 34px;
+		background: url(../image/header/520.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 35px 30px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 19px;
+	}
+}
+
+@media screen and (max-width: 1366px) {
+	.header .logo {
+	   width: 720px;
+		height: 34px;
+		background: url(../image/header/520.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 35px 30px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 18px;
+	}
+}
+
+@media screen and (max-width: 1280px) {
+	.header .logo {
+		width: 640px;
+		height: 32px;
+		background: url(../image/header/490.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 35px 30px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 17px;
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	.header .logo {
+		width: 480px;
+		height: 24px;
+		background: url(../image/header/380.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 40px 35px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 15px;
+	}
+}
+ /* .logo,.nav,.but{
+	border:1px solid;
+}  */
+</style>
+
+
+		<!-- header start -->
+		<div id="headerpage"></div>
+		<!-- header end -->
+	
+	
+		<script>
+			// 窗体加载完成时轮询
+			var t, notifyNum = 0;
+			window.onload = function() {
+				loadNotifies();
+				t = setInterval(loadNotifies, 10000); //每10秒执行一次
+			}
+			// 窗体关闭之前清除此定时器
+			window.onbeforeunload = function() {
+				clearInterval(t);
+			}
+			
+			//消息提示
+			function loadNotifies() {
+				var param = {
+					pagingOrNot : "not",
+					readOrUnread : "0"
+				};
+				// 获取所有的通知
+				$.get('/lagsms/notifies/count', param, function(data) {
+					if(notifyNum == data) {
+						return;
+					}
+					notifyNum = data;
+					var numTxt = "";
+					if(notifyNum >= 100) {
+						numTxt = "99+";
+					} else if(notifyNum == 0) {
+						numTxt = "";
+					}
+					$("#news").text(numTxt);
+				});
+			}
+		</script>
+	
+	<script>
+        $(function(){
+           $(".user_text").hover(function(){
+               var width_a = $(this).width();
+               var width_b = $(this).find(".user_id").width();
+               var indent_px = width_a - width_b;
+               if( width_a <= width_b ){
+                   $(this).css("text-indent",indent_px);
+               }
+           },function(){
+               $(this).css("text-indent","0");
+           });
+        });
+    </script>
+      <!-- input点击清除value值 -->
+    <script type="text/javascript">
+		wap_val = [];
+		$(".ssearch").each(function(i) {
+			wap_val[i] = $(this).val();
+			$(this).focusin(function() {
+				if ($(this).val() == wap_val[i]) {
+					$(this).val("");
+				}
+			}).focusout(function() {
+				if ($.trim($(this).val()) == "") {
+					$(this).val(wap_val[i]);
+				}
+			});
+		});
+		//  用户名显示
+		 $(".user_id").each(function(){
+		  var maxwidth=4;
+		  if($(this).text().length > maxwidth){
+		    $(this).text($(this).text().substring(0,maxwidth));
+		    $(this).html($(this).html()+'...');
+		  }
+		}); 
+	</script>
+
+
+	<!-- header end -->
+		<div class="content">
+			<div class="path_nav">
+				<span class="">当前位置：<a href="javascript:history.go(-1);" class="nav_style">用户专区</a></span>
+				<span class="">&nbsp;&gt;&nbsp;</span>
+				<span class=""><a href="" class="nav_style">邀请回答</a></span>
+			</div>
+			<div class="content_main">
+				<div class="content_top">
+					<div class="personal_left">邀请回答</div>
+				</div>
+				<div class="gary">
+					<div class="darkblue"></div>
+				</div>
+				<div class="content_middle">
+					<form id="invitationForm">
+						<div class="selects clearfix" style="float: left; padding-left: 9px;">
+							<input type="hidden" name="userId" value="user_1530497588928">
+							<input type="hidden" name="invitedId" value="u0001">
+							<label style="font-size:17px;color:#000000b3;margin-right:20px;">问题分类：</label>
+							<select id="category" name="question" class="browser-default">
+								<option value="">普通提问</option>
+								<option value="1">悬赏提问</option>
+							</select>
+							<label style="font-size:17px;color:#000000b3;margin-right:20px;">悬赏金额</label>
+							<select id="rewardAmount" class="browser-default">
+								<option value="" disabled selected>自选积分金额</option>
+								<option value="1">1</option>
+								<option value="3">3</option>
+								<option value="5">5</option>								
+							</select>
+							<select name="rewardAmount" id="reward" disabled="disabled">
+								<option value="0">0</option>
+								<option value="20">20</option>
+							</select>
+						</div>
+						<div class="invite_title clearfix">
+							<div>标&emsp;&emsp;题：</div>
+							<input id="title" name="title" type="text">
+						</div>
+						<div class="invite_describe clearfix">
+							<div class="describe">问题描述：</div>
+							<textarea name="content" id="text"></textarea>
+						</div>
+					</form>
+					<div class="invite_button">
+						<button class="btn" onclick="sendInvitation();" style="margin-right: 100px;">提交</button>
+						<button class="btn" onclick="history.go(-1);">返回</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	<!-- content end -->
+	
+	<!-- footer start -->
+	<div id="footerpage"></div>
+	<!-- footer end -->	
+	
+	<!-- load js -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../js/zeroModel.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/Materialize/materialize.min.js"></script>
+	<script type="text/javascript" src="../js/Materialize/adbeus.js"></script>
+	
+	<!-- load header and footer -->
+	<script type="text/javascript">
+		$("#headerpage").load("../header.html");
+		$("#footerpage").load("../footer.html");
+	</script>
+
+<script type="text/javascript">
+$(function(){
+	$("#reward").attr("disabled","disabled").css("background-color","#EEEEEE;");
+})
+$("#question").click(function(){
+	  var a = $("#question option:selected").val();
+	  console.log(a);
+	  if(a==0){
+		  document.getElementById("reward").options[0].selected = true; 
+		  $("#reward").attr("disabled","disabled").css("background-color","#EEEEEE;");
+	  }else{
+		  $("#reward").removeAttr("disabled");
+	  }
+});
+</script>
+</body>
+</html>

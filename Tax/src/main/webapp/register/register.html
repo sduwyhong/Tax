@@ -1,0 +1,115 @@
+<!-- 注册 -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>安徽省国家税务局税企互助交流平台</title>
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/register/register.css">
+	<link rel="icon" href="../image/home/favicon.gif" type="image/x-icon">
+	<link rel="stylesheet" href="../js/zeroModal.css">
+	    <link rel="stylesheet" type="text/css" href="../css/header/header.css">
+<script type="text/javascript">
+	$(function(){
+		$("#messages").remove();
+	})
+</script><style type="text/css">
+.liuan_footers{
+		bottom:0;
+		position:relative;
+	}
+	body{
+		display:flex;
+		flex-flow:column;
+	}
+	.content{
+		/* min-height:110vh; */
+		flex:1;
+	}
+</style>
+</head>
+
+
+<body style="display: flex;flex-flow: column;min-height: 100vh;">
+
+
+
+	<!-- header start -->
+	<div id="headerpage"></div>
+	<!-- header end -->
+	
+	
+	<script>
+        $(function(){
+           $(".user_text").hover(function(){
+               var width_a = $(this).width();
+               var width_b = $(this).find(".user_id").width();
+               var indent_px = width_a - width_b;
+               if( width_a <= width_b ){
+                   $(this).css("text-indent",indent_px);
+               }
+           },function(){
+               $(this).css("text-indent","0");
+           });
+        });
+    </script>
+      <!-- input点击清除value值 -->
+    <script type="text/javascript">
+		wap_val = [];
+		$(".ssearch").each(function(i) {
+			wap_val[i] = $(this).val();
+			$(this).focusin(function() {
+				if ($(this).val() == wap_val[i]) {
+					$(this).val("");
+				}
+			}).focusout(function() {
+				if ($.trim($(this).val()) == "") {
+					$(this).val(wap_val[i]);
+				}
+			});
+		});
+		//  用户名显示
+		 $(".user_id").each(function(){
+		  var maxwidth=4;
+		  if($(this).text().length > maxwidth){
+		    $(this).text($(this).text().substring(0,maxwidth));
+		    $(this).html($(this).html()+'...');
+		  }
+		}); 
+	</script>
+
+
+	<!--header end-->
+	<!--content start-->
+<div class="content">
+		<div class="content_main" style="margin:0 auto;">
+			<div class="content_middle" style="">
+				<div class="content_middle_btn">
+					<a href="/lagsms/register?status=0" class="r_btn" style="    color: #485563;font-size: 22px;">—— REGISTER ——</a>
+					<a href="per_register.html" class="save_btn" style="color:#5a626b">个人注册</a>
+					<a href="pro_register.html" class="save_btn" style="color:#5a626b">专家注册</a>
+					<a href="org_register.html" class="save_btn" style="color:#5a626b">机构注册</a>
+					<a href="" class="login_btn" style="color:#eef1f5d4;font-size: 13px;">已有账号？  >>去登陆</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- footer start -->
+	<div id="footerpage"></div>
+	<!-- footer end -->
+	
+	<!-- load js -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../js/zeroModel.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/Materialize/materialize.min.js"></script>
+	<script type="text/javascript" src="../js/Materialize/adbeus.js"></script>
+	
+	<!-- load header and footer -->
+	<script type="text/javascript">
+		$("#headerpage").load("../header.html");
+		$("#footerpage").load("../footer.html");
+	</script>	
+
+</body>
+
+</html>

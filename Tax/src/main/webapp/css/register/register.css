@@ -1,0 +1,187 @@
+@charset "utf-8";
+body,dd,dl,dt,h1,h2,h3,h4,h5,h6,li,p,ul {
+	margin: 0;
+	padding: 0;
+}
+body{
+	overflow-x: hidden;
+}
+ul{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color:transparent;
+	outline:none;
+}
+img{
+	border: none;
+	cursor: pointer;
+}
+input{
+	font-family: "微软雅黑";
+	outline: none;
+}
+button{
+	transition: none!important;
+}
+
+h1{
+	text-align: center;
+	height: 20px;
+	font: 20px "microsoft yahei",Helvetica,Tahoma,Arial,"Microsoft jhengHei",sans-serif;
+	color: #232b338f;
+	height: 20px;
+	line-height: 0px;
+	margin:-100px;
+	padding:0px 1000px 0px 180px; 
+}
+.fl{
+	float: left;
+	width: 576px;
+	height: 57px;
+	background: url(../../image/login/top_logo.png) no-repeat;
+	background-size: 100% 78%;
+	margin-top: 7px;"
+}
+.fr{
+	float: right;
+}
+.clearfix:after {
+	content: "\200b";
+	clear: both;
+	display: block;
+	height: 0;
+}
+.pr{
+	position: relative;
+}
+.pa{
+	position: absolute;
+}
+.alignC{
+	text-align: center;
+}
+
+/* index start */
+/* header start */
+
+/* header end */
+/*content start*/
+.content{
+	width: 100%;
+	height:auto;
+	background:url(../../image/home/banner.png) no-repeat;
+	background-size:100% 100%;
+	z-index:1;
+	
+}
+
+.content:after {    
+    content: "";
+     width:120%;
+    height:62%;
+    position: absolute;
+    left:0;
+    top:20;
+    background: inherit;
+    filter: blur(30px);
+     z-index:2;   
+}
+
+.content_main{
+	position: absolute;
+	width: 1200px;
+	margin: -20px -250px;
+	text-align: center;
+	z-index:11;
+}
+
+.content_middle{
+	width: 370px;
+	height: 415px;
+	float: right;
+	background:#fff;
+	background-size:100% 90%;
+	margin:40px;
+	border-radius:5px;
+	z-index: 999;
+	left: 0;
+	bottom: 0;
+	background: rgba(255, 255, 255, 0.36)!important;
+	filter: alpha(opacity=60);
+	border-radius: 30px;
+}
+.content_middle_m{
+
+}
+.content_middle_m table td{
+	padding-top: 40px;
+}
+.content_middle_m table td input{
+	width: 350px;
+	height: 40px;
+	border:1px solid #333;
+	border-radius: 5px;
+}
+.Img{
+	width: 80px;
+    height: 40px;
+    vertical-align: middle;
+    margin-left: 30px;
+}
+/*注册按钮*/
+.content_middle_btn{
+	text-align: center;
+	MARGIN: 15px 32px;
+	
+}
+.save_btn{
+	background: none;
+	line-height: 56px;
+	display:block;
+	border-radius: 50px;
+	width: 300px;
+	height: 45px;
+	line-height: 48px;
+    border: rgba(6, 29, 47, 0.28) 1.2px solid !important;
+	text-align: center;
+	border:2px solid #ccc;
+	margin-top: 30px;
+	
+	
+}
+
+.r_btn{
+	background: none;
+	line-height: 56px;
+	display:block;
+	border-radius: 50px;
+	width: 300px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	margin: 42px 84px 40px 0px;
+}
+
+.login_btn{
+	background: #0d3570d4;
+	line-height: 56px;
+	display:block;
+	border-radius: 50px;
+	width: 160px;
+	height: 40px;
+	line-height: 40px;
+    
+	text-align: center;
+
+	margin-top: 30px;
+	margin-left: 70px;
+	
+	
+}
+/*content end*/
+/* footer start */
+
+/* fotter end */

@@ -31,5 +31,9 @@ public interface TaxGuestService {
 	String getShares(int page);
 	
 	String getArticlesOfExperts(int page);
+
+	String validateUsername(String username);
+
+	String validateTelephone(String telephone);
 	
 }

@@ -1,5 +1,6 @@
 package org.tax.service.impl;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,6 +41,7 @@ import org.tax.model.TaxShare;
 import org.tax.model.TaxShareExample;
 import org.tax.model.TaxUser;
 import org.tax.model.TaxUserExample;
+import org.tax.model.TaxUserExample.Criteria;
 import org.tax.model.TaxUserKey;
 import org.tax.result.Result;
 import org.tax.service.TaxGuestService;
@@ -49,6 +51,7 @@ import org.tax.util.LuceneUtil;
 import org.tax.util.UUIDUtil;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * @author wyhong
@@ -63,6 +66,34 @@ public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
 	@Autowired
 	private MapperFactory mapperFactory;
 
+	@Override
+	public String validateUsername(String username) {
+		TaxUserExample example = new TaxUserExample();
+		example.createCriteria().andUsernameEqualTo(username);
+		List<TaxUser> list = mapperFactory.getTaxUserMapper().selectByExample(example);
+		Result result = new Result();
+		if(list.size() > 0){
+			result.setStatus(StatusCode.DUPLICATE_USERNAME);
+			result.setMessage(Message.DUPLICATE_USERNAME);
+			return JSONObject.toJSONString(result);
+		}
+		return JSONObject.toJSONString(result);
+	}
+	
+	@Override
+	public String validateTelephone(String telephone) {
+		TaxUserExample example = new TaxUserExample();
+		example.createCriteria().andTelephoneEqualTo(telephone);
+		List<TaxUser> list = mapperFactory.getTaxUserMapper().selectByExample(example);
+		Result result = new Result();
+		if(list.size() > 0){
+			result.setStatus(StatusCode.DUPLICATE_USERNAME);
+			result.setMessage(Message.DUPLICATE_USERNAME);
+			return JSONObject.toJSONString(result);
+		}
+		return JSONObject.toJSONString(result);
+	}
+	
 	@Override
 	public String register(TaxUser user) {
 		Result result = new Result();
@@ -154,11 +185,16 @@ public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
 			boolean flag = false;
 			//2018/7/12 wyhong
 			//id;username;password
-			Cookie newCookie = new Cookie(CookieConst.USER,
-					URLEncoder.encode(user.getId()+";"
-							+loginInfo.getUsername() + ";"
-							+ loginInfo.getPassword()));
-			newCookie.setPath(CookieConst.PATH);
+			Cookie newCookie = null;
+			try {
+				newCookie = new Cookie(CookieConst.USER,
+						URLEncoder.encode(user.getId()+";"
+								+loginInfo.getUsername() + ";"
+								+ loginInfo.getPassword(),"UTF-8"));
+				newCookie.setPath(CookieConst.PATH);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
 			// 默认cookie 30min后失效
 			int maxAge = 60 * 30;
 			if (flag) {
@@ -539,5 +575,6 @@ public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
 		}
 		return questionLiveList;
 	}
+
 
 }

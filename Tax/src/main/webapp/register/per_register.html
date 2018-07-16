@@ -1,0 +1,565 @@
+<!-- 个人注册 -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="width=device-width" name="viewport">
+<title>安徽省国家税务局税企互助交流平台</title>
+<link rel="shortcut icon" href="../image/project.ico" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="../css/register/registerExt.css">
+<link rel="stylesheet" href="../css/zeroModal.css">
+<script type="text/javascript" src="../js/code.js"></script>
+<script type="text/javascript" src="../js/path.js"></script>
+<script type="text/javascript" src="../js/md5.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#messages").remove();
+	})
+</script>
+</head>
+<body>
+	<style type="text/css">
+body {
+	min-height: 900px;
+	background: #eee;
+}
+
+.header {
+	width: 100%;
+	height: 100px;
+	display: -webkit-box;
+	position: relative;
+	min-width: 1200px;
+	background: rgba(255, 255, 255, 255);
+}
+
+.header .logo {
+	width: 614px;
+	height: 42px;
+	background: url(../image/home/logo.png) no-repeat;
+	position: relative;
+	background-size: 100% 100%;
+	margin: 30px 30px;
+}
+
+.header .nav {
+	-webkit-box-flex: 1;
+	width: 750px;
+	margin-right: 70px;
+}
+
+.header .nav ul {
+	display: -webkit-box;
+	list-style: none;
+}
+
+.header .nav ul li {
+	-webkit-box-flex: 1;
+	line-height: 100px;
+	font-size: 16px;
+	text-align: center;
+	height: 85px;
+	width: 85px;
+}
+
+.header .nav ul li a {
+	text-decoration: none;
+	font-size: 19px;
+	color: #2057a6;
+}
+
+.header .but {
+	width: 185px;
+	height: 100px;
+	position: relative;
+	overflow: hidden;
+	box-sizing: content-box;
+}
+
+.but_content {
+	width: 150px;
+	height: 100px;
+	position: absolute;
+	bottom: 0;
+}
+
+.but_content div {
+	float: left;
+	height: 20px;
+	line-height: 83px;
+	color: #1B55A9;
+	cursor: pointer;
+	font-size: 15px;
+	text-align: right;
+}
+
+.but_content div a {
+	color: #1B55A9;
+	font-size: 15px;
+	text-decoration: none;
+}
+
+.message {
+	width: 14px;
+	cursor: pointer;
+}
+
+.your_meaasge span {
+	color: #1B55A9;
+}
+
+.your_meaasge {
+	height: 23px;
+	position: absolute;
+	margin-top: 55px;
+	z-index: 999;
+	margin-left: 15px;
+}
+
+.newss {
+	color: #1B55A9;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/*	导航栏搜索	*/
+/*new*/
+.s_wrap {
+	width: 145px;
+	height: 30px;
+	border: 1px solid #1B55A9;
+	line-height: 100px;
+	margin-top: 33px;
+	border-radius: 7px;
+	margin-left: 10px;
+}
+
+.magnifying {
+	width: 18px;
+	height: 18px;
+	float: left;
+	margin: 6px 10px;
+	cursor: pointer;
+}
+
+.ssearch {
+	float: right;
+	width: 76px;
+	height: 30px;
+	border: none;
+	border-left: 1px solid #1B55A9;
+	box-sizing: border-box;
+	margin: 0px 28px 0 0;
+	padding-left: 8px;
+	color: #1B55A9;
+	resize: none;
+	outline: none;
+	background: none;
+}
+
+.person {
+	width: 35px;
+	height: 35px;
+	margin-top: 22px;
+}
+
+@media screen and (max-width: 1440px) {
+	.header .logo {
+		width: 720px;
+		height: 34px;
+		background: url(../image/header/520.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 35px 30px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 19px;
+	}
+}
+
+@media screen and (max-width: 1366px) {
+	.header .logo {
+		width: 720px;
+		height: 34px;
+		background: url(../image/header/520.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 35px 30px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 18px;
+	}
+}
+
+@media screen and (max-width: 1280px) {
+	.header .logo {
+		width: 640px;
+		height: 32px;
+		background: url(../image/header/490.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 35px 30px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 17px;
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	.header .logo {
+		width: 480px;
+		height: 24px;
+		background: url(../image/header/380.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 40px 35px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 15px;
+	}
+}
+/* .logo,.nav,.but{
+	border:1px solid;
+}  */
+</style>
+
+
+	<!-- header start -->
+	<div id="headerpage"></div>
+	<!-- header end -->
+		
+	<script>
+		$(function() {
+			$(".user_text").hover(function() {
+				var width_a = $(this).width();
+				var width_b = $(this).find(".user_id").width();
+				var indent_px = width_a - width_b;
+				if (width_a <= width_b) {
+					$(this).css("text-indent", indent_px);
+				}
+			}, function() {
+				$(this).css("text-indent", "0");
+			});
+		});
+	</script>
+	<!-- input点击清除value值 -->
+	<script type="text/javascript">
+		wap_val = [];
+		$(".ssearch").each(function(i) {
+			wap_val[i] = $(this).val();
+			$(this).focusin(function() {
+				if ($(this).val() == wap_val[i]) {
+					$(this).val("");
+				}
+			}).focusout(function() {
+				if ($.trim($(this).val()) == "") {
+					$(this).val(wap_val[i]);
+				}
+			});
+		});
+		//  用户名显示
+		$(".user_id").each(function() {
+			var maxwidth = 4;
+			if ($(this).text().length > maxwidth) {
+				$(this).text($(this).text().substring(0, maxwidth));
+				$(this).html($(this).html() + '...');
+			}
+		});
+	</script>
+
+
+	<!--header end-->
+	<!--content start-->
+	<div class="content">
+		<div class="path_nav">
+			<span class="touch">当前位置：<a href="javascript:history.go(-1);"
+				class="nav_style">注册</a></span> <span class="touch">&nbsp;&gt;&nbsp;</span>
+			<span class="touch"><a href="" class="nav_style">个人注册</a></span>
+		</div>
+		<div class="content_main">
+			<div class="content_top">
+				<div class="personal_left">个人资料</div>
+			</div>
+			<div class="content_middle">
+				<div class="content_middle_m">
+					<form id="addUser" action="/lagsms/register?status=0" method="post"
+						enctype="multipart/form-data">
+						<input type="hidden" name="type" value="0">
+						<table style="margin: 0 auto;">
+							<tbody>
+								<tr>
+									<td style="width: 25%;">用户名</td>
+									<td style="width: 75%;"><input id="userName" type="text"
+										name="userName" placeholder="请输入用户名" value=""></td>
+									<td><span id="userName1" class="yanzheng"></span></td>
+								</tr>
+								<tr>
+									<td style="width: 25%;">邮箱</td>
+									<td style="width: 75%;"><input id="mail" type="text"
+										name="mail" placeholder="请输入邮箱" value=""></td>
+									<td><span id="mail1" class="yanzheng"></span></td>
+								</tr>
+								<tr>
+									<td style="width: 25%;">电话</td>
+									<td style="width: 75%;"><input id="userTelephone"
+										type="text" name="userTelephone" placeholder="请输入电话" value="">
+									</td>
+									<td><span id="userTelephone1" class="yanzheng"></span></td>
+								</tr>
+								<tr>
+									<td style="width: 25%;">密码</td>
+									<td style="width: 75%;"><input id="pwd" type="password"
+										name="userPassword" placeholder="请输入密码" value=""></td>
+									<td><span id="pwd1" class="yanzheng"></span></td>
+								</tr>
+								<tr>
+									<td style="width: 25%;">确认密码</td>
+									<td style="width: 75%;"><input id="confirmPwd"
+										type="password" name="pwd" placeholder="请确认密码" value="">
+									</td>
+									<td><span id="confirmPwd1" class="yanzheng"></span></td>
+								</tr>
+								<tr>
+									<td style="width: 25%;">验证码</td>
+									<td style="width: 75%;"><input data-ok="0" id="verifyCode"
+										type="text" style="width: 235px" placeholder="验证码"> <div class="code">
+				    	<!-- 验证码外必须被class为code的div嵌套 -->
+				        <canvas id="canvas" width="100" height="30"></canvas>
+				    </div></td>
+									<td><span id="code1" class="yanzheng"></span></td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<div class="content_middle_btn">
+											<button class="save_btn" type="button" onclick="checkUser()">注册</button>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- footer start -->
+	<div id="footerpage"></div>
+	<!-- footer end -->
+
+	<!-- load js -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../js/zeroModel.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/Materialize/materialize.min.js"></script>
+	<script type="text/javascript" src="../js/Materialize/adbeus.js"></script>
+	
+	<!-- load header and footer -->
+	<script type="text/javascript">
+		$("#headerpage").load("../header.html");
+		$("#footerpage").load("../footer.html");
+	</script>
+	
+	<script>
+		$("#userName").blur(function() {
+			var userName = $("#userName").val();
+			if (userName.length != 0 && userName != "") {
+				$.post(path+'guest/validateUsername', {
+					username : $("#userName").val()
+				}, function(data) {
+					console.log(data);
+					if (data.status == 200) {
+					} else {
+						$("#userName1").html('用户名已存在!');
+					}
+				});
+			}
+		});
+		$("#userTelephone").blur(function() {
+			var userTelephone = $("#userTelephone").val();
+			if (userTelephone.length != 0 && userTelephone != "") {
+				$.post(path+'guest/validateTelephone', {
+					telephone : $("#userTelephone").val()
+				}, function(data) {
+					console.log(data);
+					if (data.status == 200) {
+					} else {
+						$("#userTelephone1").html('手机号已存在!');
+					}
+				});
+			}
+		});
+
+		$('#userName').bind('input propertychange', function() {
+			var userName = $("#userName").val();
+
+			console.log("document--", userName);
+			if (userName.length === 0) {
+				$("#userName1").html('用户名不能为空!');
+				return;
+			} else {
+				$("#userName1").html('');
+			}
+		});
+		$('#mail').bind('input propertychange', function() {
+			var mail = $("#mail").val();
+
+			console.log("document--", mail);
+			if (mail.length === 0) {
+				$("#mail1").html('邮箱不能为空!');
+				return;
+			} else {
+				$("#mail1").html('');
+			}
+		});
+		$('#userTelephone').bind('input propertychange', function() {
+			var userTelephone = $("#userTelephone").val();
+
+			console.log("document--", userTelephone);
+			if (userTelephone.length === 0) {
+				$("#userTelephone1").html('电话号不能为空!');
+				return;
+			} else {
+				$("#userTelephone1").html('');
+			}
+		});
+		$('#pwd').bind('input propertychange', function() {
+			var pwd = $("#pwd").val();
+
+			console.log("document--", pwd);
+			if (pwd.length === 0) {
+				$("#pwd1").html('密码不能为空!');
+				return;
+			} else {
+				$("#pwd1").html('');
+			}
+		});
+		$('#confirmPwd').bind('input propertychange', function() {
+			var confirmPwd = $("#confirmPwd").val();
+
+			console.log("document--", confirmPwd);
+			if (confirmPwd.length === 0) {
+				$("#confirmPwd1").html('密码不能为空!');
+				return;
+			} else {
+				$("#confirmPwd1").html('');
+			}
+		});
+		$('#verifyCode').bind('input propertychange', function() {
+			var confirmPwd = $("#verifyCode").val();
+
+			console.log("document--", confirmPwd);
+			if (verifyCode.length === 0) {
+				$("#code1").html('验证码不能为空!');
+				return;
+			} else {
+				$("#code1").html('');
+			}
+		});
+		function updateVerifyCode() {
+			event.target.src = event.target.src + "?t=" + Date.now();
+		}
+
+		function checkUser() {
+			console.log('submit');
+			var userName = $("#userName").val();
+			var mail = $("#mail").val();
+			var userTelephone = $("#userTelephone").val();
+			var pwd = $("#pwd").val();
+			var confirmPwd = $("#confirmPwd").val();
+			var verifyCode = $("#verifyCode").val();
+
+			if (userName.length == 0) {
+				$("#userName1").html('用户名不能为空!');
+				return false;
+			}
+
+			if (mail.length == 0) {
+				$("#mail1").html('邮箱不能为空!');
+				return false;
+			}
+			var re = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+			if (!re.test(mail)) {
+				$("#mail1").html('邮箱格式错误!');
+				return false;
+			}
+			if (userTelephone.length == 0) {
+				$("#userTelephone1").html('电话号不能为空!');
+				return false;
+			}
+			var req = /^(?:13\d|14\d|15\d|17\d|18\d)-?\d{5}(\d{3}|\*{3})$/;
+			if (!req.test(userTelephone)) {
+				$("#userTelephone1").html('您输入的电话号码格式错误!');
+				return false;
+			}
+			if (pwd.length == 0) {
+				$("#pwd1").html('密码不能为空!');
+				return false;
+			}
+			if (pwd.length > 15 || pwd.length < 6) {
+				$("#pwd1").html('请输入6-15位密码!');
+				return false;
+			}
+			if (confirmPwd.length == 0) {
+				$("#confirmPwd1").html('密码不能为空!');
+				return false;
+			}
+			if (pwd != confirmPwd) {
+				$("#confirmPwd1").html('两次密码输入不一致!');
+				return false;
+			}
+			/*
+			if (verifyCode.length == 0) {
+				$("#code1").html('验证码不能为空!');
+				return false;
+			}
+			if ($("#verifyCode").data('ok') == '1') {
+				return true;
+			}
+			if (verifyCode != null) {
+				$.post('/lagsms/verifyCode', {
+					verifyCode : $('#verifyCode').val()
+				}, function(data) {
+					console.log(data);
+
+					if (data.code == 200) {
+						alert("注册成功！请登录！");
+						$("#verifyCode").data('ok', '1');
+						$('#addUser').submit();
+					} else {
+						//alert(1);
+						$("#code1").html('验证码错误!');
+					}
+				});
+			}
+			*/
+			$.ajax({
+				url:path+'guest/register',
+				type:'post',
+				data:{
+					username:userName,
+					password:hex_md5(pwd),
+					email:mail,
+					telephone:userTelephone
+				},
+				success:function(data){
+					console.log(data);
+					if(data.status == 200) {
+						alert("注册成功！请登录！");
+						location.href = 'login.html';
+					}else if(data.status == 400){
+						alert('参数有误！');
+					}
+				}	
+			})
+		}
+	</script>
+</body>
+</html>

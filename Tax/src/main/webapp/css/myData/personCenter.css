@@ -1,0 +1,558 @@
+@charset "utf-8";
+body,dd,dl,dt,h1,h2,h3,h4,h5,h6,li,p,ul {
+    margin: 0;
+    padding: 0;
+}
+body{
+    overflow-x: hidden;
+}
+ul{
+    list-style: none;
+}
+/* li{
+    float: left;
+} */
+a{
+    text-decoration: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color:transparent;
+    outline:none;
+}
+img{
+	border-radius: 50%;
+    border: none;
+    cursor: pointer;
+}
+input{
+    font-family: "微软雅黑";
+    outline: none;
+}
+button{
+    transition: none!important;
+}
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+.clearfix:after {
+    content: "\200b";
+    clear: both;
+    display: block;
+    height: 0;
+}
+.pr{
+    position: relative;
+}
+.pa{
+    position: absolute;
+}
+.alignC{
+    text-align: center;
+}
+/* index start */
+/* content start */
+.liuan_content_main{
+    width: 100%;
+    height: auto;
+    background-color: #eeeeee;
+}
+.liuan_content{
+    width: 1200px;
+    height: auto;
+    margin:0 auto;
+}
+.center_main{
+    width: 1000px;
+    margin:0 auto;
+    display:flex;
+    justify-content: space-around;
+    height: 300px;
+    border-bottom: 1px solid #ccc;
+}
+.center_left{
+    width: 49%;
+    height: 260px;
+    background:#fff;
+    margin-top:20px;
+}
+.center_left_header{
+    width: 100%;
+    height: 50px;
+    background:#265CAD;
+    
+}
+.center_left_header_left img{
+	position: relative; 
+	bottom: -3px;
+}
+.center_left_header_left p{
+    color:#fff;
+    line-height:50px;
+    margin-left:30px;
+    text-align:center;
+}
+.center_left_header_left a{
+    color:#fff;
+    line-height:50px;
+    margin-right:30px;
+    float:right;
+    margin-top: -50px;
+    font-size: 14px;
+}
+.center_left_content{
+    display:flex;
+    width:490px;
+    justify-content: space-around;
+    background: url(../../resources/image/personbg.png) no-repeat;
+}
+.center_left_contentone{
+	display:flex;
+    width:490px;
+    justify-content: space-around;
+    background: url(../../resources/image/personbgone.png) no-repeat;
+}
+.center_left_content_right{
+    width: 300px;
+    height: 168px;
+    margin: 20px auto;
+    
+}
+.center_left_content_right div{
+    padding-top:15px;
+}
+.center_left_content_right div span{
+    display:inline-block;
+}
+.center_left_content_left img{
+    width:75px;
+    height:75px;
+    display:table-cell;
+    vertical-align:middle;
+    margin: 50px 20px 10px 20px;
+    border-radius:50%;
+}
+.center_left_content_left span{
+    text-align:center;
+}
+.center_left_content_right ul li{
+    padding:6px;
+  
+    
+}
+
+.center_right{
+    width: 49%;
+    height: 300px;
+    float: left;
+}
+.center_right_header{
+    width: 100%;
+    height: 30px;
+}
+.center_right_header p{
+    line-height: 30px;
+}
+.center_right_line{
+    width: 100%;
+    height: 2px;
+    background-color: #ccc;
+}
+.center_right_content{
+    width: 100%;
+    height: 268px;
+}
+.center_right_content table{
+    width: 50%;
+    height: 190px;
+    margin: 0 auto;
+}
+.tab_conOne ul li{
+	float:left;
+}
+/* tab切换 start */
+.content_wrap{
+    width:1000px;
+    height:auto;
+    overflow:hidden;
+    margin:10px auto;
+   /*  display:flex;
+    justify-content: space-around; */
+   /*  overflow-x:hidden; */
+}
+.wrap_three{
+    width:1000px;
+    height:auto;
+    overflow:hidden;
+    margin:0px auto;
+    display:flex;
+    margin-top:40px;
+    margin-bottom:120px;
+}
+.gary{
+    width:480px;
+    height:2px;
+    background:#D4D5D4;
+}
+/* .blue{
+    width:57%;
+    height:2px;
+    background:#215BAB;
+} */
+/* 第一个表 start */
+.tab_a {
+    width: 480px;
+    height: auto;
+    position:relative;
+    float:left;
+    margin:0 10px;
+}
+.tab_a .tabOneys {
+    width: 480px;
+    height: 50px;
+    background-color: #eeeeee;
+}
+.tab_a .tabOneys li {
+    width: 35%;
+    height: 50px;
+    float: left;
+    cursor:pointer;
+}
+.tab_a .tabOneys li a {
+    width: 100%;
+    height: 100%;
+    line-height: 50px;
+    color:#1b55a9;
+    text-align:left;
+    display: block;
+}
+.tab_a .tabcon_sy {
+    width: 100%;
+    height: 190px;
+    overflow: hidden;
+}
+.tab_a .tabcon_sy li {
+    width: 100%;
+    height: 100%;
+}
+.hidden {
+    display: none;
+}
+
+.tab_list ul li a{
+    padding: 0 19px;
+}
+.tab_list ul li span{
+    padding: 0 60px;
+}
+.tab_con div{
+    width: 100%;
+    height: 350px;
+    display: none;
+    overflow:hidden;
+    /* overflow-x:hidden; */
+}
+.tab_con ul li{
+    width:1000px;
+    height: 35px;
+    line-height: 35px;
+    float: left;
+}
+.tab_con ul li span{
+    color: black;
+}
+.tab_con ul li:nth-child(2){
+    width: 200px;
+    float: right;
+}
+.tab_con ul li:nth-child(3){
+    width: 110px;
+    height: 35px;
+}
+.tab_con ul li:nth-child(4){
+    width: 110px;
+    height: 35px;
+}
+.tab_con ul li:nth-child(5){
+    width: 110px;
+    height: 35px;
+}
+.tab_con ul li:nth-child(6){
+    width: 110px;
+    height: 35px;
+}
+.tab_con ul li:nth-child(7){
+    width: 110px;
+    height: 35px;
+}
+.tab_con ul li:nth-child(1) p{
+    width: 1000px;
+    height: 20px;
+    overflow: hidden;
+    line-height: 20px;
+    margin: 6px auto;
+    color: black;
+}
+.tab_a_span{
+    float: left;
+    height: 48px;
+    background-color: black;
+    border: 1px solid #ccc;
+}
+.active{
+	font-size:20px;
+	border-bottom:2px solid transparent;
+}
+.more{
+    width: 50px;
+    height: 50px;
+    float: right;
+}
+.more a{
+    color: black;
+    line-height: 50px;
+}
+.more img{
+    vertical-align: middle;
+    margin-bottom: 2px;
+}
+/* 第一个表 end */
+/* 第一个表 start */
+.tab_conOne div{
+    width: 100%;
+    height: auto;
+    display: none;
+    overflow:hidden;
+   /*  overflow-x:hidden; */
+}
+.tab_conOne ul li{
+	width:450px;
+    height: 35px;
+    line-height: 35px;
+    float: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.tab_conOne ul li span{
+    color: black;
+}
+.tab_conOne ul li:nth-child(2){
+    float: right;
+    width:102px;
+}
+.tab_conOne ul li:nth-child(3){
+    width: 120px;
+    height: 34px;
+    flaot:right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.tab_conOne ul li:nth-child(4){
+    width: 25%;
+    height: 34px;
+}
+.tab_conOne ul li:nth-child(5){
+    width: 25%;
+    height: 34px;
+}
+.tab_conOne ul li:nth-child(6){
+    width: 25%;
+    height: 34px;
+}
+.tab_conOne ul li:nth-child(7){
+    width: 25%;
+    height: 34px;
+}
+.tab_conOne ul li:nth-child(1) p{
+    width:216px;
+    height: 20px;
+    overflow: hidden;
+    line-height: 20px;
+    margin: 6px auto;
+    color: black;
+}
+/* 第二个表 end */
+/* 第三个表 start */
+.tab_conTwo div{
+    width: 100%;
+    height: auto;
+    display: none;
+    overflow:hidden;
+   /*  overflow-x:hidden; */
+}
+.tab_conTwo ul li{
+	width:368px;
+    height: 35px;
+    line-height: 35px;
+    float: left;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+}
+.tab_conTwo ul li span{
+    color: black;
+}
+.tab_conTwo ul li:nth-child(2){
+    float: right;
+    width:102px;
+}
+.tab_conTwo ul li:nth-child(3){
+    width: 480px;
+    height: 34px;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+}
+.tab_conTwo ul li:nth-child(4){
+    width: 480px;
+    height: 34px;
+}
+.tab_conTwo ul li:nth-child(5){
+    width: 110px;
+    height: 34px;
+}
+.tab_conTwo ul li:nth-child(6){
+    width: 110px;
+    height: 34px;
+}
+.tab_conTwo ul li:nth-child(7){
+    width: 110px;
+    height: 34px;
+}
+.tab_conTwo ul li:nth-child(1) p{
+    width: 216px;
+    height: 20px;
+    overflow: hidden;
+    line-height: 20px;
+    margin: 6px auto;
+    color: black;
+}
+/* 第三个表 end */
+/* 第四个表 start */
+.tab_conFour_div{
+	display: block; 
+	height:364px; 
+	overflow:hidden;
+}
+.tab_conThree div{
+    width: 100%;
+    height: 470px;
+    display: none;
+    overflow:hidden;
+    /* overflow-x:hidden; */
+}
+.tab_conThree ul li{
+    width:372px;
+    height: 35px;
+    line-height: 35px;
+    float: left;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+}
+.tab_conThree ul li span{
+    color: black;
+}
+.tab_conThree ul li:nth-child(2){
+    float: right;
+    width:102px;
+}
+.tab_conThree ul li:nth-child(3){
+    width: 120px;
+    height: 34px;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+}
+.tab_conThree ul li:nth-child(4){
+    width: 25%;
+    height: 34px;
+}
+.tab_conThree ul li:nth-child(5){
+    width: 25%;
+    height: 34px;
+}
+.tab_conThree ul li:nth-child(1) p{
+    width: 216px;
+    height: 20px;
+    overflow: hidden;
+    line-height: 20px;
+    margin: 6px auto;
+    color: black;
+}
+.tab_conFour  ul li span{
+	width:225px;
+}
+.tab_conFour  ul li{
+    width:376px;
+    height: 35px;
+    float: left;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+}
+.tab_conFour  ul li span{
+    color: black;
+}
+.tab_conFour  ul li:nth-child(2){
+    line-height:21px;
+    float: right;
+    width:102px;
+}
+.tab_conFour  ul li:nth-child(3){
+    width: 480px;
+    height: 34px;
+	line-height:34px;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+}
+.tab_conFour  ul li:nth-child(4){
+    width: 480px;
+    height: 34px;
+    line-height:34px;
+}
+.tab_conFour  ul li:nth-child(5){
+    width: 110px;
+    height: 34px;
+    float:right;
+}
+.tab_conFour  ul li:nth-child(6){
+    width: 110px;
+    height: 34px;
+}
+.tab_conFour  ul li:nth-child(7){
+    width: 110px;
+    height: 34px;
+}
+.tab_conFour ul li:nth-child(1) p{
+    /* width: 216px;
+    height: 34px;
+    overflow: hidden;
+    line-height: 34px;
+    color: black; */
+}
+/*更多切换*/
+.mores{
+	display:none;
+}
+.more span a{
+	width: 70px;
+    height: 50px;
+    line-height: 50px;
+    color:#000;
+    text-align: center;
+    display: block;
+    background: url(../image/home/blue_head.png) right no-repeat;
+}
+.more{
+	position:absolute;
+	right:20px;
+	top:0px;
+}
+/* 第四个表 end */
+/* tab切换 end */
+/* content end */

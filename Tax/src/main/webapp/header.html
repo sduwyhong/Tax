@@ -1,0 +1,127 @@
+<meta charset="UTF-8">
+<!-- Import Google Icon Font -->
+<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- Import materialize.css -->
+<link type="text/css" rel="stylesheet" href="../css/Materialize/materialize.min.css" media="screen,projection" />
+<link type="text/css" rel="stylesheet" href="../css/Materialize/style.css" media="screen,projection" />
+<link type="text/css" rel="stylesheet" href="../css/Materialize/mystyle.css" media="screen,projection" />
+<!-- Let browser konw website is optimized for mobile -->
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+	<!-- 导航栏 start-->
+	<header>
+		<div class="navbar-fixed" style="font-family:'Gaegu','sans-serif'">
+			<nav class="white" role="navigation" style="display: block">
+				<div class="nav-wrapper">
+					<div id="logo-container">
+						<a href="https://adbeus.com" class="brand-logo left"> <img
+							src="../image/header/520.png" alt>
+						</a>
+					</div>
+					<div class="menu-adbeus-container">
+						<ul id="menu-adbeus" class="hide-on-med-and-down">
+							<li id="menu-item-2025"
+								class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2025"><a
+								href="../homepage/index.html">首页</a></li>
+							<li id="menu-item-5057"
+								class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5057"><a
+								href="../consult/questions.html">咨询</a></li>
+							<li id="menu-item-5639"
+								class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5639"><a
+								href="../posts/share_exp.html">经验分享</a></li>
+							<li id="menu-item-5638"
+								class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5638"><a
+								href="../posts/pro_interpret.html">专业解读</a></li>
+							<li id="menu-item-5637"
+								class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5637">
+								<a href="../users/usersZone.html">用户专区</a>
+							</li>
+						</ul>
+					</div>
+					
+					<!-- 未登录状态 start-->
+					<div class="textwidget" id="guestStatus">
+						<a class="waves-effect waves-teal btn-flat" href="../register/register.html" style="padding:0 1rem;background: transparent;">sign up</a>
+						<a class="waves-effect waves-light btn" href="../register/login.html" style="padding:0px 5px; ">login</a>
+					</div> 
+					<!-- 未登录状态 end-->
+					
+					<div class="homepage_person" id="userStatus" style="display:block; width: 200px; margin-left: 88%;display: none;">
+						<a href="#" style="vertical-align: center;">
+							<img src="../image/bell-alt.png" style="vertical-align: middle; margin-right:10px;" alt>
+						</a>
+						<!-- 下拉菜单栏 start -->
+						<a class="btn-small dropdown-button" id="drop" href="../users/per_data.html" data-activates="dropdown" data-hover="false" data-beloworigin="true"
+							style="background-color:transparent">
+							<img class="user_img" src="../image/cat.jpg">
+							<span class="user_name">edo7ris</span>
+							<span style="color: #ffaf26bf;vertical-align: middle;">&#9660</span>
+							<i class="mdi-navigation-arrow-drop-down right"></i>
+						</a>
+	  					<!-- Dropdown Structure -->
+	  					<ul id="dropdown" class="dropdown-content" >
+	   						<li>
+	   							<a href="#!">
+	   								<span class="UIMenuItem-inner">个人中心</span>
+	   							</a>
+	   						</li>
+	    					<li>
+	   							<a href="#!">
+	   								<span class="UIMenuItem-inner">设置</span>
+	   							</a>
+	   						</li>
+	   						<li>
+	   							<a href="#!">
+	   								<span class="UIMenuItem-inner">修改密码</span>
+	   							</a>
+	   						</li>
+	    					<li class="divider"></li>
+	    					<li>
+	   							<a href="#!">
+	   								<span class="UIMenuItem-inner">退出</span>
+	   							</a>
+	   						</li>
+	  					</ul>
+  						<!-- 下拉菜单栏 end -->
+					</div>
+ 					<script type="text/javascript">
+	 					var cookies = document.cookie;
+	 					var cookieArray = cookies.split(';');
+	 					var auth = false;
+	 					for(var i in cookieArray){
+	 						if(cookieArray[i].split('=')[0].trim() == '_user'){
+	 							console.log(cookieArray[i]);
+	 							var value = cookieArray[i].split('=')[1].split('%3B');
+	 							console.log(value);
+	 							var id = value[0];
+	 							console.log(id);
+	 							var name = decodeURI(value[1]);
+	 							console.log(name);
+	 							$('#guestStatus').hide();
+	 							$('#userStatus').show();
+	 							$('.user_name').text(name);
+	 							auth = true;
+	 						}
+	 					}
+	 					if(!auth){
+	 						$('#userStatus').hide();
+ 							$('#guestStatus').show();
+	 					}
+ 					</script>
+				</div>
+			</nav>
+		</div>
+	</header>
+	<!-- 导航栏 end-->
+	
+	<!-- 悬浮搜索按钮start -->
+	<div class="fixed-action-btn hide-on-med-and-down" style="bottom: 45px; right: 24px;">
+		<form action="https://adbeus.com/coffees/" id="searchform" method="get">
+			<a class="btn-floating btn-large" id="search-button"> 			
+				<i class="material-icons" style="margin-left: -8px">search</i>
+			</a> 
+			<input type="text" name="shop_keywords" class="search">
+		</form>
+	</div>	
+	<!-- 悬浮搜索按钮end -->
+	

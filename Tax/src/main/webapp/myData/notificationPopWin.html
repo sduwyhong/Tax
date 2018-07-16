@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html><head>
+	<title>安徽省国家税务局税企互助交流平台</title>
+	<meta name="viewport" content="width=device-width">
+  	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+  	<link rel="stylesheet" type="text/css" href="../css/query.css">
+  	<link rel="stylesheet" href="../css/zeroModal.css">
+  	<link rel="stylesheet" href="../css/paging.css">
+  	<link rel="icon" href="../image/home/favicon.gif" type="image/x-icon">
+  	
+<style type="text/css">
+	.liuan_main {
+		flex: 1;
+		background:#fff;
+	}
+	
+	.liuan_footers {
+		margin: 0;
+		margin-top:0!important;
+	}
+	body{
+		display: flex;
+		flex-flow: column;
+		min-height: 100vh;
+	}
+	.state{
+	    width: 70px;
+	    float: left;
+	    margin-left: 30px;
+	}
+	.question_title{
+	    width: 270px;
+	    float: left;
+	}
+	.question_content{
+	    float: left;
+	    width: 340px;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	   	white-space: nowrap;
+	   	text-align:left;
+	   	margin-left: 75px;
+	}
+	.uesr_paihang{
+	    width: 140px;
+	    text-align: left;
+	    margin-left: 101px;
+	}
+	.expert_ul{
+		 float:none!important;
+	}
+	.box_send_message{
+		margin:20px 140px!important;
+		padding-bottom:40px!important;
+		width:950px;
+	}
+</style></head>
+
+<body>
+<style type="text/css">
+
+body {
+	min-height: 900px;
+	background:#eee;
+}
+.header {
+	width: 100%;
+	height: 100px;
+	display: -webkit-box;
+	position: relative;
+	min-width: 1200px;
+	background:rgba(255,255,255,255);
+}
+
+.header .logo {
+	width: 614px;
+	height: 42px;
+	background: url(../image/home/logo.png) no-repeat;
+	position: relative;
+	background-size: 100% 100%;
+	margin: 30px 30px;
+}
+
+.header .nav {
+	-webkit-box-flex: 1;
+	width: 750px;
+	margin-right:70px;
+}
+
+.header .nav ul {
+	display: -webkit-box;
+	list-style: none;
+}
+
+.header .nav ul li {
+	-webkit-box-flex: 1;
+	line-height: 100px;
+	font-size: 16px;
+	text-align: center;
+	height: 85px;
+	width:85px;
+}
+
+.header .nav ul li a {
+	text-decoration: none;
+	font-size: 19px;
+	 color:#2057a6;
+}
+
+.header .but {
+	width: 185px;
+	height: 100px;
+	position: relative;
+	overflow: hidden;
+	box-sizing: content-box;
+}
+
+.but_content {
+    width:150px;
+	height: 100px;
+	position: absolute;
+	bottom: 0;
+}
+
+.but_content div {
+	float: left;
+	height: 20px;
+	line-height: 83px;
+	color: #1B55A9;
+	cursor: pointer;
+	font-size: 15px;
+	text-align: right;
+}
+
+.but_content div a {
+	color: #1B55A9;
+	font-size: 15px;
+	text-decoration: none;
+}
+
+.message {
+	width: 14px;
+	cursor: pointer;
+}
+
+.your_meaasge span {
+	color: #1B55A9;
+}
+
+.your_meaasge {
+    height: 23px;
+    position: absolute;
+    margin-top: 55px;
+    z-index:999;
+    margin-left:15px;
+    
+}
+.newss {
+	color: #1B55A9;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+
+/*	导航栏搜索	*/
+/*new*/
+.s_wrap{
+    width: 145px; 
+	height:30px;
+	border:1px solid #1B55A9;
+	line-height:100px;
+	margin-top: 33px;
+	border-radius:7px;
+    margin-left: 10px;
+}
+.magnifying{
+	width: 18px;
+    height: 18px;
+    float: left;
+    margin: 6px 10px;
+    cursor: pointer;
+}
+.ssearch{
+	float: right;
+    width: 76px;
+    height: 30px;
+    border: none;
+    border-left:1px solid #1B55A9;
+    box-sizing: border-box;
+    margin:0px 28px 0 0;
+    padding-left: 8px;
+    color:#1B55A9;
+    resize:none;
+    outline:none;
+    background:none;
+}
+.person{
+	width:35px;
+	height:35px;
+	margin-top: 22px;
+}
+@media screen and (max-width: 1440px) {
+	.header .logo {
+		width: 720px;
+		height: 34px;
+		background: url(../image/header/520.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 35px 30px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 19px;
+	}
+}
+
+@media screen and (max-width: 1366px) {
+	.header .logo {
+	   width: 720px;
+		height: 34px;
+		background: url(../image/header/520.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 35px 30px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 18px;
+	}
+}
+
+@media screen and (max-width: 1280px) {
+	.header .logo {
+		width: 640px;
+		height: 32px;
+		background: url(../image/header/490.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 35px 30px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 17px;
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	.header .logo {
+		width: 480px;
+		height: 24px;
+		background: url(../image/header/380.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 40px 35px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 15px;
+	}
+}
+ /* .logo,.nav,.but{
+	border:1px solid;
+}  */
+</style>
+
+
+		<!-- header start -->
+		<div id="headerpage"></div>
+		<!-- header end -->
+	
+	
+		<script>
+			// 窗体加载完成时轮询
+			var t, notifyNum = 0;
+			window.onload = function() {
+				loadNotifies();
+				t = setInterval(loadNotifies, 10000); //每10秒执行一次
+			}
+			// 窗体关闭之前清除此定时器
+			window.onbeforeunload = function() {
+				clearInterval(t);
+			}
+			
+			//消息提示
+			function loadNotifies() {
+				var param = {
+					pagingOrNot : "not",
+					readOrUnread : "0"
+				};
+				// 获取所有的通知
+				$.get('/lagsms/notifies/count', param, function(data) {
+					if(notifyNum == data) {
+						return;
+					}
+					notifyNum = data;
+					var numTxt = "";
+					if(notifyNum >= 100) {
+						numTxt = "99+";
+					} else if(notifyNum == 0) {
+						numTxt = "";
+					}
+					$("#news").text(numTxt);
+				});
+			}
+		</script>
+	
+	<script>
+        $(function(){
+           $(".user_text").hover(function(){
+               var width_a = $(this).width();
+               var width_b = $(this).find(".user_id").width();
+               var indent_px = width_a - width_b;
+               if( width_a <= width_b ){
+                   $(this).css("text-indent",indent_px);
+               }
+           },function(){
+               $(this).css("text-indent","0");
+           });
+        });
+    </script>
+      <!-- input点击清除value值 -->
+    <script type="text/javascript">
+		wap_val = [];
+		$(".ssearch").each(function(i) {
+			wap_val[i] = $(this).val();
+			$(this).focusin(function() {
+				if ($(this).val() == wap_val[i]) {
+					$(this).val("");
+				}
+			}).focusout(function() {
+				if ($.trim($(this).val()) == "") {
+					$(this).val(wap_val[i]);
+				}
+			});
+		});
+		//  用户名显示
+		 $(".user_id").each(function(){
+		  var maxwidth=4;
+		  if($(this).text().length > maxwidth){
+		    $(this).text($(this).text().substring(0,maxwidth));
+		    $(this).html($(this).html()+'...');
+		  }
+		}); 
+	</script>
+	<!-- 头部标题end -->
+	
+	<!-- 中间部分start -->
+	<div class="content" style="min-height:900px;">
+		<div class="content_main">
+			<div class="all_message clearfix">
+				<span class="fl">所有通知</span>
+				<button id="emptyId" class="fr" onclick="empty()">清空</button>
+			</div>
+			<div class="c_s_header">
+				<div class="lists">
+					<div id="exSharingContainer">
+		    			<div class="exSharingContent clearfix">
+		    				<ul class="clearfix expert_ul">
+		    					<li class="state">未读</li>
+		    					<li class="fl uesr_paihang">temp01</li>
+		    					<li class="question_title">给你发送一封私信</li>
+		    					<li class="question_content">
+		    						<a href="../letter/lett_1530775368561/details" userid="noti_1530775368577" onclick="changeState(this)">
+		    							<p>hhhhh</p>
+		    						</a>
+		    					</li>
+		    				</ul>
+		    			</div>
+			    	</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 实现分页 start-->
+	<!-- 不满一页：设置pagination的display：none
+		  点击数字: 由class=waves-effect变成class=active 
+		  首页时:prePage为disabled；尾页时 :nextPage的class为disabled 其他情况时class为waves-effect-->						
+	<ul class="pagination" style="display:none;">
+		<li class="waves-effect waves-light btn-small" id="firstPage"><a href="#!" style="font-color: black">first</a></li>
+    	<li class="disabled" id="prePage">
+    		<a href="#!">
+    			<i class="material-icons">chevron_left</i>
+    		</a>
+    	</li>
+    	<li class="active"><a href="#!">1</a></li>
+    	<li class="waves-effect" id="onePage"><a href="#!" style="font-color: black">2</a></li>
+    	<li class="waves-effect" id="twoPage"><a href="#!" style="font-color: black">3</a></li>
+    	<li class="waves-effect" id="threePage"><a href="#!" style="font-color: black">4</a></li>
+   		<li class="waves-effect" id="fourPage"><a href="#!" style="font-color: black">5</a></li>
+    	<li class="waves-effect" id="nextPage">
+    		<a href="#!" style="font-color: black">
+    			<i class="material-icons">chevron_right</i>
+    		</a>
+    	</li>
+  		   <li class="waves-effect waves-light btn-small" id="lastPage"><a href="#!" style="font-color: black">last</a></li>
+  	</ul>	
+  	<!-- 实现分页 end-->
+  	<!-- 中间 end -->
+
+	<!-- footer start -->
+	<div id="footerpage"></div>
+	<!-- footer end -->
+	
+	<!-- load js -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../js/zeroModel.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/Materialize/materialize.min.js"></script>
+	<script type="text/javascript" src="../js/Materialize/adbeus.js"></script>
+  	<script type="text/javascript" src="../js/paging.js" charset="utf-8"></script>
+	
+	<!-- load header and footer -->
+	<script type="text/javascript">
+		$("#headerpage").load("../header.html");
+		$("#footerpage").load("../footer.html");
+	</script>
+	
+	<script type="text/javascript">
+	var page = Math.ceil(1/10);
+	console.log(page)
+	 $('#directPage').paging({
+         initPageNo: 1, 							// 初始页码
+         totalPages: page, 							// 总页数
+         totalCount: '合计 1条数据', 			// 条目总数
+         slideSpeed: 600, 							// 缓动速度。单位毫秒
+         jump: true, 								// 是否支持跳转
+         callback: function(page) { 				// 回调函数
+        	 $.get("/lagsms/notifies/all", {
+	            	page:page,
+	            	rows:10,
+	            	pagingOrNot:'paging'
+	            },function(data){
+	            		console.log(data);
+	            		var dataHTML = data.map(function(value, index, array){
+	            			var type = value.type;
+	            			var contents;
+	            			var hrefs;
+	            			var readOrUnread = value.readOrUnread;
+	            			var state = readOrUnread == 0 ?"未读":"已读";
+	            			if(type=='answer'){
+	            				contents = value.titleAndId.title;
+	            				hrefs = "href='../questions/"+value.titleAndId.id+"/details'";
+	            			}
+	            			if(type=='invitationAnswer'){
+	            				contents = value.titleAndId.title;
+	            				hrefs = "href='../questions/"+value.titleAndId.id+"/details'";
+	            			}
+	            			if(type=='letter'){
+	            				contents = value.titleAndId.content;
+	            				hrefs = "href='../letter/"+value.titleAndId.id+"/details'";
+	            			}
+	            			var id = value.id;
+	            			return '<ul class="clearfix expert_ul">' +
+	            						'<li class="state">'+state+'</li>'+
+										'<li class="fl uesr_paihang">'+value.trigger.userName+'</li>' +
+										'<li class="question_title">'+value.action+'</li>'+
+										'<li class="question_content"><a '+hrefs+' userId='+id+' onclick="changeState(this)" >'+contents+'</a></li>'+
+									'</ul>';
+	            		});
+	            		//console.log(dataHTML);
+	            		/* $("#latestQuesContainer>.quesContent").remove(); */
+	            		$("#exSharingContainer>.exSharingContent").html(dataHTML.join(""));
+     			});
+         }
+     });
+	//改变状态
+	function changeState(id){
+		var url = "../notifies/updateState";
+		var notificationId = id.getAttribute("userId");
+		var param = {
+			id : notificationId
+		};
+		$.get(url,param,function(result){
+			console.log(result);
+		})
+	}
+	//清空
+	function empty(){
+		var url = "../notifies/clear";
+		$.post(url,function(result){
+			console.log(result);
+			history.go(0);
+		})
+	};
+	 jQuery(function(){  
+		  	$('#nextPage').click(function(){$('html,body').animate({scrollTop: '100px'}, 0);return false;});
+		  	$('#prePage').click(function(){$('html,body').animate({scrollTop: '100px'}, 0);return false;});
+		 	$('#firstPage').click(function(){$('html,body').animate({scrollTop: '100px'}, 0);return false;});
+		 	$('#lastPage').click(function(){$('html,body').animate({scrollTop: '100px'}, 0);return false;});
+		 	$('.sel-page').click(function(){$('html,body').animate({scrollTop: '100px'}, 0);return false;});
+		 	$('.selpage').click(function(){$('html,body').animate({scrollTop: '100px'}, 0);return false;});
+		 	$('.jump-button').click(function(){$('html,body').animate({scrollTop: '100px'}, 0);return false;});
+		 	$('.turnPage').click(function(){$('html,body').animate({scrollTop: '100px'}, 0);return false;});
+		 	$('.last-page').click(function(){$('html,body').animate({scrollTop: '100px'}, 0);return false;});
+		 });
+	</script>
+
+</body>
+</html>

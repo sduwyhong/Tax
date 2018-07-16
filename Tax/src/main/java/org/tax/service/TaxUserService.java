@@ -38,4 +38,5 @@ public interface TaxUserService {
 	
 	String modifyAvatar(String userId, MultipartRequest multipartRequest);
 	
+	String getUserByPro(String proId);
 }

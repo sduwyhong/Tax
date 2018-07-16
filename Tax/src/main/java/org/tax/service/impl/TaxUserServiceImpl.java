@@ -2,8 +2,8 @@ package org.tax.service.impl;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -13,11 +13,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartRequest;
+import org.tax.VO.Candidate;
 import org.tax.VO.PasswordModification;
 import org.tax.constant.CookieConst;
 import org.tax.constant.Message;
 import org.tax.constant.SessionConst;
 import org.tax.constant.StatusCode;
+import org.tax.dao.TaxUserMapper;
 import org.tax.factory.MapperFactory;
 import org.tax.model.TaxAnswer;
 import org.tax.model.TaxFavourite;
@@ -44,6 +46,20 @@ public class TaxUserServiceImpl implements TaxUserService {
 
 	@Autowired
 	private MapperFactory mapperFactory;
+	
+	@Override
+	public String getUserByPro(String proId) {
+		String[] proIds = proId.split(";");
+		List<Candidate> candidates = new ArrayList<Candidate>();
+		TaxUserMapper taxUserMapper = mapperFactory.getTaxUserMapper();
+		for (int i = 0; i < proIds.length; i++) {
+			List<Candidate> users = taxUserMapper.getUserByPro(proIds[i]);
+			for (int j = 0; j < proIds.length; j++) {
+				
+			}
+		}
+		return null;
+	}
 	
 	@Override
 	public String updateInfo(TaxUser user) {

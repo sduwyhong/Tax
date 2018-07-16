@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<title>安徽省国家税务局税企互助交流平台</title>
+<meta name="viewport" content="width=device-width">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="icon" href="../image/home/favicon.gif" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="../css/common.css">
+<link rel="stylesheet" type="text/css" href="../css/footer/contactUs.css">
+<link rel="stylesheet" href="../css/zeroModal.css">
+<style type="text/css">	
+	body {
+		display: flex;
+		-webkit-display: flex;
+		flex-direction: column;
+		min-height: 900px;
+}	
+</style>
+</head>
+<body>
+	<!-- header start -->
+	<div id="headerpage"></div>
+	<!-- header end -->	
+	
+	<script>
+        $(function(){
+           $(".user_text").hover(function(){
+               var width_a = $(this).width();
+               var width_b = $(this).find(".user_id").width();
+               var indent_px = width_a - width_b;
+               if( width_a <= width_b ){
+                   $(this).css("text-indent",indent_px);
+               }
+           },function(){
+               $(this).css("text-indent","0");
+           });
+        });
+    </script>
+      <!-- input点击清除value值 -->
+    <script type="text/javascript">
+		wap_val = [];
+		$(".ssearch").each(function(i) {
+			wap_val[i] = $(this).val();
+			$(this).focusin(function() {
+				if ($(this).val() == wap_val[i]) {
+					$(this).val("");
+				}
+			}).focusout(function() {
+				if ($.trim($(this).val()) == "") {
+					$(this).val(wap_val[i]);
+				}
+			});
+		});
+		//  用户名显示
+		 $(".user_id").each(function(){
+		  var maxwidth=4;
+		  if($(this).text().length > maxwidth){
+		    $(this).text($(this).text().substring(0,maxwidth));
+		    $(this).html($(this).html()+'...');
+		  }
+		}); 
+	</script>
+
+
+	<!-- header end -->
+
+	<!-- content start -->
+ <div class="content">
+	<div class="content_main">
+		<div class="path_nav">
+			<span style="float: left;">当前位置：
+				<a href="javascript:history.go(-1);" class="nav_style">联系我们</a>
+			</span>
+		</div>
+		<div class="content_main_list">
+			<p>
+				<b style="font-size: 20px;">联系我们</b>
+			</p>
+		</div>
+		<div class="content_main_list">
+			<span>安徽省国家税务局于1994年6月成立，是主管安徽省国家税收工作的职能部门。</span><br> <span>主要负责安徽省国内增值税、国内消费税、企业所得税、外商投资企业和外国企业所得税、储蓄存款利息所得个人所得税、车辆购置税的政策管理、征收管理以及出口退税工作。</span>
+		</div>
+		<div class="content_main_list">
+			<p>安徽省国家税务局税企互助交流平台</p>
+			<p>地址：合肥市xx区xx路xxxx号</p>
+			<p>电话： xxxxxxxxx</p>
+			<p>邮编：xxxxxxxx</p>
+			<p>传真：xxxxxxxx</p>
+			<p>电子邮件：xxxxxxxxx</p>
+		</div>
+	</div>
+</div>
+	<!-- content end -->
+
+	<!-- footer start -->
+	<div id = "footerpage"></div>
+	<!-- footer end -->
+
+
+	<!-- load js -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../js/zeroModal.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/Materialize/materialize.min.js"></script>
+	<script type="text/javascript" src="../js/Materialize/adbeus.js"></script>
+	
+	<script type="text/javascript">
+		$("#headerpage").load("../header.html");
+		$("#footerpage").load("../footer.html");
+	</script>
+</body>
+</html>

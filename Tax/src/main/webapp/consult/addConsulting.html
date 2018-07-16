@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>安徽省国家税务局税企互助交流平台</title>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="Simple">
+<!--  360浏览器专用 -->
+<meta name="renderer" content="ie-stand">
+<link rel="shortcut icon" href="../image/project.ico" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="../css/consult/consultingShare.css">
+<link rel="icon" href="../image/home/favicon.gif" type="image/x-icon">
+<link rel="stylesheet" href="../css/zeroModal.css">
+<link rel="stylesheet" type="text/css" href="./css/scayt.css">
+<link rel="stylesheet" type="text/css" href="./css/wsc.css">
+<link rel="stylesheet" type="text/css" href="http://58.56.96.171:8009/lagsms/resources/ckeditor/skins/moono-lisa/editor.css?t=H0CG">
+<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="../ckeditor/config.js"></script>
+<script type="text/javascript" src="../ckeditor/lang/zh-cn.js"></script>
+<script type="text/javascript" src="../ckeditor/styles.js"></script>
+
+<style>
+.cke {
+	visibility: hidden;
+}
+</style>
+
+
+</head>
+<body>
+	<style type="text/css">
+body {
+	min-height: 900px;
+	background: #eee;
+}
+
+.header {
+	width: 100%;
+	height: 100px;
+	display: -webkit-box;
+	position: relative;
+	min-width: 1200px;
+	background: rgba(255, 255, 255, 255);
+}
+
+.header .logo {
+	width: 614px;
+	height: 42px;
+	background: url(../image/home/logo.png) no-repeat;
+	position: relative;
+	background-size: 100% 100%;
+	margin: 30px 30px;
+}
+
+.header .nav {
+	-webkit-box-flex: 1;
+	width: 750px;
+	margin-right: 70px;
+}
+
+.header .nav ul {
+	display: -webkit-box;
+	list-style: none;
+}
+
+.header .nav ul li {
+	-webkit-box-flex: 1;
+	line-height: 100px;
+	font-size: 16px;
+	text-align: center;
+	height: 85px;
+	width: 85px;
+}
+
+.header .nav ul li a {
+	text-decoration: none;
+	font-size: 19px;
+	color: #2057a6;
+}
+
+.header .but {
+	width: 185px;
+	height: 100px;
+	position: relative;
+	overflow: hidden;
+	box-sizing: content-box;
+}
+
+.but_content {
+	width: 150px;
+	height: 100px;
+	position: absolute;
+	bottom: 0;
+}
+
+.but_content div {
+	float: left;
+	height: 20px;
+	line-height: 83px;
+	color: #1B55A9;
+	cursor: pointer;
+	font-size: 15px;
+	text-align: right;
+}
+
+.but_content div a {
+	color: #1B55A9;
+	font-size: 15px;
+	text-decoration: none;
+}
+
+.message {
+	width: 14px;
+	cursor: pointer;
+}
+
+.your_meaasge span {
+	color: #1B55A9;
+}
+
+.your_meaasge {
+	height: 23px;
+	position: absolute;
+	margin-top: 55px;
+	z-index: 999;
+	margin-left: 15px;
+}
+
+.newss {
+	color: #1B55A9;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/*	导航栏搜索	*/
+/*new*/
+.s_wrap {
+	width: 145px;
+	height: 30px;
+	border: 1px solid #1B55A9;
+	line-height: 100px;
+	margin-top: 33px;
+	border-radius: 7px;
+	margin-left: 10px;
+}
+
+.magnifying {
+	width: 18px;
+	height: 18px;
+	float: left;
+	margin: 6px 10px;
+	cursor: pointer;
+}
+
+.ssearch {
+	float: right;
+	width: 76px;
+	height: 30px;
+	border: none;
+	border-left: 1px solid #1B55A9;
+	box-sizing: border-box;
+	margin: 0px 28px 0 0;
+	padding-left: 8px;
+	color: #1B55A9;
+	resize: none;
+	outline: none;
+	background: none;
+}
+
+.person {
+	width: 35px;
+	height: 35px;
+	margin-top: 22px;
+}
+
+@media screen and (max-width: 1440px) {
+	.header .logo {
+		width: 720px;
+		height: 34px;
+		background: url(../image/header/520.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 35px 30px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 19px;
+	}
+}
+
+@media screen and (max-width: 1366px) {
+	.header .logo {
+		width: 720px;
+		height: 34px;
+		background: url(../image/header/520.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 35px 30px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 18px;
+	}
+}
+
+@media screen and (max-width: 1280px) {
+	.header .logo {
+		width: 640px;
+		height: 32px;
+		background: url(../image/header/490.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 35px 30px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 17px;
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	.header .logo {
+		width: 480px;
+		height: 24px;
+		background: url(../image/header/380.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 40px 35px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 15px;
+	}
+}
+/* .logo,.nav,.but{
+	border:1px solid;
+}  */
+</style>
+
+
+	<!-- header start -->
+	<div id="headerpage"></div>
+	<!-- header end -->
+
+
+	<script>
+			// 窗体加载完成时轮询
+			var t, notifyNum = 0;
+			window.onload = function() {
+				loadNotifies();
+				t = setInterval(loadNotifies, 10000); //每10秒执行一次
+			}
+			// 窗体关闭之前清除此定时器
+			window.onbeforeunload = function() {
+				clearInterval(t);
+			}
+			
+			//消息提示
+			function loadNotifies() {
+				var param = {
+					pagingOrNot : "not",
+					readOrUnread : "0"
+				};
+				// 获取所有的通知
+				$.get('/lagsms/notifies/count', param, function(data) {
+					if(notifyNum == data) {
+						return;
+					}
+					notifyNum = data;
+					var numTxt = "";
+					if(notifyNum >= 100) {
+						numTxt = "99+";
+					} else if(notifyNum == 0) {
+						numTxt = "";
+					}
+					$("#news").text(numTxt);
+				});
+			}
+		</script>
+
+	<script>
+        $(function(){
+           $(".user_text").hover(function(){
+               var width_a = $(this).width();
+               var width_b = $(this).find(".user_id").width();
+               var indent_px = width_a - width_b;
+               if( width_a <= width_b ){
+                   $(this).css("text-indent",indent_px);
+               }
+           },function(){
+               $(this).css("text-indent","0");
+           });
+        });
+    </script>
+	<!-- input点击清除value值 -->
+	<script type="text/javascript">
+		wap_val = [];
+		$(".ssearch").each(function(i) {
+			wap_val[i] = $(this).val();
+			$(this).focusin(function() {
+				if ($(this).val() == wap_val[i]) {
+					$(this).val("");
+				}
+			}).focusout(function() {
+				if ($.trim($(this).val()) == "") {
+					$(this).val(wap_val[i]);
+				}
+			});
+		});
+		//  用户名显示
+		 $(".user_id").each(function(){
+		  var maxwidth=4;
+		  if($(this).text().length > maxwidth){
+		    $(this).text($(this).text().substring(0,maxwidth));
+		    $(this).html($(this).html()+'...');
+		  }
+		}); 
+	</script>
+
+
+	<!-- 头部标题end -->
+	<div class="content">
+		<div class="content_main">
+			<div class="content_top">我要咨询</div>
+			<div class="gary">
+				<div class="darkblue"></div>
+			</div>
+			<div class="content_middle">
+				<form id="consultingShareForm" method="post"
+					onsubmit="return save();" action="/lagsms/question/addConsulting">
+					<div>
+						<div>
+							<input type="text" name="userId" id="userId" hidden="true">
+						</div>
+						<div>
+							<input type="text" name="status" id="status" hidden="true">
+						</div>
+						<div>
+							<input type="text" name="browseCount" id="browseCount"
+								hidden="true">
+						</div>
+						
+						<!-- 下拉框start -->
+						<div class="content_middle_one">
+							<label style="font-size:18px;color:#000000b3;margin-right:60px;">选择类型</label> 
+							<select id="category" class="browser-default" style="color:#000000b3;display:inline-block;width:auto;min-width:70px;padding-right:20px">
+								<option value="">普通提问</option>
+								<option value="1">悬赏提问</option>
+							</select>
+							<label style="font-size:17px;color:#000000b3;margin-right:20px;">悬赏金额</label> 
+							<select id="rewardAmount" class="browser-default" style="color:#000000b3;display:inline-block;width:auto;min-width:70px;padding-right:20px">
+								<option value="" disabled selected>自选积分金额</option>
+								<option value="1">1</option>
+								<option value="3">3</option>
+								<option value="5">5</option>								
+							</select>
+						</div>
+						<!-- 下拉框start -->
+
+						<!-- 复选框start -->
+						<div class="content_middle_two">
+							<div class="select_f">
+								<span>选择专业分类:</span>
+							</div>
+							<div class="select_btn" style="display:inline-block;">
+									<form action="#" method="GET">
+										<input type="checkbox" id="040001" onclick="selectedMajor();" checked><label for="040001">发票系统故障及操作指导</label>
+										<input type="checkbox" id="040002" onclick="selectedMajor();"><label for="040002">发票领购</label>
+										<input type="checkbox" id="040003" onclick="selectedMajor();"><label for="040003">发票代开</label>
+										<input type="checkbox" id="040004" onclick="selectedMajor();"><label for="040004">发票开具</label>
+										<input type="checkbox" id="040005" onclick="selectedMajor();"><label for="040005">红字增值税发票开具</label>
+										<input type="checkbox" id="040006" onclick="selectedMajor();"><label for="040006">申报有误能否作废</label>
+										<input type="checkbox" id="040007" onclick="selectedMajor();"><label for="040007">一般纳税人资格</label>
+										<input type="checkbox" id="040008" onclick="selectedMajor();"><label for="040008">辅导期一般纳税人</label>
+										<input type="checkbox" id="040009" onclick="selectedMajor();"><label for="040009">专用发票认证抵扣</label>
+										<input type="checkbox" id="040010" onclick="selectedMajor();"><label for="040010">小规模纳税人增值税起征点是否有调整</label>
+										<input type="checkbox" id="040011" onclick="selectedMajor();"><label for="040011">认定为一般纳税人之后是否可以转为小规模纳税人</label>
+										<input type="checkbox" id="040012" onclick="selectedMajor();"><label for="040012">小规模纳税人自行开具的增值税专用发票如何填写申报表</label>
+										<input type="checkbox" id="040013" onclick="selectedMajor();"><label for="040013">注销登记</label>
+										<input type="checkbox" id="040014" onclick="selectedMajor();"><label for="040014">发票检查</label>
+										<input type="checkbox" id="040015" onclick="selectedMajor();"><label for="040015">专用发票丢失</label>
+										<input type="checkbox" id="040016" onclick="selectedMajor();"><label for="040016">征收率</label>
+										<input type="checkbox" id="040017" onclick="selectedMajor();"><label for="040017">非国税业务</label>
+										<input type="checkbox" id="040018" onclick="selectedMajor();"><label for="040018">信用等级</label>
+										<input type="checkbox" id="040019" onclick="selectedMajor();"><label for="040019">营改增</label>
+										<input type="checkbox" id="040020" onclick="selectedMajor();"><label for="040020">金税管理</label>
+										<input type="checkbox" id="040021" onclick="selectedMajor();"><label for="040021">进出口税收</label>
+										<input type="checkbox" id="040022" onclick="selectedMajor();"><label for="040022">征收管理</label>
+										<input type="checkbox" id="040023" onclick="selectedMajor();"><label for="040023">发票保管</label>
+									</form>
+
+							</div>
+						</div>
+						<!-- 复选框end -->
+						
+						<div style="clear: both;"></div>
+						<div style="clear: both;"></div>
+						
+						<!-- 根据复选框 弹出可邀请的用户start -->
+						<div class="content_middle_three">
+							<span>邀请回答:</span>
+							<div class="Org fr" style="margin-top: -8px;" id="org">
+								<div class="clearfix" >
+									<label class="ordinary fl" style="font-size:17px;color:#000000b3;">普通用户:</label>
+									<div id="ordinary" class="ordinaryone fl">
+										<input type="checkbox" id="user_1513161259431" name="invitedId" class="type_item"><label for="user_1513161259431">admin6</label>
+									</div>
+								</div>
+								<div class="clearfix">
+									<label class="expert fl" style="font-size:17px;color:#000000b3;">专家用户:</label>
+									<div id="expert" class="expertone fl">
+										<input type="checkbox" id="u0001" name="invitedId" class="type_item"><label for="u0001">管理员</label>
+										<input type="checkbox" id="user_1513161147650" name="invitedId" class="type_item"><label for="user_1513161147650">admin3</label>
+									</div>
+								</div>
+								<div class="clearfix">
+									<label class="institution fl" style="font-size:17px;color:#000000b3;">机构用户:</label>
+									<div id="institution" class="institutionone fl">
+										<input type="checkbox" id="user_1513161052281" name="invitedId" class="type_item"><label for="user_1513161052281">税务人员</label>
+										<input type="checkbox" id="user_1513161100659" name="invitedId" class="type_item"><label for="user_1513161100659">admin2</label>
+									</div>
+								</div>
+							</div>
+							<div style="clear: both;"></div>
+						</div>
+						<!-- 根据复选框 弹出可邀请的用户start -->
+						
+						<!-- 文本编辑start -->
+						<!-- 标题 -->
+						<div class="add_title clearfix">
+							<div class="title_one fl"
+								style="margin-top: 20px; font-size: 18px; margin-right: 15px;">标&emsp;&emsp;题:</div>
+							<input name="title" id="title" class="title_input fl" style="height: 22px; margin-top: 20px">
+						</div>
+						<div class="add_content clearfix">
+							<div class="text_area">
+								<!-- <textarea name="content" id="content" class="fl" style="height:180px;"></textarea> -->
+								<textarea name="content" id="editor" class="fl" cols="30"
+									rows="10" style="visibility: hidden; display: none;"></textarea>
+								<script type="text/javascript">
+									CKEDITOR.replace('editor')
+								</script>
+							</div>
+						</div>
+						<!-- 文本编辑start -->
+						
+						<div class="sub">
+							<input type="submit" value="提交" class="button_submit pr">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<!-- footer start -->
+	<div id = "footerpage"></div>
+	<!-- footer end -->
+	
+	<!-- load js -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../js/zeroModel.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/Materialize/materialize.min.js"></script>
+	<script type="text/javascript" src="../js/Materialize/adbeus.js"></script>
+	<script type="text/javascript" src="http://58.56.96.171:8009/lagsms/resources/ckeditor/config.js?t=H0CG"></script>
+	<script type="text/javascript" src="http://58.56.96.171:8009/lagsms/resources/ckeditor/lang/zh-cn.js?t=H0CG"></script>
+	<script type="text/javascript" src="http://58.56.96.171:8009/lagsms/resources/ckeditor/styles.js?t=H0CG"></script>
+	
+	<!-- load header and footer -->
+	<script type="text/javascript">
+		$("#headerpage").load("../header.html");
+		$("#footerpage").load("../footer.html");
+	</script>
+	
+	
+	<script type="text/javascript">
+		
+		//如果是悬赏就不禁用 否则就禁用
+		function selectCategory() {
+			var target = event.target;
+		 	if(target.value == '1') { //悬赏提问
+		 		var rewardAmount = document.getElementById("rewardAmount");
+			 	rewardAmount.value = "";
+			 	rewardAmount.disabled = false;
+		 	} else {
+		 		var rewardAmount = document.getElementById("rewardAmount");
+			 	rewardAmount.disabled = true;
+		 	}
+	 	}
+	
+		// 存放所有选中的mojor
+		var selectedMajors = new Set();
+		function selectedMajor() {
+			// 为了兼容firefox
+			var e =  window.event || arguments.callee.caller.arguments[0];
+			if(e.target.checked) {
+				selectedMajors.add(e.target.value);
+			} else {
+				selectedMajors.delete(e.target.value);
+			}
+			// ajax 请求
+			var m = Array.from(selectedMajors).join(',');
+			m = encodeURI(m);
+			m = encodeURI(m);
+			if(selectedMajors.size > 0 ) {
+				$.get("/lagsms/users/search", { major: m }, function(data) {
+					console.log(data);
+					var ordinaryHtml = "";
+	              	var expertHtml = "";
+	              	var institutionHtml = "";
+	              	for(var i = 0;i<data.length;i++){
+	                 	console.log(data[i]);
+	                 	if(data[i].userId == 'user_1530497588928') {
+	                 		continue;
+	                 	}
+	                		if(data[i].type == 0){
+		                 	var a = '<label><input type="checkbox" class="type_item"  name="invitedId" value="'+data[i].userId+'" >'+data[i].userName+'</label>';
+		                 	console.log(data[i].userId);
+		                 	ordinaryHtml += a;
+	                 	}else if(data[i].type == 1){
+	                	 		var a = '<label><input type="checkbox" class="type_item"  name="invitedId" value="'+data[i].userId+'" >'+data[i].userName+'</label>';
+		                 	console.log(data[i].userId);
+		                 	expertHtml += a;
+	                 	}else{
+	                	 		var a = '<label><input type="checkbox" class="type_item"  name="invitedId" value="'+data[i].userId+'" >'+data[i].userName+'</label>';
+		                 	console.log(data[i].userId);
+		                 	institutionHtml += a;
+	                 	}
+	              	}
+	              $("#ordinary").html(ordinaryHtml);
+	              $("#expert").html(expertHtml);
+	              $("#institution").html(institutionHtml);
+				}, "json");
+			} else {
+				 $("#ordinary").html("");
+				 $("#expert").html("");
+				 $("#institution").html("");
+			}
+		}
+	
+		 function save() {
+			//下拉框校验
+			/* var myselect=document.getElementById("category");
+			if(null==myselect.selectedIndex||myselect.selectedIndex==""){
+				zeroModal.alert("请选择类型");
+				return false;
+			} */
+			
+			var rewardAmount = document.getElementById("rewardAmount");
+			if(parseInt(rewardAmount.value) > parseInt('100')) {
+				zeroModal.alert("您的积分不足");
+				return false;
+			}
+			
+			//复选框校验
+			var str=document.getElementsByName("majorCategory");
+			var objarray=str.length;
+			var chestr="";
+			for (i=0;i<objarray;i++) {
+			  	if(str[i].checked == true) {
+			   		chestr+=str[i].value+",";
+			  	}
+			}
+			if(chestr == "") {
+				zeroModal.alert("请先选择一个专业");
+			  	return false;
+			}
+			
+			var strone=document.getElementsByName("invitedId");
+			var objarrayone=strone.length;
+			var chestrone="";
+			for (i=0;i<objarrayone;i++) {
+			  if(strone[i].checked == true) {
+				  chestrone+=strone[i].value+",";
+			  }
+			}
+			if(chestrone == "") {
+				zeroModal.alert("请先选择一个用户");
+			  return false;
+			}
+
+			//输入框校验
+			var text = document.getElementById('title').value
+			console.log(text.trim());
+			/* text.replace(/\ +/g, ""); //去掉空格
+	        text.replace(/[ ]/g, "");    //去掉空格
+	        text.replace(/[\r\n]/g, ""); //去掉回车换行  */
+			if (null == text || text == "") {
+				zeroModal.alert("请填写标题");
+				return false;
+			}
+			//文本域校验
+			var text = document.getElementById('content').value
+			console.log(text.trim());
+			/* text.replace(/\ +/g, ""); //去掉空格
+	        text.replace(/[ ]/g, "");    //去掉空格
+	        text.replace(/[\r\n]/g, ""); //去掉回车换行  */
+			if (null == text || text == "") {
+				zeroModal.alert("请填写正文");
+				return false;
+			
+			}
+	        //是否登录用户校验
+			var userId='user_1530497588928';
+			console.log(userId);
+			if(userId=='null'){
+				zeroModal.alert("请先登录用户");
+				return false;
+			}
+			return true;
+       }
+	</script>
+	
+</body>
+</html>

@@ -84,6 +84,11 @@ create table tax_message (
 	constraint fk_sender_id foreign key (sender_id) references tax_user(id),
 	constraint fk_receiver_id foreign key (receiver_id) references tax_user(id)
 );
+create table tax_user_pro (
+	id int unsigned not null primary key auto_increment,
+	pro_id int unsigned not null,
+	user_id varchar(32) not null
+);
 /*--the end of creating tables--*/
 
 /*--the beginning of creating views--*/

@@ -1,0 +1,335 @@
+@charset "UTF-8";
+
+
+.SiteHeader {
+    background: #4257b2;
+    color: #fff;
+    height: 5rem;
+}
+.SiteHeader-userInfo {
+    font-weight: 600;
+    line-height: 5rem;
+    position: relative;
+    text-align: right;
+}
+.SiteHeader-chiclet, .SiteHeader-userInfo {
+    display: inline-block;
+    vertical-align: middle;
+}
+.SiteHeader-userSection {
+    text-align: right;
+    width: calc(100% - 9rem - 8.75rem);
+}
+.SiteHeader-section {
+    display: inline-block;
+    font-size: 0.9375rem;
+    position: relative;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.UILink--inverted, .UILink--inverted:visited {
+    color: #fff;
+}
+.UILink, .UILink:visited {
+    color: #3ccfcf;
+}
+a:visited {
+    color: #4257b2;
+}
+.UILink {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: inline;
+    font: inherit;
+    margin-top: 0;
+    outline: none;
+    padding: 0;
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 1.285714285714286;
+    font-weight: 600;
+    transition: all 120ms cubic-bezier(0.47,0,0.745,0.715);
+}
+.SiteHeader-avatar {
+    display: inline-block;
+    margin-right: 0.625rem;
+}
+a{cursor:pointer}
+.SiteHeader-avatar {
+    display: inline-block;
+    margin-right: 0.625rem;
+}
+a {
+    color: #4257b2;
+}
+.UserAvatar {
+    background: transparent no-repeat center top;
+    background-image: none;
+    background-size: cover;
+    border-radius: 100%;
+    box-shadow: 0 0 4px 0 rgba(0,0,0,0.24);
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    transform: translateZ(0);
+    vertical-align: middle;
+}
+.UserAvatar {
+    background: transparent no-repeat center top;
+    background-image: none;
+    background-size: cover;
+    border-radius: 100%;
+    box-shadow: 0 0 4px 0 rgba(0,0,0,0.24);
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    transform: translateZ(0);
+    vertical-align: middle;
+}
+@media screen and (max-width: 55.625em)
+.SiteHeader-username {
+    display: none;
+}
+.SiteHeader-username {
+    display: inline-block;
+    padding-right: 0.625rem;
+}
+.UIIcon.UIIcon--small {
+    height: 0.75rem;
+    width: 0.75rem;
+}
+.UIIcon {
+    display: inline-block;
+    fill: currentColor;
+    height: 1em;
+    width: 1em;
+}
+.SiteHeader-userDropdownIcon {
+    vertical-align: middle;
+}
+*, *:before, *:after {
+    -webkit-box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+}
+.UIOverlayTrigger-element.is-Tooltip {
+    z-index: 901;
+}
+.UIOverlayTrigger-element.is-Popover {
+    z-index: 900;
+}
+.UIOverlayTrigger-element {
+    display: none;
+    transition: none 120ms cubic-bezier(0.47,0,0.745,0.715);
+    transition-property: opacity;
+}
+[class^=UI] {
+    -moz-font-feature-settings: "kern","liga","clig","calt";
+    -ms-font-feature-settings: "kern","liga","clig","alt";
+    -webkit-font-feature-settings: "kern","liga","clig","calt";
+    font-feature-settings: "kern","liga","clig","calt";
+    font-kerning: normal;
+    font-variant-ligatures: common-ligatures contextual;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.MenuIconWithTooltip {
+    display: inline-block;
+    text-align: center;
+}
+.UIOverlayTrigger-element-attached-top.UIOverlayTrigger-target-attached-bottom .UIPopover--includeArrowInBounds.UIPopover, .UIPopover.UIPopover--includeArrowInBounds.UIPopover--arrowTop {
+    margin-top: 1rem;
+}
+:not(.ie11) .UIPopover {
+    filter: drop-shadow(rgba(0,0,0,0.2) 0 0.125rem 0.625rem);
+}
+@media screen and (max-width: 38.75em)
+.UIPopover {
+    font-weight: 600;
+    font-size: 0.75rem;
+    line-height: 1.333333333333333;
+}
+@media screen and (max-width: 38.75em)
+.UILink {
+    font-weight: 600;
+    font-size: 0.75rem;
+    line-height: 1.333333333333333;
+}
+.UIMenuItem {
+    display: block;
+}
+.UIPopover {
+    background: #fff;
+    margin: 0;
+    min-width: 11.25rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 1.285714285714286;
+}
+.UIPopover > * {
+    position: relative;
+    z-index: 300;
+}
+.UIMenuItem .UILink {
+    text-align: left;
+    width: 100%;
+}
+.SetPage-menuPopover .UILink {
+    display: block;
+    text-align: left;
+    width: 100%;
+}
+.menu-adbeus-container {
+	margin-left: 42%;
+}
+
+.textwidget {
+	margin-left: 85%;
+}
+
+.search input[type=search] {
+	border: none;
+	border-radius: 2px;
+	background: #fff;
+	-webkit-transition: none;
+	transition: none;
+	margin: 0 !important;
+}
+
+.input-field input[type=search] {
+	display: block;
+	line-height: inherit;
+	-webkit-transition: background-color .3s;
+	transition: background-color .3s;
+	border-bottom-style: groove;
+	margin-top: 17px;
+}
+
+.center, .center-align {
+	text-align: center;
+}
+
+[type=search] {
+	-webkit-appearance: textfield;
+	outline-offset: -2px;
+}
+
+.blue-footer {
+	background-color: #0d3570 !important;
+}
+.UIMenuItem-inner {
+    color: #2d3639;
+    display: block;
+    padding: 0rem 0rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 1.285714285714286;
+    transition: all 120ms cubic-bezier(0.47,0,0.745,0.715);
+    
+}
+.user_img{
+	border-radius: 50%;
+	width: 40px;
+	vertical-align: middle;
+}
+.user_name{
+    display: inline-block;
+    padding-right: 0.425rem;
+    color: black;
+    border: none;
+    cursor: pointer;
+    display: inline;
+    font: inherit;
+    margin-bottom: 0;
+    outline: none;
+    font-size: 0.875rem;
+    line-height: 1.285714285714286;
+    font-weight: 600;
+    transition: all 120ms cubic-bezier(0.47,0,0.745);
+}
+.menu-footer_menu-container > ul{
+	padding-left: 0;
+    list-style-type: none;
+    width: auto;
+    text-align: left;
+}
+#categories-2 > ul{
+	padding-left: 0;
+    list-style-type: none;
+    width: auto;
+    text-align: left;
+}
+.input_outer > input[type=text],input[type=password]{
+	width: 220px;
+    height: 46px;
+    outline: none;
+    display: inline-block;
+    font: 14px "microsoft yahei",Helvetica,Tahoma,Arial,"Microsoft jhengHei";
+    margin-left: 50px;
+    border: none;
+    background: none;
+    line-height: 46px;
+}
+#YANZHENG::-webkit-input-placeholder {
+  color:grey;
+}
+#ID::-webkit-input-placeholder {
+  color:grey;
+}
+#PASSWORD::-webkit-input-placeholder {
+  color: grey;
+}
+#category,#rewardAmount{
+	color:#000000b3;
+	display:inline-block;
+	width:auto;
+	min-width:70px;
+	padding-right:20px
+}
+.pagination{
+	margin-top: 40px;
+	text-align: center!important;
+	margin-bottom:40px;
+}
+.btn-small:hover {
+  background-color: transparent;
+}
+.banner { position: relative; overflow: auto; text-align: center;}
+.banner li { list-style: none; }
+.banner ul li { float: left; width: 1500px;height: 518px }
+#myBanner { width: 1500px;}
+#myBanner .dots { position: relative; left: 0; right: 0; bottom: 20px;}
+#myBanner .dots li 
+{ 
+    display: inline-block; 
+    width: 10px; 
+    height: 10px; 
+    margin: 0 4px; 
+    text-indent: -999em; 
+    border: 0px solid #fff; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    opacity: .4; 
+    -webkit-transition: background .5s, opacity .5s; 
+    -moz-transition: background .5s, opacity .5s; 
+    transition: background .5s, opacity .5s;
+}
+#myBanner .dots li.active 
+{
+    background: #ffaf26;
+    opacity: 1;
+}
+#myBanner .arrow { position: absolute; top: 200px;}
+#myBanner #al { left: 15px;}
+#myBanner #ar { right: 15px;}
+#search_row{
+	margin-bottom: 0px; 
+	position: absolute;
+	margin-left: 300px;
+	margin-top: -500px;
+	width: 800px;
+}

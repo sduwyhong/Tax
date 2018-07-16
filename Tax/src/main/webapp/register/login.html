@@ -1,0 +1,467 @@
+<!-- 登录界面 -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <title>安徽省国家税务局税企互助交流平台</title>
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="Simple">
+	<meta name="renderer" content="ie-stand">
+	<link rel="shortcut icon" href="../image/icon/favicon.gif" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../css/login.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../js/js.cookie-2.2.0.min.js"></script>
+    <script type="text/javascript" src="../js/code.js"></script>
+    <script type="text/javascript" src="../js/path.js"></script>
+    <script type="text/javascript" src="../js/md5.js"></script>
+    <link rel="stylesheet" href="../css/zeroModal.css">
+    <link rel="stylesheet" type="text/css" href="../css/header/header.css">
+    <link rel="stylesheet" type="text/css" href="../css/test/component.css" />
+    <link rel="stylesheet" type="text/css" href="../css/test/demo.css" />
+    <script type="text/javascript">
+	  	//ajax不缓存
+	    jQuery.ajaxSetup({cache:false});
+		//支持Enter键登录
+		document.onkeydown = function(e){
+			if(!e) e = window.event;
+			if((e.keyCode || e.which) == 13){
+				var obtnLogin=document.getElementById("submit_btn");
+				obtnLogin.focus();
+			}
+		};
+		$(function(){
+			$("#messages").remove();
+			//提交表单
+			$('#submit_btn').click(function(){
+				if($('.username').val() == ''){
+					//阻塞状态弹出
+					$.messager.alert('提示',"请填写用户名！",'info');
+					$('.username').focus();
+				}else if($('.password').val() == ''){
+					//阻塞状态弹出
+					$.messager.alert('提示',"请填写登录密码！",'info');
+					$('.password').focus();
+				}else{
+					$('#loginForm').submit();
+				}
+			});
+		});
+		$(document).ready(function(){
+			$('.username').focus();
+		});
+		//返回首页
+		function goBack(){
+			window.location.href="index";
+		}
+	</script>
+	<style type="text/css">
+	html{height:100%;}
+	body{
+		display: flex;
+		flex-direction: column;
+		-webkit-display: flex;
+		height: 100%;
+	}
+	.header{flex: 0 0 auto;}
+	.content{flex: 1 0 auto;}
+	.liuan_footers{flex: 0 0 auto;}
+	#canvas{
+         float:right;
+         display: inline-block;
+         border:1px solid #ccc;
+         border-radius: 5px;
+         cursor: pointer;
+     }
+	</style>
+  </head>
+<body style="display: flex;flex-flow: column;min-height: 100vh;">
+
+
+	<!-- header start -->
+	<div id="headerpage"></div>
+	<!-- header end -->
+	
+	
+	<script>
+        $(function(){
+           $(".user_text").hover(function(){
+               var width_a = $(this).width();
+               var width_b = $(this).find(".user_id").width();
+               var indent_px = width_a - width_b;
+               if( width_a <= width_b ){
+                   $(this).css("text-indent",indent_px);
+               }
+           },function(){
+               $(this).css("text-indent","0");
+           });
+        });
+    </script>
+      <!-- input点击清除value值 -->
+    <script type="text/javascript">
+		wap_val = [];
+		$(".ssearch").each(function(i) {
+			wap_val[i] = $(this).val();
+			$(this).focusin(function() {
+				if ($(this).val() == wap_val[i]) {
+					$(this).val("");
+				}
+			}).focusout(function() {
+				if ($.trim($(this).val()) == "") {
+					$(this).val(wap_val[i]);
+				}
+			});
+		});
+		//  用户名显示
+		 $(".user_id").each(function(){
+		  var maxwidth=4;
+		  if($(this).text().length > maxwidth){
+		    $(this).text($(this).text().substring(0,maxwidth));
+		    $(this).html($(this).html()+'...');
+		  }
+		}); 
+	</script>
+
+
+	<!--header end-->
+	
+	<!--content start-->
+<div class="content">
+	<div class="content_main">
+		<div class="logo_box" style="margin-left: 100px;">
+			<h3>LOGIN</h3>
+			<form class="content_login" id="loginForm" action="j_spring_security_check" method="post" onsubmit="return login();">
+				<div class="input_outer">
+					<span class="u_user"></span>
+					<input id="ID" name="logname" class="text" style="border-bottom:none;color: #000000 !important" type="text" placeholder="请输入账户">
+				</div>
+				<div class="input_outer">
+					<span class="us_uer"></span>
+					<input id="PASSWORD" name="logpass" class="text" style="border-bottom:none;color: #000000 !important; position:absolute; z-index:100;"value="" type="password" placeholder="请输入密码">
+				</div>
+				<div class="input_outer">
+					<span class="yanzheng"></span>
+					<input id="YANZHENG" name="logyan" class="text" style="border-bottom:none;color: #000000 !important; position:absolute; z-index:100;"value="" type="password" placeholder="请输入验证码">
+					</input>
+					<div class="code">
+				    	<!-- 验证码外必须被class为code的div嵌套 -->
+				        <canvas id="canvas" width="100" height="30"></canvas>
+				    </div>
+				</div>
+					
+				<div id="LOGIN" class="mb2" style="padding-left:80px">
+				<a class="act-but submit" href="javascript:login();" style="color: #FFFFFF">登录</a></div>
+				<a style="color:rgba(6, 29, 47, 0.59);font-style: italic;padding-left:270px;font:12px">>>忘记密码？</a>
+			</form>
+		</div>
+	</div>
+</div>	
+	<!-- 弹出忘记密码窗口 start -->
+	<div class="ex_liuan_PopWinbg">
+		<div class="ex_liuan_PopWinContent">
+			<form method="GET" id="sunmitTable" name="myform">
+				<table cellspacing="0" cellpadding="0">
+					<tbody><tr>
+						<td colspan="6">忘记密码</td>
+						<!-- <td><input type="hidden" name="" id="" style="height:0;width:0;"></td>
+						<td><input type="hidden" name="" id="" style="height:0;width:0;"></td> -->
+					</tr>
+					<tr><td colspan="6" style="height:5px;"></td></tr>
+					<tr>
+						<td>
+							<input id="userTel" type="text" placeholder="请输入注册手机号">
+						</td>
+					</tr>
+					<tr>
+						<td class="yzm_input">
+							<input id="text" type="text" placeholder="请输入验证码">
+							<a href="#" class="yzm_btn">
+						</td>
+					</tr>
+					<tr><td colspan="6"><button onclick="passSure();" class="yz_sure">确定</button></td></tr>
+				</tbody></table>
+			</form>
+			<div class="ex_liuan_Close_PopWin" onclick="closePopWin()"></div>
+		</div>
+	</div>
+	<!-- 弹出忘记密码窗口 end -->
+	<!-- 弹出输入新密码 start -->
+	<div class="ex_liuan_PopWinbg1">
+		<div class="ex_liuan_PopWinContent">
+			<form method="GET" id="newpass">
+				<table cellspacing="0" cellpadding="0">
+					<tbody><tr>
+						<td colspan="6">验证成功，请输入新密码</td>
+						<!-- <td><input type="hidden" name="" id="" style="height:0;width:0;"></td>
+						<td><input type="hidden" name="" id="" style="height:0;width:0;"></td> -->
+					</tr>
+					<tr><td colspan="6" style="height:5px;"></td></tr>
+					<tr>
+						<td>
+							<input type="text" name="userPassword" placeholder="请输入新密码" id="password">
+						</td>
+					</tr>	
+					<tr>
+						<td>
+							<input type="text" name="userPasswordTwo" placeholder="请再次输入新密码" id="newPassword">
+						</td>
+					</tr>
+					<tr><td colspan="6"><button type="submit" onclick="updatePassword();">确定</button></td></tr>
+				</tbody></table>
+			</form>
+			<div class="ex_liuan_Close_PopWin" onclick="closeNewPass()"></div>
+		</div>
+	</div>
+	<!-- 弹出弹出输入新密码 end -->
+	<!--content end-->
+	
+	<!-- footer start -->
+	<div id="footerpage"></div>
+	<!-- footer end -->	
+	
+	<!-- load js -->
+	<script type="text/javascript" src="../js/zeroModel.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/Materialize/materialize.min.js"></script>
+	<script type="text/javascript" src="../js/Materialize/adbeus.js"></script>
+	
+	<!-- load header and footer -->
+	<script type="text/javascript">
+		$("#headerpage").load("../header.html");
+		$("#footerpage").load("../footer.html");
+	</script>
+	
+	<script type="text/javascript">
+	//短信验证
+	var verification='';
+	var tel;
+	function showtime(t){ 
+		  //ajax请求
+	     tel=$("#userTel").val();
+	   /*  returnValue{"code":22,"msg":"验证码类短信1小时内同一手机号发送次数不能超过3次","detail":"验证码类短信1小时内同一手机号发送次数不能超过3次"} */
+	    $.ajax({
+	    	   type: "GET",
+	    	   url: "getVerification",
+	    	   data:"userTelephone="+tel,
+	    	   async: false,
+	    	   success: function(msg){
+	    		   var returnValue= null;
+	    		  		 if(msg.returnValue=="0"){
+	  	    			   zeroModal.error('请输入已注册的手机号!');
+	  	    		   }else {
+	  	    			   var returnValue=JSON.parse(msg.returnValue);
+	  	    			   if(returnValue.code==22){
+	  	    				 zeroModal.alert(returnValue.msg);
+	  	    			   }else if(returnValue.code==0){
+	  	    				 verification=msg;   
+	  	    			   }/* else if(returnValue.code==3){
+	  	    				 zeroModal.alert("账户余额不足,请充值后重试!");
+	  	    				 return;
+	  	    			   } */else{
+	  	    				 zeroModal.alert("获取验证码失败!");
+	  	    				 return;
+	  	    			   }
+	  	    			   document.myform.phone.disabled=true; 
+	  	    			    for(i=1;i<=t;i++) { 
+	  	    			        window.setTimeout("update_p(" + i + ","+t+")", i * 1000); 
+	  	    			    } 
+	  	    		   }
+	    	   }
+	    	});
+	} 
+	function update_p(num,t) { 
+	    if(num == t) { 
+	        document.myform.phone.value =" 重新发送 "; 
+	        document.myform.phone.disabled=false; 
+	    } 
+	    else { 
+	        printnr = t-num; 
+	        document.myform.phone.value = " (" + printnr +")秒后重新发送"; 
+	    } 
+	} 
+	
+	
+		$('#j_username').bind('input propertychange', function() {  
+			var userName = $("#j_username").val();
+	
+			 if (userName.length===0){
+					$("#userName1").html('用户名不能为空!');
+					return;
+			  }else{
+					$("#userName1").html('');
+			  }
+		}); 
+		$('#j_password').bind('input propertychange', function() {  
+			var pwd = $("#j_password").val();
+	
+			 if (pwd.length===0){
+					$("#password1").html('密码不能为空!');
+					return;
+			  }else{
+					$("#password1").html('');
+			  }
+		});  
+		$('#verifyCode').bind('input propertychange', function() {  
+			var verifyCode = $("#verifyCode").val();
+	
+			 if (verifyCode.length===0){
+					$("#code1").html('验证码不能为空!');
+					return;
+			  }else{
+					$("#code1").html('');
+			  }
+		}); 
+		function updateVerifyCode() {
+			event.target.src = "verifyCode?t=" + Date.now();
+		}
+/* 		var menu = document.getElementById("menu").getElementsByTagName("a");
+		for(var i = 0; i < menu.length; i++) {
+			//给每个a元素绑定一个点击事件
+			menu[i].onclick = function(event) {
+				//清空之前选中的样式
+				for(var j = 0; j < menu.length; j++) {
+					menu[j].parentElement.className = "";
+				}
+				//每次点击就添加一个class
+				event.toElement.parentElement.className = "curr";
+			}
+		} */
+		
+		function login(){
+			var userName = $("#ID").val();
+			var pwd = $("#PASSWORD").val();
+			var verifyCode = $("#verifyCode").val();
+			console.log(userName);
+			if(userName.length == 0){
+				$("#userName1").html('用户名不能为空!');
+				return false;
+			}
+			if(pwd.length == 0){
+				$("#password1").html('密码不能为空!');
+				return false;
+			}
+			/*
+			if(verifyCode.length == 0){
+				$("#code1").html('验证码不能为空!');
+				return false;
+			}
+			if($("#verifyCode").data('ok') == '1') {
+				
+
+				return true;
+			}
+			if(verifyCode != null) {
+				 $.post('verifyCode?aa=asddsd', {
+					verifyCode: $('#verifyCode').val()
+				}, function(data) {
+					console.log(data);
+					
+					if(data.code == 200) {
+						
+						$("#verifyCode").data('ok', '1');
+						$('#loginForm').submit();
+					} else {
+						//alert(1);
+						$("#code1").html('验证码错误!');
+					}
+				}); 
+			}
+			*/
+			$.ajax({
+				url:path+'guest/login',
+				type:'post',
+				data:{
+					username:userName,
+					password:hex_md5(pwd)
+				},
+				success:function(data) {
+					console.log(data);
+					if(data.status == 200) {
+						alert('欢迎您！');
+						location.href = '../homepage/index.html';
+					}else if(data.status == 400){
+						alert('用户名和密码有误，请重新登陆！');
+						$("#j_password").val('');
+					}
+				}
+			})
+			return false;
+		}
+		
+	
+		/* //初始化页面时验证是否记住了密码
+		$(document).ready(function() {
+		    if ($.cookie("rmbUser") == "true") {
+		        $("#j_rmbUser").attr("checked", true);
+		        $("#j_username").val($.cookie("userName"));
+		        $("#j_password").val($.cookie("passWord"));
+		    }
+		});
+		//保存用户信息
+		function save() {
+		    if ($("#j_rmbUser").attr("checked") == true) {
+		        var userName = $("#j_username").val();
+		        var passWord = $("#j_password").val();
+		        $.cookie("rmbUser", "true", { expires: 7 }); // 存储一个带7天期限的 cookie
+		        $.cookie("userName", userName, { expires: 7 }); // 存储一个带7天期限的 cookie
+		        $.cookie("passWord", passWord, { expires: 7 }); // 存储一个带7天期限的 cookie
+		    }
+		    else {
+		        $.cookie("rmbUser", "false", { expires: -1 });
+		        $.cookie("userName", '', { expires: -1 });
+		        $.cookie("passWord", '', { expires: -1 });
+		    }
+		} */
+		
+		//忘记密码
+		function report(){
+			$('.ex_liuan_PopWinbg').show();
+		}
+		function closePopWin(){
+			$('.ex_liuan_PopWinbg').hide();
+		}
+		//忘记密码
+		function passSure(){
+			var text=$("#text").val();
+			var telephone=$("#userTel").val();
+			if(telephone!=''&&telephone != undefined){
+				if(text!=''){
+					if(text==verification){
+						$('.ex_liuan_PopWinbg1').show();
+					}else{
+						zeroModal.error('您输入的验证码不正确!');
+						$('.ex_liuan_PopWinbg').show();
+					}
+				}else{
+					zeroModal.alert('请输入您的验证码!');
+					$('.ex_liuan_PopWinbg').show();
+				}
+			}else{
+				zeroModal.alert('请输入您的手机号!');
+				$('.ex_liuan_PopWinbg').show();
+			}
+		}
+		function closeNewPass(){
+			$('.ex_liuan_PopWinbg1').hide();
+		}
+		function updatePassword(){
+			if($("userPassword").val()==$("userPasswordTwo").val()){
+				  $.ajax({
+			    	   type: "POST",
+			    	   url: "updatePassword",
+			    	   data:"userTelephone="+tel,
+			    	   async: false,
+			    	   success: function(msg){
+			    		   zeroModal.success(msg);
+			    	   }
+			    	});
+			}else{
+				 zeroModal.alert("两次密码输入不一致!");
+				
+			}
+		}
+	</script>
+
+</body>
+</html>

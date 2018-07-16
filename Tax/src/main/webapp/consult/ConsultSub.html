@@ -1,0 +1,813 @@
+<!-- 咨询——我要咨询 -->
+<!DOCTYPE html>
+<html>
+<head>
+<title>安徽省国家税务局税企互助交流平台</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="icon" href="../image/home/favicon.gif" type="image/x-icon">
+<link rel="stylesheet" href="../css/paging.css">
+<link rel="stylesheet" href="../css/consult/questionDetails.css">
+<link rel="stylesheet" href="../css/zeroModal.css">
+<link rel="stylesheet" type="text/css" href="../ckeditor/skins/moono-lisa/editor.css">
+<link rel="stylesheet" type="text/css" href="../ckeditor/plugins/scayt/skins/moono-lisa/scayt.css">
+<link rel="stylesheet" type="text/css" href="../ckeditor/plugins/wsc/skins/moono-lisa/wsc.css">
+
+<style>
+.cke {
+	visibility: hidden;
+}
+</style>
+<script type="text/javascript"
+	src="./ckeditor/config.js"></script>
+<style>
+#two {
+	border-bottom: 1px solid #fff;
+	padding-bottom: 10px;
+	color: #fff;
+	display: inline-block;
+	width: 90%;
+	height: 65%;
+}
+
+#twoplus {
+	background: #1B55A9;
+}
+</style>
+</head>
+<body>
+	<style type="text/css">
+body {
+	min-height: 900px;
+	background: #eee;
+	overflow-x: hidden;
+}
+
+.header {
+	width: 100%;
+	height: 100px;
+	display: -webkit-box;
+	position: relative;
+	min-width: 1200px;
+	background: rgba(255, 255, 255, 255);
+}
+
+.header .logo {
+	width: 614px;
+	height: 42px;
+	background: url(../image/home/logo.png) no-repeat;
+	position: relative;
+	background-size: 100% 100%;
+	margin: 30px 30px;
+}
+
+.header .nav {
+	-webkit-box-flex: 1;
+	width: 750px;
+	margin-right: 70px;
+}
+
+.header .nav ul {
+	display: -webkit-box;
+	list-style: none;
+}
+
+.header .nav ul li {
+	-webkit-box-flex: 1;
+	line-height: 100px;
+	font-size: 16px;
+	text-align: center;
+	height: 85px;
+	width: 85px;
+}
+
+.header .nav ul li a {
+	text-decoration: none;
+	font-size: 19px;
+	color: #2057a6;
+}
+
+.header .but {
+	width: 185px;
+	height: 100px;
+	position: relative;
+	overflow: hidden;
+	box-sizing: content-box;
+}
+
+.but_content {
+	width: 150px;
+	height: 100px;
+	position: absolute;
+	bottom: 0;
+}
+
+.but_content div {
+	float: left;
+	height: 20px;
+	line-height: 83px;
+	color: #1B55A9;
+	cursor: pointer;
+	font-size: 15px;
+	text-align: right;
+}
+
+.but_content div a {
+	color: #1B55A9;
+	font-size: 15px;
+	text-decoration: none;
+}
+
+.message {
+	width: 14px;
+	cursor: pointer;
+}
+
+.your_meaasge span {
+	color: #1B55A9;
+}
+
+.your_meaasge {
+	height: 23px;
+	position: absolute;
+	margin-top: 55px;
+	z-index: 999;
+	margin-left: 15px;
+}
+
+.newss {
+	color: #1B55A9;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/*	导航栏搜索	*/
+/*new*/
+.s_wrap {
+	width: 145px;
+	height: 30px;
+	border: 1px solid #1B55A9;
+	line-height: 100px;
+	margin-top: 33px;
+	border-radius: 7px;
+	margin-left: 10px;
+}
+
+.magnifying {
+	width: 18px;
+	height: 18px;
+	float: left;
+	margin: 6px 10px;
+	cursor: pointer;
+}
+
+.ssearch {
+	float: right;
+	width: 76px;
+	height: 30px;
+	border: none;
+	border-left: 1px solid #1B55A9;
+	box-sizing: border-box;
+	margin: 0px 28px 0 0;
+	padding-left: 8px;
+	color: #1B55A9;
+	resize: none;
+	outline: none;
+	background: none;
+}
+
+.person {
+	width: 35px;
+	height: 35px;
+	margin-top: 22px;
+}
+
+@media screen and (max-width: 1440px) {
+	.header .logo {
+		width: 720px;
+		height: 34px;
+		background: url(../image/header/520.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 35px 30px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 19px;
+	}
+}
+
+@media screen and (max-width: 1366px) {
+	.header .logo {
+		width: 720px;
+		height: 34px;
+		background: url(../image/header/520.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 35px 30px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 18px;
+	}
+}
+
+@media screen and (max-width: 1280px) {
+	.header .logo {
+		width: 640px;
+		height: 32px;
+		background: url(../image/header/490.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 35px 30px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 17px;
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	.header .logo {
+		width: 480px;
+		height: 24px;
+		background: url(../image/header/380.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 40px 35px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 15px;
+	}
+}
+/* .logo,.nav,.but{
+	border:1px solid;
+}  */
+</style>
+
+
+	<!-- header start -->
+	<div id="headerpage"></div>
+	<!-- header end -->
+
+
+	<script>
+		$(function() {
+			$(".user_text").hover(function() {
+				var width_a = $(this).width();
+				var width_b = $(this).find(".user_id").width();
+				var indent_px = width_a - width_b;
+				if (width_a <= width_b) {
+					$(this).css("text-indent", indent_px);
+				}
+			}, function() {
+				$(this).css("text-indent", "0");
+			});
+		});
+	</script>
+	<!-- input点击清除value值 -->
+	<script type="text/javascript">
+		wap_val = [];
+		$(".ssearch").each(function(i) {
+			wap_val[i] = $(this).val();
+			$(this).focusin(function() {
+				if ($(this).val() == wap_val[i]) {
+					$(this).val("");
+				}
+			}).focusout(function() {
+				if ($.trim($(this).val()) == "") {
+					$(this).val(wap_val[i]);
+				}
+			});
+		});
+		//  用户名显示
+		$(".user_id").each(function() {
+			var maxwidth = 4;
+			if ($(this).text().length > maxwidth) {
+				$(this).text($(this).text().substring(0, maxwidth));
+				$(this).html($(this).html() + '...');
+			}
+		});
+	</script>
+
+
+	<!-- header end -->
+	<!-- 中间部分start -->
+	<div class="liuan_content_wrapall">
+		<!-- path -->
+		<div class="path_nav">
+			<span class="fl">当前位置：<a style="color: black;"
+				href="./questions.html" class="nav_style">咨询</a></span> <span class="fl">&nbsp;&gt;&nbsp;</span>
+			<span class="fl"
+				style="width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+				<a href="/lagsms/questions/ques_1513737987706/details"
+				class="nav_style"> 想了解个人所得税流程 </a>
+			</span>
+		</div>
+		<div class="liuan_content" style="margin-right: 50px;padding-left: 50px;">
+			<div class="notsolved" style="width:auto;">
+				<!-- 头部 start -->
+				<div class="mark">
+					<img src="../image/questionmark.png"> <span>未解决</span>
+				</div>
+				<div class="mark_content">
+					<ul>
+						<li><p>问题：想了解个人所得税流程</p></li>
+						<li><span>2017-12-20</span></li>
+					</ul>
+				</div>
+				<!-- 头部 end -->
+				<div class="user_messageone">
+					<!-- 问题详情 start -->
+					<div class="user_messageone_list_content">
+						<span>内容：</span> <span id="hidden"><p>个人说的税是怎么计算的，流程是什么？</p>
+						</span>
+					</div>
+					<!-- 问题详情 end -->
+				</div>
+			</div>
+			<!-- 我的答案 start -->
+			<div class="liuan_content_three">
+				<div class="liuan_content_three_nav">
+					<ul>
+						<li><span>浏览：</span><span>273</span></li>
+						<li><span>回答：</span><span>5</span></li>
+
+
+						<li data-target-id="ques_1513737987706" data-target="question"
+							onclick="report();"
+							style="cursor: pointer; float: right; cursor: pointer;"
+							id="report">举报</li>
+						<li class="check_not_login" data-target-id="ques_1513737987706"
+							data-target="question" onclick="starQuestion();"
+							style="cursor: pointer; float: right;">收藏</li>
+					</ul>
+				</div>
+				<!-- 最佳回答 -->
+
+				<!-- 我的答案 end -->
+				<!--其他回答 start -->
+				<h1 style="margin: auto;">全部回答</h1>
+				<div class="gary">
+					<div class="darkblue"></div>
+				</div>
+				<div class="user_messageTwo">
+					<div class="user_messageTwo_list" id="user_messageTwo_list">
+						<div id="answerContent" class="user_messageTwo_list_content">
+						
+							<ul data-answer-id="answ_1513851709298"
+								style="border-bottom: 1px dashed #ccc; height: 136px;">
+								<li>
+									<a href="/lagsms/users/user_1513264931170/zone">
+										<img src="../image/u2815.png" alt="Avatar">
+									</a>
+								</li>
+								<li><p class="over"></p>
+									<p>回答了解流程税是怎么计算的流程是什么？</p>
+									<p></p></li>
+								<li><span>2017-12-21</span></li>
+								<li class="star_answer_action star-answer"
+									data-target-id="answ_1513851709298" onclick="starAnswer();"
+									style="cursor: pointer;">
+									<span>收藏：</span>
+									<span class="starCount star-answer-num">2</span></li>
+								<li class="like-answer" data-answer-id="answ_1513851709298"
+									onclick="likeAnswer();" style="cursor: pointer;">
+									<span style="cursor: pointer;">点赞：</span>
+									<span class="likeCount like-answer-num">1</span></li>
+								<li id="report_one">
+									<span data-target-id="answ_1513851709298" data-target="answer" onclick="report();" 
+										  style="text-decoration: none; color: black; cursor: pointer;">举报</span></li>
+							</ul>
+							
+							<ul data-answer-id="answ_1513852908209"
+								style="border-bottom: 1px dashed #ccc; height: 136px;">
+								<li>
+									<a href="/lagsms/users/u0001/zone">
+										<img src="../image/u2815.png" alt="Avatar">
+									</a>
+								</li>
+								<li><p class="over"></p>
+									<p>回答审核</p>
+									<p></p></li>
+								<li><span>2017-12-21</span></li>
+								<li class="star_answer_action star-answer"
+									data-target-id="answ_1513852908209" onclick="starAnswer();"
+									style="cursor: pointer;">
+									<span>收藏：</span>
+									<span class="starCount star-answer-num">0</span>
+								</li>
+								<li class="like-answer" data-answer-id="answ_1513852908209"
+									onclick="likeAnswer();" style="cursor: pointer;">
+									<span style="cursor: pointer;">点赞：</span>
+									<span class="likeCount like-answer-num">1</span>
+								</li>
+								<li id="report_one">
+									<span data-target-id="answ_1513852908209" data-target="answer"
+										  onclick="report();" 
+										  style="text-decoration: none; color: black; cursor: pointer;">举报</span>
+								</li>
+							</ul>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 实现分页 start-->
+			<!-- 不满一页：设置pagination的display：none 否则为block
+				  点击数字: 由class=waves-effect变成class=active 
+				  首页时:prePage为disabled；尾页时 :nextPage的class为disabled 其他情况时class为waves-effect-->						
+			<ul class="pagination" style="display: none;">
+				<li class="waves-effect waves-light btn-small" id="firstPage"><a href="#!" style="font-color: black">first</a></li>
+    			<li class="disabled" id="prePage">
+    				<a href="#!">
+    					<i class="material-icons">chevron_left</i>
+    				</a>
+    			</li>
+    			<li class="active"><a href="#!">1</a></li>
+    			<li class="waves-effect" id="onePage"><a href="#!" style="font-color: black">2</a></li>
+    			<li class="waves-effect" id="twoPage"><a href="#!" style="font-color: black">3</a></li>
+    			<li class="waves-effect" id="threePage"><a href="#!" style="font-color: black">4</a></li>
+   				<li class="waves-effect" id="fourPage"><a href="#!" style="font-color: black">5</a></li>
+    			<li class="waves-effect" id="nextPage">
+    				<a href="#!" style="font-color: black">
+    					<i class="material-icons">chevron_right</i>
+    				</a>
+    			</li>
+  		    	<li class="waves-effect waves-light btn-small" id="lastPage"><a href="#!" style="font-color: black">last</a></li>
+  			</ul>	
+  			<!-- 实现分页 end-->
+			
+			
+			<!--其他回答 end -->
+			<div style="margin-top: 51px;">
+				<p class="liuan_content_three_p">我要回答</p>
+
+
+
+				<span
+					style="float: left; line-height: 40px; font-size: 18px; margin: 20px 0">请先</span>
+				<div
+					style="width: 120px; height: 40px; line-height: 40px; text-align: center; float: left; margin: 20px 10px; background: rgb(26, 86, 169)">
+					<a href="/lagsms/login"
+						style="width: 100%; height: 100%; color: #fff; text-decoration: none; font-weight: bold">登录</a>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+	<!-- 弹出举报详细信息窗口 start -->
+	<div class="ex_liuan_PopWinbg">
+		<div class="ex_liuan_PopWinContent">
+			<form method="GET" id="sunmitTable">
+				<table cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<td colspan="6">举报详细信息</td>
+							<td><input type="hidden" name="target" id="target"
+								style="height: 0; width: 0;"></td>
+							<td><input type="hidden" name="targetId" id="targetId"
+								style="height: 0; width: 0;"></td>
+						</tr>
+						<tr>
+							<td colspan="6" style="height: 5px;"></td>
+						</tr>
+						<tr>
+							<td colspan="6"><textarea name="description"></textarea></td>
+						</tr>
+						<tr>
+							<td colspan="6"><button type="submit">提交</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+			<div class="ex_liuan_Close_PopWin" onclick="closePopWin()"></div>
+		</div>
+	</div>
+	<!-- 弹出举报详细信息窗口 end -->
+	<!-- 弹出修改详细信息窗口 start -->
+	<div class="ex_liuan_PopWinbgdel">
+		<div class="ex_liuan_PopWinContentdel">
+			<form method="POST" id="editQuestion">
+				<input type="hidden" value="ques_1513737987706" name="id">
+				<table cellspacing="0" cellpadding="0"
+					style="height: 330px; width: 600px;">
+					<tbody>
+						<tr>
+							<td align="center" colspan="6">修改详细信息</td>
+						</tr>
+						<tr>
+							<td style="width: 50px; height: 75px;">标题：</td>
+							<td><input type="text" value="想了解个人所得税流程" name="title"
+								style="width: 100%; height: 45%; font-size: 20px;"></td>
+						</tr>
+						<tr>
+							<td style="width: 50px;">内容：</td>
+							<td>
+								<textarea id="quescontent" name="content" style="visibility: hidden; display: none;">&lt;p&gt;个人说的税是怎么计算的，流程是什么？&lt;/p&gt;</textarea>
+								<script type="text/javascript">
+									CKEDITOR.replace('editor')
+								</script>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+			<div class="ex_liuan_buttondel">
+				<input class="fl" type="button" onclick="subEdit()" value="提交">
+				<input class="fr" type="button" value="返回"
+					onclick="closePopWindel()">
+			</div>
+			<div class="ex_liuan_Close_PopWindel" onclick="closePopWindel()"></div>
+		</div>
+	</div>
+	<!-- 弹出修改详细信息窗口 end -->
+	<!--  尾部 start -->
+	<div id = "footerpage"></div>
+	<script>
+		$("#footerpage").load("../footer.html");
+	</script>
+
+
+	<!-- load js -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../js/zeroModel.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/Materialize/materialize.min.js"></script>
+	<script type="text/javascript" src="../js/Materialize/adbeus.js"></script>
+	<script type="text/javascript" src="../js/paging.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
+	<script type="text/javascript" src="../ckeditor/config.js"></script>
+	<script type="text/javascript" src="../ckeditor/lang/zh-cn.js"></script>
+	<script type="text/javascript" src="../ckeditor/styles.js"></script>
+	
+	<!-- load header and footer -->
+	<script type="text/javascript">
+		$("#headerpage").load("../header.html");
+		$("#footerpage").load("../footer.html");
+	</script>
+
+
+	<script type="text/javascript">
+		CKEDITOR.replace("quescontent");
+
+		$('#sunmitTable').submit(function() {
+			$.ajax({
+				url : "/lagsms/report",
+				type : "post",
+				dataType : "json",
+				data : $('#sunmitTable').serialize(),
+				success : function(data) {
+					if (data.result == '1') {
+						zeroModal.success('操作成功!');
+					} else {
+						zeroModal.error('操作失败!');
+					}
+				}
+			})
+		});
+		//弹出框
+		function closePopWin() {
+			$('.ex_liuan_PopWinbg').hide();
+		}
+	</script>
+	<!--  尾部 end -->
+
+
+
+
+	<script type="text/javascript">
+		function checkLikeAnswers(data) {
+		}
+		function notloginAction() {
+			zeroModal.alert("请先登录用户");
+		}
+		function starQuestion() {
+			zeroModal.alert("请先登录用户");
+		}
+		function starAnswer() {
+			zeroModal.alert("请先登录用户");
+		}
+		function report() {
+			zeroModal.alert("请先登录用户");
+		}
+		function acceptAnswer() {
+			zeroModal.alert("请先登录用户");
+		}
+		function likeAnswer() {
+			zeroModal.alert("请先登录用户");
+		}
+	</script>
+
+
+	<script type="text/javascript">
+		//分页
+		/* 咨询详情 */
+		var count = 5;
+		var page = Math.ceil(count / 10);
+		var questionId = 'ques_1513737987706';
+
+		// 如果问题提问者已经采纳最佳答案
+		var hasBestAnswer = false;// 已经存在最佳答案
+		var canAcceptAnswer = false;// 已经存在最佳答案
+
+		// 分页获取 该question的相关回答answers
+		$('#answersPaging').paging({
+			initPageNo : 1, //初始页码
+			totalPages : page, //总页数
+			totalCount : '合计5条数据', //条目总数
+			slideSpeed : 600, //缓动速度。单位毫秒
+			jump : true, //是否支持跳转
+			callback : function(page) { //回调函数
+				$.get("/lagsms/questions/ques_1513737987706/answers", {
+					page : page,
+					rows : 10,
+				}, function(data) {
+					initAndCheckAnswers(data);
+				});
+			}
+		});
+		var imgUrl = '/lagsms/file/showPicFile?fileId=';
+		var defaultImgUrl = '../image/u2815.png';
+		// 初始化答案 以及 check answers
+		function initAndCheckAnswers(data) {
+			var dataHTML = data
+					.map(function(value, index, array) {
+						var bestAnswer = canAcceptAnswer && !hasBestAnswer ? ('<li data-answer-id="'
+								+ value.id
+								+ '" data-question-id="'
+								+ questionId + '" onclick="acceptAnswer();" style="cursor:pointer;">采纳</li>')
+								: '';
+						var userAvatar = value.user && value.user.avatar ? (imgUrl + value.user.avatar)
+								: defaultImgUrl;
+						return '<ul data-answer-id="' + value.id + '" style="border-bottom:1px dashed #ccc;height:136px;">'
+								+ '<li>'
+								+ '<a href="/lagsms/users/' + value.user.userId + '/zone">'
+								+ '<img src="' + userAvatar + '" alt="Avatar">'
+								+ '</a>' + '</li>' + '<li><p class="over">'
+								+ value.content
+								+ '</p></li>'
+								+ '<li><span>'
+								+ value.createdTime
+								+ '</span></li>'
+								+ '<li class="star_answer_action star-answer" data-target-id="'
+								+ value.id
+								+ '" onclick="starAnswer();" style="cursor:pointer;">'
+								+ '<span>收藏：</span>'
+								+ '<span class="starCount star-answer-num">'
+								+ (value.starCount ? value.starCount : 0)
+								+ '</span>'
+								+ '</li>'
+								+ '<li class="like-answer" data-answer-id="'
+								+ value.id
+								+ '" onclick="likeAnswer();"  style="cursor:pointer;">'
+								+ '<span style="cursor:pointer;">点赞：</span>'
+								+ '<span class="likeCount like-answer-num">'
+								+ (value.likeCount ? value.likeCount : 0)
+								+ '</span>'
+								+ '</li>'
+								+ bestAnswer
+								+ '<li id="report_one">'
+								+ '<span data-target-id="'
+								+ value.id
+								+ '" data-target="answer" onclick="report();" style="text-decoration: none;color:black;cursor:pointer;">举报</span>'
+								+ '</li>' + '</ul>';
+					});
+
+			$("#answerContent").html(dataHTML.join(""));
+			/* 判断登陆用户是否收藏答案 */
+
+			var answerIds = data.map(function(obj) {
+				return obj.id;
+			});
+			if (answerIds.length == 0) {
+				return;
+			}
+			checkLikeAnswers(answerIds);
+			checkStarAnswers(answerIds);
+		}
+
+		//点击回到顶部下500px 时间0
+		jQuery(function() {
+			$('#nextPage').click(function() {
+				$('html,body').animate({
+					scrollTop : '500px'
+				}, 0);
+				return false;
+			});
+			$('#prePage').click(function() {
+				$('html,body').animate({
+					scrollTop : '500px'
+				}, 0);
+				return false;
+			});
+			$('#firstPage').click(function() {
+				$('html,body').animate({
+					scrollTop : '500px'
+				}, 0);
+				return false;
+			});
+			$('#lastPage').click(function() {
+				$('html,body').animate({
+					scrollTop : '500px'
+				}, 0);
+				return false;
+			});
+			$('.sel-page').click(function() {
+				$('html,body').animate({
+					scrollTop : '500px'
+				}, 0);
+				return false;
+			});
+			$('.selpage').click(function() {
+				$('html,body').animate({
+					scrollTop : '500px'
+				}, 0);
+				return false;
+			});
+			$('.jump-button').click(function() {
+				$('html,body').animate({
+					scrollTop : '500px'
+				}, 0);
+				return false;
+			});
+			$('.turnPage').click(function() {
+				$('html,body').animate({
+					scrollTop : '500px'
+				}, 0);
+				return false;
+			});
+			$('.last-page').click(function() {
+				$('html,body').animate({
+					scrollTop : '500px'
+				}, 0);
+				return false;
+			});
+		});
+
+		//修改弹出框
+		function reportdel() {
+			$('.ex_liuan_PopWinbgdel').show();
+		}
+		function closePopWindel() {
+			$('.ex_liuan_PopWinbgdel').hide();
+		}
+
+		//删除
+		$(document).ready(function() {
+			CKEDITOR.replace('editorContent');
+
+			$("#del").click(function() {
+				zeroModal.confirm('是否删除？', function() {
+					$.ajax({
+						url : "/lagsms/questions/ques_1513737987706/del",
+						type : 'POST',
+						processData : false,
+						contentType : false,
+						success : function(data) {
+							console.log(data);
+							if (data == 1) {
+								zeroModal.alert('删除成功');
+							} else {
+								zeroModal.alert('删除失败');
+							}
+						}
+					});
+				});
+			});
+		});
+
+		function subEdit() {
+			$.ajax({
+				url : "/lagsms/questions/update",
+				type : 'POST',
+				dataType : "json",
+				data : $('#editQuestion').serialize(),
+				success : function(data) {
+					console.log(data);
+					if (data == 1) {
+						zeroModal.alert('修改成功');
+						closePopWindel();
+						$(".zeromodal-btn").click(function() {
+							history.go(0);
+						})
+					} else {
+						zeroModal.alert('修改失败');
+						closePopWindel();
+					}
+				}
+			});
+		}
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+@CHARSET "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.fl {
+  float: left;
+}
+.box {
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  margin-top:10px;
+  width:955px;
+  margin-left:120px;  
+}
+.box button {
+  padding: 0 10px;
+  margin: 0 10px;
+  height: 40px;
+  float: left;
+  cursor: pointer;
+  border: 1px solid #ebebeb;
+  background-color: #ffffff;
+  font-size:17px;
+  outline:none;
+}
+.box .first-page,
+.box .last-page {
+  margin: 0;
+  font-size:17px;
+}
+.box .pageWrap {
+  height: 40px;
+  float: left;
+  overflow: hidden;
+}
+.box .pageWrap ul {
+  width: 100000px;
+  height: 40px;
+  float: left;
+}
+.box .pageWrap ul li {
+  width: 60px;
+  height: 40px;
+  border: 1px solid #ebebeb;
+  line-height: 40px;
+  box-sizing: border-box;
+  cursor: pointer;
+  float: left;
+  color:black;
+  font-size:17px;
+  margin-left:0;
+}
+.box .pageWrap ul .sel-page {
+  background-color: #1B55A9;
+  color:white;
+  font-size:17px;
+}
+.box .jump-text {
+  width: 60px;
+  height: 40px;
+  box-sizing: border-box;
+  text-align: center;
+  margin: 0 5px;
+  float: left;
+  font-size:17px;
+}
+.box .jump-button {
+  margin: 0;
+  float: left;
+}
+.box .total-pages,
+.box .total-count {
+  margin-left: 10px;
+  float: left;
+  font-size: 17px;
+}
+
+.navbar{
+    height: 40px;
+    margin-top: 20px;
+    background-color: #ffaf26;
+    border-radius: 8px;
+    padding-left: 10px;
+    line-height: 45px;
+}
+
+.head_por{
+	width:55px;
+	height:55px;
+	vertical-align: middle;
+}
+.head_bar{
+	height: 80px;
+    padding: 10px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+.bread{
+	background-color: #f0f3f2!important;
+    border: 0.5px solid #dbd6cf;
+    border-radius: 8px;
+    width: 20%;
+    height: 300px;
+    float: inherit;
+    margin: 27px;
+	
+}
+.bread_change{
+	background-color: #f4f7fc!important;
+    border: 0.5px solid #dbd6cf;
+    border-radius: 8px;
+    width: 20%;
+    height: 300px;
+    float: inherit;
+    margin: 27px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);  
+}
+.card_action{
+    position: relative;
+    border-top: 1px solid rgba(160,160,160,0.2);
+    padding: 20px;
+    text-align: left;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 219px;
+    text-align:justify;
+}
+.p_cont{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.p_pos{
+	margin-left: 115px;
+    position: absolute;
+    bottom: 15px;
+    background-color: #f9faf9;
+    border-radius: 3px;
+    padding:5px;
+    box-shadow: #666 0px 0px 2px;
+    font-size: 13px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+/*.p_pos_change{
+	margin-left: 105px;
+    position: absolute;
+    bottom: 10px;
+    background-color: #f9faf9;
+    border-radius: 3px;
+    box-shadow: #666 0px 0px 2px; 
+}*/

@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.tax.VO.Candidate;
 import org.tax.model.TaxUser;
 import org.tax.model.TaxUserExample;
 import org.tax.model.TaxUserKey;
@@ -136,4 +137,6 @@ public interface TaxUserMapper {
         "where id = #{id,jdbcType=VARCHAR}"
     })
     int updateByPrimaryKey(TaxUser record);
+
+	List<Candidate> getUserByPro(String string);
 }

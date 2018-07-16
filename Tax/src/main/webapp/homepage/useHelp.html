@@ -1,0 +1,330 @@
+<!-- 用户帮助 -->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+		<title>安徽省国家税务局税企互助交流平台</title>
+		<meta name="viewport" content="width=device-width">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<link rel="icon" href="../image/home/favicon.gif" type="image/x-icon">
+		<link rel="stylesheet" type="text/css" href="../css/common.css">
+		<link rel="stylesheet" type="text/css" href="../css/header/useKnow.css">
+	  	<link rel="stylesheet" href="../css/zeroModal.css">
+	</head>
+	<body>
+	<!-- header start -->
+
+<style type="text/css">
+
+body {
+	min-height: 900px;
+	background: #eee;
+}
+.header {
+	width: 100%;
+	height: 100px;
+	display: -webkit-box;
+	position: relative;
+	min-width: 1200px;
+	background:rgba(255,255,255,255);
+}
+
+.header .logo {
+	width: 614px;
+	height: 42px;
+	background: url(../image/home/logo.png) no-repeat;
+	position: relative;
+	background-size: 100% 100%;
+	margin: 30px 30px;
+}
+
+.header .nav {
+	-webkit-box-flex: 1;
+	width: 750px;
+	margin-right:70px;
+}
+
+.header .nav ul {
+	display: -webkit-box;
+	list-style: none;
+}
+
+.header .nav ul li {
+	-webkit-box-flex: 1;
+	line-height: 100px;
+	font-size: 16px;
+	text-align: center;
+	height: 85px;
+	width:85px;
+}
+
+.header .nav ul li a {
+	text-decoration: none;
+	font-size: 19px;
+	 color:#2057a6;
+}
+
+.header .but {
+	width: 185px;
+	height: 100px;
+	position: relative;
+	overflow: hidden;
+	box-sizing: content-box;
+}
+
+.but_content {
+    width:150px;
+	height: 100px;
+	position: absolute;
+	bottom: 0;
+}
+
+.but_content div {
+	float: left;
+	height: 20px;
+	line-height: 83px;
+	color: #1B55A9;
+	cursor: pointer;
+	font-size: 15px;
+	text-align: right;
+}
+
+.but_content div a {
+	color: #1B55A9;
+	font-size: 15px;
+	text-decoration: none;
+}
+
+.message {
+	width: 14px;
+	cursor: pointer;
+}
+
+.your_meaasge span {
+	color: #1B55A9;
+}
+
+.your_meaasge {
+    height: 23px;
+    position: absolute;
+    margin-top: 55px;
+    z-index:999;
+    margin-left:15px;
+    
+}
+.newss {
+	color: #1B55A9;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+
+/*	导航栏搜索	*/
+/*new*/
+.s_wrap{
+    width: 145px; 
+	height:30px;
+	border:1px solid #1B55A9;
+	line-height:100px;
+	margin-top: 33px;
+	border-radius:7px;
+    margin-left: 10px;
+}
+.magnifying{
+	width: 18px;
+    height: 18px;
+    float: left;
+    margin: 6px 10px;
+    cursor: pointer;
+}
+.ssearch{
+	float: right;
+    width: 76px;
+    height: 30px;
+    border: none;
+    border-left:1px solid #1B55A9;
+    box-sizing: border-box;
+    margin:0px 28px 0 0;
+    padding-left: 8px;
+    color:#1B55A9;
+    resize:none;
+    outline:none;
+    background:none;
+}
+.person{
+	width:35px;
+	height:35px;
+	margin-top: 22px;
+}
+@media screen and (max-width: 1440px) {
+	.header .logo {
+		width: 720px;
+		height: 34px;
+		background: url(../image/header/520.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 35px 30px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 19px;
+	}
+}
+
+@media screen and (max-width: 1366px) {
+	.header .logo {
+	   width: 720px;
+		height: 34px;
+		background: url(../image/header/520.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 35px 30px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 18px;
+	}
+}
+
+@media screen and (max-width: 1280px) {
+	.header .logo {
+		width: 640px;
+		height: 32px;
+		background: url(../image/header/490.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 35px 30px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 17px;
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	.header .logo {
+		width: 480px;
+		height: 24px;
+		background: url(../image/header/380.png) no-repeat;
+		position: relative;
+		background-size: 100% 100%;
+		margin: 40px 35px;
+	}
+	.header .nav ul li a {
+		text-decoration: none;
+		color: #1B55A9;
+		font-size: 15px;
+	}
+}
+ /* .logo,.nav,.but{
+	border:1px solid;
+}  */
+</style>
+
+
+		<!-- header start -->
+		<div id="headerpage"></div>
+		<!-- header end -->
+	
+	
+	<script>
+        $(function(){
+           $(".user_text").hover(function(){
+               var width_a = $(this).width();
+               var width_b = $(this).find(".user_id").width();
+               var indent_px = width_a - width_b;
+               if( width_a <= width_b ){
+                   $(this).css("text-indent",indent_px);
+               }
+           },function(){
+               $(this).css("text-indent","0");
+           });
+        });
+    </script>
+      <!-- input点击清除value值 -->
+    <script type="text/javascript">
+		wap_val = [];
+		$(".ssearch").each(function(i) {
+			wap_val[i] = $(this).val();
+			$(this).focusin(function() {
+				if ($(this).val() == wap_val[i]) {
+					$(this).val("");
+				}
+			}).focusout(function() {
+				if ($.trim($(this).val()) == "") {
+					$(this).val(wap_val[i]);
+				}
+			});
+		});
+		//  用户名显示
+		 $(".user_id").each(function(){
+		  var maxwidth=4;
+		  if($(this).text().length > maxwidth){
+		    $(this).text($(this).text().substring(0,maxwidth));
+		    $(this).html($(this).html()+'...');
+		  }
+		}); 
+	</script>
+
+
+	<!-- content start -->
+  <div class="content" >
+	<div class="content_main" style="padding-bottom:20px;">
+		<div class="path_nav">
+			<span style="float: left;">当前位置：
+				<a href="javascript:history.go(-1);" class="nav_style">网站帮助</a>
+			</span>
+		</div>
+		<div class="content_main_list">
+		 	<p><b style="font-size:20px;">网站帮助</b></p>
+		</div>
+		<div class="content_main_list">
+		   <p><b>一:有时网页内容显示不全？</b></p>
+		   <p>这是由于两个原因引起:</p>
+		   <p>1.浏览器版本问题，本网站发布内容最适合的是
+                IE9.0,分辨率大于1024×768。如果您的计算机系统使用的浏览器系统的版本低于9.0，建议您下载安装IE9.0系统，安装完成后即可正常显示</p>
+		   <p>2.浏览器拦截保护设置问题，如果您的系统中安装了网页拦截保护系统，您需要在拦截保护功能中关闭[拦截Flash广告]功能。</p>
+		</div>
+		<div class="content_main_list">
+			<p><b>二:有时网页为什么打不开？</b></p>
+			<p>1.如果您通过局域网上网时，由于局域网通往外部的出口带宽限制，连接网站 时发生超时错误都会发生连接不上的问题。</p>
+			<p>2.如果您通过电话线拨号上网，由于连接带宽的原因，会发生连接不上的问题。</p>
+			<p>3.如果您遇到这种问题不要奇怪，有时您只须刷新就行，有时需要您换个时间再上网。</p>
+		</div>
+		<div class="content_main_list">
+			<p><b>三：网站安全需要注意些什么？</b></p>
+			<p>使用本网站时，为了保证您的资料安全及使用方便，请尽量遵守以下规则：
+			</p><p>1.尽量避免在公共场合（如网吧等）上网登陆交流平台。</p>
+			<p>2.不管您在任何场合上网登陆交流平台，离开时一定要退出账号，关闭您使用的浏览器</p>
+		</div>
+		<div class="content_main_list">
+			<p><b>四:为什么点击网站内的链接，有些网页无法打开？</b></p>
+			<p>网站内有些内容是以弹出窗口显示的，如果您的电脑安装了上网助手可能会导致有些内容点击后不能访问。</p>
+		</div>
+		<div class="content_main_list">
+			<p><b>五:浏览本网站的最佳分辨率是多少？</b></p>
+			<p>最佳分辨率为1024×768。</p>
+		</div>
+		</div>
+   </div>
+	<!-- content end -->
+	
+	<!-- footer start -->
+	<div id = "footerpage"></div>
+	<!-- footer end -->
+	
+	<!-- load js -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../js/zeroModal.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/Materialize/materialize.min.js"></script>
+	<script type="text/javascript" src="../js/Materialize/adbeus.js"></script>
+	
+	<script type="text/javascript">
+		$("#headerpage").load("../header.html");
+		$("#footerpage").load("../footer.html");
+	</script>
+	
+</body>
+</html>

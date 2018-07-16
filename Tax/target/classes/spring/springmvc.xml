@@ -21,5 +21,4 @@
 		</mvc:interceptor>
 	</mvc:interceptors>
 	
-	<mvc:resources mapping="/assets/**" location="/assets/" /> 
 </beans>
