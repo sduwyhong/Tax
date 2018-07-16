@@ -14,13 +14,14 @@
 <link rel="stylesheet" type="text/css" href="../css/consult/consultingShare.css">
 <link rel="icon" href="../image/home/favicon.gif" type="image/x-icon">
 <link rel="stylesheet" href="../css/zeroModal.css">
-<link rel="stylesheet" type="text/css" href="./css/scayt.css">
-<link rel="stylesheet" type="text/css" href="./css/wsc.css">
+<link rel="stylesheet" type="text/css" href="../css/scayt.css">
+<link rel="stylesheet" type="text/css" href="../css/wsc.css">
 <link rel="stylesheet" type="text/css" href="http://58.56.96.171:8009/lagsms/resources/ckeditor/skins/moono-lisa/editor.css?t=H0CG">
 <script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="../ckeditor/config.js"></script>
 <script type="text/javascript" src="../ckeditor/lang/zh-cn.js"></script>
 <script type="text/javascript" src="../ckeditor/styles.js"></script>
+<script type="text/javascript" src="../js/path.js"></script>
 
 <style>
 .cke {
@@ -370,30 +371,30 @@ body {
 								<span>选择专业分类:</span>
 							</div>
 							<div class="select_btn" style="display:inline-block;">
-									<form action="#" method="GET">
-										<input type="checkbox" id="040001" onclick="selectedMajor();" checked><label for="040001">发票系统故障及操作指导</label>
-										<input type="checkbox" id="040002" onclick="selectedMajor();"><label for="040002">发票领购</label>
-										<input type="checkbox" id="040003" onclick="selectedMajor();"><label for="040003">发票代开</label>
-										<input type="checkbox" id="040004" onclick="selectedMajor();"><label for="040004">发票开具</label>
-										<input type="checkbox" id="040005" onclick="selectedMajor();"><label for="040005">红字增值税发票开具</label>
-										<input type="checkbox" id="040006" onclick="selectedMajor();"><label for="040006">申报有误能否作废</label>
-										<input type="checkbox" id="040007" onclick="selectedMajor();"><label for="040007">一般纳税人资格</label>
-										<input type="checkbox" id="040008" onclick="selectedMajor();"><label for="040008">辅导期一般纳税人</label>
-										<input type="checkbox" id="040009" onclick="selectedMajor();"><label for="040009">专用发票认证抵扣</label>
-										<input type="checkbox" id="040010" onclick="selectedMajor();"><label for="040010">小规模纳税人增值税起征点是否有调整</label>
-										<input type="checkbox" id="040011" onclick="selectedMajor();"><label for="040011">认定为一般纳税人之后是否可以转为小规模纳税人</label>
-										<input type="checkbox" id="040012" onclick="selectedMajor();"><label for="040012">小规模纳税人自行开具的增值税专用发票如何填写申报表</label>
-										<input type="checkbox" id="040013" onclick="selectedMajor();"><label for="040013">注销登记</label>
-										<input type="checkbox" id="040014" onclick="selectedMajor();"><label for="040014">发票检查</label>
-										<input type="checkbox" id="040015" onclick="selectedMajor();"><label for="040015">专用发票丢失</label>
-										<input type="checkbox" id="040016" onclick="selectedMajor();"><label for="040016">征收率</label>
-										<input type="checkbox" id="040017" onclick="selectedMajor();"><label for="040017">非国税业务</label>
-										<input type="checkbox" id="040018" onclick="selectedMajor();"><label for="040018">信用等级</label>
-										<input type="checkbox" id="040019" onclick="selectedMajor();"><label for="040019">营改增</label>
-										<input type="checkbox" id="040020" onclick="selectedMajor();"><label for="040020">金税管理</label>
-										<input type="checkbox" id="040021" onclick="selectedMajor();"><label for="040021">进出口税收</label>
-										<input type="checkbox" id="040022" onclick="selectedMajor();"><label for="040022">征收管理</label>
-										<input type="checkbox" id="040023" onclick="selectedMajor();"><label for="040023">发票保管</label>
+									<form action="#" id="majorForm" method="GET">
+										<input type="checkbox" id="1" value="1" name="majorCategory" onclick="selectedMajor();"><label for="1">发票系统故障及操作指导</label>
+										<input type="checkbox" id="2" value="2" name="majorCategory" onclick="selectedMajor();"><label for="2">发票领购</label>
+										<input type="checkbox" id="3" value="3" name="majorCategory" onclick="selectedMajor();"><label for="3">发票代开</label>
+										<input type="checkbox" id="4" value="4" name="majorCategory" onclick="selectedMajor();"><label for="4">发票开具</label>
+										<input type="checkbox" id="5" value="5" name="majorCategory" onclick="selectedMajor();"><label for="5">红字增值税发票开具</label>
+										<input type="checkbox" id="6" value="6" name="majorCategory" onclick="selectedMajor();"><label for="6">申报有误能否作废</label>
+										<input type="checkbox" id="7" value="7" name="majorCategory" onclick="selectedMajor();"><label for="7">一般纳税人资格</label>
+										<input type="checkbox" id="8" value="8" name="majorCategory" onclick="selectedMajor();"><label for="8">辅导期一般纳税人</label>
+										<input type="checkbox" id="9" value="9" name="majorCategory" onclick="selectedMajor();"><label for="9">专用发票认证抵扣</label>
+										<input type="checkbox" id="10" value="10" name="majorCategory" onclick="selectedMajor();"><label for="10">小规模纳税人增值税起征点是否有调整</label>
+										<input type="checkbox" id="11" value="11" name="majorCategory" onclick="selectedMajor();"><label for="11">认定为一般纳税人之后是否可以转为小规模纳税人</label>
+										<input type="checkbox" id="12" value="12" name="majorCategory" onclick="selectedMajor();"><label for="12">小规模纳税人自行开具的增值税专用发票如何填写申报表</label>
+										<input type="checkbox" id="13" value="13" name="majorCategory" onclick="selectedMajor();"><label for="13">注销登记</label>
+										<input type="checkbox" id="14" value="14" name="majorCategory" onclick="selectedMajor();"><label for="14">发票检查</label>
+										<input type="checkbox" id="15" value="15" name="majorCategory" onclick="selectedMajor();"><label for="15">专用发票丢失</label>
+										<input type="checkbox" id="16" value="16" name="majorCategory" onclick="selectedMajor();"><label for="16">征收率</label>
+										<input type="checkbox" id="17" value="17" name="majorCategory" onclick="selectedMajor();"><label for="17">非国税业务</label>
+										<input type="checkbox" id="18" value="18" name="majorCategory" onclick="selectedMajor();"><label for="18">信用等级</label>
+										<input type="checkbox" id="19" value="19" name="majorCategory" onclick="selectedMajor();"><label for="19">营改增</label>
+										<input type="checkbox" id="20" value="20" name="majorCategory" onclick="selectedMajor();"><label for="20">金税管理</label>
+										<input type="checkbox" id="21" value="21" name="majorCategory" onclick="selectedMajor();"><label for="21">进出口税收</label>
+										<input type="checkbox" id="22" value="22" name="majorCategory" onclick="selectedMajor();"><label for="22">征收管理</label>
+										<input type="checkbox" id="23" value="23" name="majorCategory" onclick="selectedMajor();"><label for="23">发票保管</label>
 									</form>
 
 							</div>
@@ -408,11 +409,12 @@ body {
 							<span>邀请回答:</span>
 							<div class="Org fr" style="margin-top: -8px;" id="org">
 								<div class="clearfix" >
-									<label class="ordinary fl" style="font-size:17px;color:#000000b3;">普通用户:</label>
+									<label class="ordinary fl" style="font-size:17px;color:#000000b3;">相关用户:</label>
 									<div id="ordinary" class="ordinaryone fl">
-										<input type="checkbox" id="user_1513161259431" name="invitedId" class="type_item"><label for="user_1513161259431">admin6</label>
+										<input type="checkbox" id="user_1513161259431" value="userId" name="invitedId" class="type_item"><label for="user_1513161259431">admin6</label>
 									</div>
 								</div>
+								<!-- 
 								<div class="clearfix">
 									<label class="expert fl" style="font-size:17px;color:#000000b3;">专家用户:</label>
 									<div id="expert" class="expertone fl">
@@ -427,6 +429,7 @@ body {
 										<input type="checkbox" id="user_1513161100659" name="invitedId" class="type_item"><label for="user_1513161100659">admin2</label>
 									</div>
 								</div>
+								 -->
 							</div>
 							<div style="clear: both;"></div>
 						</div>
@@ -452,7 +455,7 @@ body {
 						<!-- 文本编辑start -->
 						
 						<div class="sub">
-							<input type="submit" value="提交" class="button_submit pr">
+							<input type="button" onclick="save()" value="提交" class="button_submit pr">
 						</div>
 					</div>
 				</form>
@@ -506,43 +509,18 @@ body {
 				selectedMajors.delete(e.target.value);
 			}
 			// ajax 请求
-			var m = Array.from(selectedMajors).join(',');
+			var m = Array.from(selectedMajors).join(';');
 			m = encodeURI(m);
-			m = encodeURI(m);
-			if(selectedMajors.size > 0 ) {
-				$.get("/lagsms/users/search", { major: m }, function(data) {
+			console.log(m);
+			$.ajax({
+				url:path+'user/getUserByPro',
+				data:{
+					proId:m
+				},
+				success:function(data){
 					console.log(data);
-					var ordinaryHtml = "";
-	              	var expertHtml = "";
-	              	var institutionHtml = "";
-	              	for(var i = 0;i<data.length;i++){
-	                 	console.log(data[i]);
-	                 	if(data[i].userId == 'user_1530497588928') {
-	                 		continue;
-	                 	}
-	                		if(data[i].type == 0){
-		                 	var a = '<label><input type="checkbox" class="type_item"  name="invitedId" value="'+data[i].userId+'" >'+data[i].userName+'</label>';
-		                 	console.log(data[i].userId);
-		                 	ordinaryHtml += a;
-	                 	}else if(data[i].type == 1){
-	                	 		var a = '<label><input type="checkbox" class="type_item"  name="invitedId" value="'+data[i].userId+'" >'+data[i].userName+'</label>';
-		                 	console.log(data[i].userId);
-		                 	expertHtml += a;
-	                 	}else{
-	                	 		var a = '<label><input type="checkbox" class="type_item"  name="invitedId" value="'+data[i].userId+'" >'+data[i].userName+'</label>';
-		                 	console.log(data[i].userId);
-		                 	institutionHtml += a;
-	                 	}
-	              	}
-	              $("#ordinary").html(ordinaryHtml);
-	              $("#expert").html(expertHtml);
-	              $("#institution").html(institutionHtml);
-				}, "json");
-			} else {
-				 $("#ordinary").html("");
-				 $("#expert").html("");
-				 $("#institution").html("");
-			}
+				}
+			})
 		}
 	
 		 function save() {
@@ -565,11 +543,13 @@ body {
 			var chestr="";
 			for (i=0;i<objarray;i++) {
 			  	if(str[i].checked == true) {
-			   		chestr+=str[i].value+",";
+			   		chestr+=str[i].value+";";
 			  	}
 			}
+			chestr = chestr.substr(0,chestr.length-1);
+			alert(chestr);
 			if(chestr == "") {
-				zeroModal.alert("请先选择一个专业");
+				alert("请先选择一个专业");
 			  	return false;
 			}
 			
@@ -578,11 +558,13 @@ body {
 			var chestrone="";
 			for (i=0;i<objarrayone;i++) {
 			  if(strone[i].checked == true) {
-				  chestrone+=strone[i].value+",";
+				  chestrone+=strone[i].value+";";
 			  }
 			}
+			chestrone = chestrone.substr(0,chestrone.length-1);
+			alert(chestrone);
 			if(chestrone == "") {
-				zeroModal.alert("请先选择一个用户");
+				alert("请先选择一个用户");
 			  return false;
 			}
 
@@ -593,17 +575,17 @@ body {
 	        text.replace(/[ ]/g, "");    //去掉空格
 	        text.replace(/[\r\n]/g, ""); //去掉回车换行  */
 			if (null == text || text == "") {
-				zeroModal.alert("请填写标题");
+				alert("请填写标题");
 				return false;
 			}
 			//文本域校验
-			var text = document.getElementById('content').value
-			console.log(text.trim());
+			var content = $('input[name=content]').text();
+			console.log(content.trim());
 			/* text.replace(/\ +/g, ""); //去掉空格
 	        text.replace(/[ ]/g, "");    //去掉空格
 	        text.replace(/[\r\n]/g, ""); //去掉回车换行  */
-			if (null == text || text == "") {
-				zeroModal.alert("请填写正文");
+			if (null == content || content == "") {
+				alert("请填写正文");
 				return false;
 			
 			}
@@ -611,10 +593,30 @@ body {
 			var userId='user_1530497588928';
 			console.log(userId);
 			if(userId=='null'){
-				zeroModal.alert("请先登录用户");
+				alert("请先登录用户");
 				return false;
 			}
-			return true;
+			
+			$.ajax({
+				url:path+'user/publishQuestion',
+				type:'post',
+				data:{
+					prize:$('#rewardAmount').val(),
+					type:chestr,
+					invitationList:chestrone,
+					title:$('input[name=title]').val(),
+					content:content
+				},
+				success:function(data){
+					console.log(data);
+					if(data.status == 400){
+						alert('参数有误！');
+					}else if(data.status == 200){
+						alert('提交成功！');
+						location.href = 'questions.html';
+					}
+				}
+			})
        }
 	</script>
 	

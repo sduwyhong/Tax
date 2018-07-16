@@ -21,13 +21,13 @@ import org.tax.model.TaxUser;
  * */
 public interface TaxUserService {
 	
-	String updateInfo(TaxUser user);
+	String updateInfo(TaxUser user, HttpServletRequest request);
 	
 	//加了个参数HttpServletRequest request 获取当前用户 以后用鸿哥SessionFactory获取即可
 	String modifyPassword(PasswordModification info, HttpServletRequest request);
 	
 	//加了个参数HttpServletRequest request 获取当前用户 以后用鸿哥SessionFactory获取即可
-	String publishQuestion(TaxQuestion question, HttpServletRequest request);
+	String publishQuestion(TaxQuestion question, String invitationList, HttpServletRequest request);
 	
 	//加了个参数HttpServletRequest request 获取当前用户 以后用鸿哥SessionFactory获取即可
 	String publishAnswer(TaxAnswer answer, HttpServletRequest request);
@@ -39,4 +39,6 @@ public interface TaxUserService {
 	String modifyAvatar(String userId, MultipartRequest multipartRequest);
 	
 	String getUserByPro(String proId);
+
+	String getInfo(HttpServletRequest request);
 }

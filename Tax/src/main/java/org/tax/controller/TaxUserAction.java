@@ -31,10 +31,22 @@ public class TaxUserAction {
 	@Autowired
 	TaxUserService taxUserService;
 	
+	@RequestMapping(value="/info",method=RequestMethod.GET,produces=JSON)
+	@ResponseBody
+	public String getInfo(HttpServletRequest request) {
+		return taxUserService.getInfo(request);
+	}
+	
+	@RequestMapping(value="/getUserByPro",method=RequestMethod.GET,produces=JSON)
+	@ResponseBody
+	public String getUserByPro(String proId) {
+		return taxUserService.getUserByPro(proId);
+	}
+	
 	@RequestMapping(value="/update",method=RequestMethod.POST,produces=JSON)
 	@ResponseBody
-	public String updateInfo(TaxUser user) {
-		return taxUserService.updateInfo(user);
+	public String updateInfo(TaxUser user, HttpServletRequest request) {
+		return taxUserService.updateInfo(user, request);
 	}
 	
 	@RequestMapping(value="/password",method=RequestMethod.POST,produces=JSON)
@@ -45,8 +57,8 @@ public class TaxUserAction {
 	
 	@RequestMapping(value="/question",method=RequestMethod.POST,produces=JSON)
 	@ResponseBody
-	public String publishQuestion(TaxQuestion question, HttpServletRequest request) {
-		return taxUserService.publishQuestion(question, request);
+	public String publishQuestion(TaxQuestion question, String invitationList, HttpServletRequest request) {
+		return taxUserService.publishQuestion(question, invitationList, request);
 	}
 	
 	@RequestMapping(value="/answer",method=RequestMethod.POST,produces=JSON)

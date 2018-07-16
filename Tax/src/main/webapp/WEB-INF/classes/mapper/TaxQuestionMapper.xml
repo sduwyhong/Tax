@@ -346,4 +346,8 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  
+  <select id="getLastInsertId" resultType="Integer">
+  	SELECT LAST_INSERT_ID();
+  </select>
 </mapper>

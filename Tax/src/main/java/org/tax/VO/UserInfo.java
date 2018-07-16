@@ -14,5 +14,5 @@ public class UserInfo {
 	private String telephone;
 	private String email;
 	private String pro_list;
-	
+	private String image;
 }

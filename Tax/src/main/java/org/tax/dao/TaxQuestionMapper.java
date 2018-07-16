@@ -137,4 +137,6 @@ public interface TaxQuestionMapper {
         "where id = #{id,jdbcType=VARCHAR}"
     })
     int updateByPrimaryKey(TaxQuestion record);
+
+	int getLastInsertId();
 }

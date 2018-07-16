@@ -262,6 +262,7 @@ body {
 
 	<script>
 		// 窗体加载完成时轮询
+		/*
 		var t, notifyNum = 0;
 		window.onload = function() {
 			loadNotifies();
@@ -271,7 +272,7 @@ body {
 		window.onbeforeunload = function() {
 			clearInterval(t);
 		}
-
+		*/
 		//消息提示
 		function loadNotifies() {
 			var param = {
@@ -389,7 +390,8 @@ body {
 												<div class="avatar-upload">
 													<!--  <input type="hidden" class="avatar-src" name="uploadFile">
 					                  <input type="hidden" class="avatar-data" name="uploadFile"> -->
-													<label for="avatarInput">图片上传</label> <input type="file"
+													<label for="avatarInput">图片上传</label>
+													 <input type="file"
 														class="avatar-input" id="avatarInput" name="uploadFile">
 												</div>
 												<!-- Crop and preview -->
@@ -456,7 +458,7 @@ body {
 						<div class="all_message">
 							<div class="uesrname">
 								<span class="write_left">用户姓名：</span> <input type="text"
-									name="userName" class="usermassage" value="temp01">
+									name="userName" class="usermassage" value="-">
 							</div>
 							<div class="uesrname">
 								<span class="write_left">用户类型：</span> <span class="type">
@@ -467,60 +469,60 @@ body {
 							</div>
 							<div class="uesrname">
 								<span class="write_left">电话号码：</span> <input type="text"
-									name="userTelephone" value="17864151111" class="usermassage">
+									name="userTelephone" value="-" class="usermassage">
 							</div>
 							<div class="uesrname">
 								<span class="write_left">单位名称：</span> <input type="text"
-									readonly="readonly" name="" value="temp01" class="usermassage">
+									readonly="readonly" name="" value="-" class="usermassage">
 							</div>
 							<div class="uesrname">
 								<span class="write_left">邮箱号码：</span> <input type="text"
-									name="mail" value="184415385@qq.com" class="usermassage">
+									name="mail" value="-" class="usermassage">
 							</div>
 							<div class="uesrname clearfix" id="selectMajor">
 								<span class="write_left">选择专业分类:</span> 
 								<span class="professional" style="width:130%;"> 
 									<form action="#" method="GET">
 										<p>
-											<input type="checkbox" id="040001"><label for="040001">发票系统故障及操作指导</label>
-											<input type="checkbox" id="040002"><label for="040002">发票领购</label>
-											<input type="checkbox" id="040003"><label for="040003">发票代开</label>
-											<input type="checkbox" id="040004"><label for="040004">发票开具</label>
+											<input type="checkbox" id="040001" name="majorCategory" value="1"><label for="040001">发票系统故障及操作指导</label>
+											<input type="checkbox" id="040002" name="majorCategory" value="2"><label for="040002">发票领购</label>
+											<input type="checkbox" id="040003" name="majorCategory" value="3"><label for="040003">发票代开</label>
+											<input type="checkbox" id="040004" name="majorCategory" value="4"><label for="040004">发票开具</label>
 										</p>
 										<p>
-											<input type="checkbox" id="040005"><label for="040005">红字增值税发票开具</label>
-											<input type="checkbox" id="040006"><label for="040006">申报有误能否作废</label>
-											<input type="checkbox" id="040007"><label for="040007">一般纳税人资格</label>
-											<input type="checkbox" id="040008"><label for="040008">辅导期一般纳税人</label>
+											<input type="checkbox" id="040005" name="majorCategory" value="5"><label for="040005">红字增值税发票开具</label>
+											<input type="checkbox" id="040006" name="majorCategory" value="6"><label for="040006">申报有误能否作废</label>
+											<input type="checkbox" id="040007" name="majorCategory" value="7"><label for="040007">一般纳税人资格</label>
+											<input type="checkbox" id="040008" name="majorCategory" value="8"><label for="040008">辅导期一般纳税人</label>
 										</p>
 										<p>
-											<input type="checkbox" id="040009"><label for="040009">专用发票认证抵扣</label>
-											<input type="checkbox" id="040010"><label for="040010">小规模纳税人增值税起征点是否有调整</label>
-											<input type="checkbox" id="040011"><label for="040011">认定为一般纳税人之后是否可以转为小规模纳税人</label>
-											<input type="checkbox" id="040012"><label for="040012">小规模纳税人自行开具的增值税专用发票如何填写申报表</label>
+											<input type="checkbox" id="040009" name="majorCategory" value="9"><label for="040009">专用发票认证抵扣</label>
+											<input type="checkbox" id="040010" name="majorCategory" value="10"><label for="040010">小规模纳税人增值税起征点是否有调整</label>
+											<input type="checkbox" id="040011" name="majorCategory" value="11"><label for="040011">认定为一般纳税人之后是否可以转为小规模纳税人</label>
+											<input type="checkbox" id="040012" name="majorCategory" value="12"><label for="040012">小规模纳税人自行开具的增值税专用发票如何填写申报表</label>
 										</p>
 										<p>
-											<input type="checkbox" id="040013"><label for="040013">注销登记</label>
-											<input type="checkbox" id="040014"><label for="040014">发票检查</label>
-											<input type="checkbox" id="040015"><label for="040015">专用发票丢失</label>
-											<input type="checkbox" id="040016"><label for="040016">征收率</label>
+											<input type="checkbox" id="040013" name="majorCategory" value="13"><label for="040013">注销登记</label>
+											<input type="checkbox" id="040014" name="majorCategory" value="14"><label for="040014">发票检查</label>
+											<input type="checkbox" id="040015" name="majorCategory" value="15"><label for="040015">专用发票丢失</label>
+											<input type="checkbox" id="040016" name="majorCategory" value="16"><label for="040016">征收率</label>
 										</p>
 										<p>
-											<input type="checkbox" id="040017"><label for="040017">非国税业务</label>
-											<input type="checkbox" id="040018"><label for="040018">信用等级</label>
-											<input type="checkbox" id="040019"><label for="040019">营改增</label>
-											<input type="checkbox" id="040020"><label for="040020">金税管理</label>
+											<input type="checkbox" id="040017" name="majorCategory" value="17"><label for="040017">非国税业务</label>
+											<input type="checkbox" id="040018" name="majorCategory" value="18"><label for="040018">信用等级</label>
+											<input type="checkbox" id="040019" name="majorCategory" value="19"><label for="040019">营改增</label>
+											<input type="checkbox" id="040020" name="majorCategory" value="20"><label for="040020">金税管理</label>
 										</p>
 										<p>
-											<input type="checkbox" id="040021"><label for="040021">进出口税收</label>
-											<input type="checkbox" id="040022"><label for="040022">征收管理</label>
-											<input type="checkbox" id="040023"><label for="040023">发票保管</label>
+											<input type="checkbox" id="040021" name="majorCategory" value="21"><label for="040021">进出口税收</label>
+											<input type="checkbox" id="040022" name="majorCategory" value="22"><label for="040022">征收管理</label>
+											<input type="checkbox" id="040023" name="majorCategory" value="23"><label for="040023">发票保管</label>
 										</p>																																																																			
 									</form>
 								</span>
 							</div>
 							<div class="save">
-								<button class="save_btn" type="submit">保存信息</button>
+								<button class="save_btn" type="button" onclick="update()">保存信息</button>
 							</div>
 							<input type="hidden" name="userOrg" value="user_1530497588928">
 						</div>
@@ -540,7 +542,8 @@ body {
 	<script type="text/javascript" src="../js/zeroModel.min.js" charset="utf-8"></script>
 	<script type="text/javascript" src="../js/Materialize/materialize.min.js"></script>
 	<script type="text/javascript" src="../js/Materialize/adbeus.js"></script>
-	
+	<script type="text/javascript" src="../js/path.js"></script>
+	 
 	<!-- load header and footer -->
 	<script type="text/javascript">
 		$("#headerpage").load("../header.html");
@@ -554,7 +557,7 @@ body {
 		function updateVerifyCode() {
 			event.target.src = event.target.src + "?t=" + Date.now();
 		}
-
+		/*
 		var boxObj = $('#selectMajor').find("input"); //获取所有的复选框值  
 		var userMajor = '040001'; //用el表达式获取在控制层存放的复选框的值为字符串类型  
 		var userMajorArr = userMajor.split(',');
@@ -565,6 +568,66 @@ body {
 				}
 			});
 		});
+		*/
+		$.ajax({
+			url:path+'user/info',
+			success:function(data){
+				console.log(data);
+				if(data.status == 200){
+					var result = data.result;
+					$('input[name=userName]').val(result.username);
+					//先不理用户权限和单位
+					$('input[name=userTelephone]').val(result.telephone);
+					$('input[name=mail]').val(result.email);
+					//专业分类
+					if(result.pro_list != undefined){
+						var proIds = result.pro_list.split(';');
+						for(var i in proIds) {
+							$('input[value='+proIds[i]+']').trigger('click');
+						}
+					}
+				}
+			}
+		})
+		function update(){
+			//基本信息
+			var username = $('input[name=userName]').val();
+			var telephone = $('input[name=userTelephone]').val();
+			var email = $('input[name=mail]').val();
+			if(username.length == 0 || telephone.length == 0 || email.length == 0){
+				alert('必要信息不能为空！');
+				return false;
+			}
+			//专业分类
+			var str=document.getElementsByName("majorCategory");
+			var objarray=str.length;
+			var chestr="";
+			for (i=0;i<objarray;i++) {
+			  	if(str[i].checked == true) {
+			   		chestr+=str[i].value+";";
+			  	}
+			}
+			chestr = chestr.substr(0,chestr.length-1);
+			console.log(chestr);
+			$.ajax({
+				url:path+'user/update',
+				type:'post',
+				data:{
+					username:username,
+					telephone:telephone,
+					email:email,
+					proList:chestr
+				},
+				success:function(data){
+					console.log(data);
+					if(data.status == 200){
+						alert('修改成功！');
+					}else if(data.status == 400){
+						alert('参数有误！请重新填写！');
+					}
+				}
+			})
+		}
 	</script>
 </body>
 </html>

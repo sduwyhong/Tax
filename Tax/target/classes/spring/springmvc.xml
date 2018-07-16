@@ -16,7 +16,7 @@
 	
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/user/**"/>
+			<mvc:mapping path="/api/v1/user/**"/>
 			<bean class="org.tax.interceptor.LoginInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>

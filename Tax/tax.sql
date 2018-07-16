@@ -16,6 +16,29 @@ create table tax_pro(
 	id int unsigned not null primary key auto_increment,
 	name varchar(100) not null
 );
+insert into tax_pro(name) values('发票系统故障及操作指导');
+insert into tax_pro(name) values('发票领购');
+insert into tax_pro(name) values('发票代开');
+insert into tax_pro(name) values('发票开具');
+insert into tax_pro(name) values('红字增值税发票开具');
+insert into tax_pro(name) values('申报有误能否作废');
+insert into tax_pro(name) values('一般纳税人资格');
+insert into tax_pro(name) values('辅导期一般纳税人');
+insert into tax_pro(name) values('专用发票认证抵扣');
+insert into tax_pro(name) values('小规模纳税人增值税起征点是否有调整');
+insert into tax_pro(name) values('认定为一般纳税人之后是否可以转为小规模纳税人');
+insert into tax_pro(name) values('小规模纳税人自行开具的增值税专用发票如何填写申报表');
+insert into tax_pro(name) values('注销登记');
+insert into tax_pro(name) values('发票检查');
+insert into tax_pro(name) values('专用发票丢失');
+insert into tax_pro(name) values('征收率');
+insert into tax_pro(name) values('非国税业务');
+insert into tax_pro(name) values('信用等级');
+insert into tax_pro(name) values('营改增');
+insert into tax_pro(name) values('金税管理');
+insert into tax_pro(name) values('进出口税收');
+insert into tax_pro(name) values('征收管理');
+insert into tax_pro(name) values('发票保管');
 create table tax_question(
 	id int unsigned not null primary key auto_increment,
 	author_id varchar(32) not null,

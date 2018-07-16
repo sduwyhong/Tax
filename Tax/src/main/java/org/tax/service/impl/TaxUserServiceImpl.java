@@ -15,75 +15,103 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartRequest;
 import org.tax.VO.Candidate;
 import org.tax.VO.PasswordModification;
+import org.tax.VO.UserInfo;
 import org.tax.constant.CookieConst;
 import org.tax.constant.Message;
 import org.tax.constant.SessionConst;
 import org.tax.constant.StatusCode;
-import org.tax.dao.TaxUserMapper;
+import org.tax.dao.TaxInvitationMapper;
+import org.tax.dao.TaxUserProMapper;
 import org.tax.factory.MapperFactory;
 import org.tax.model.TaxAnswer;
 import org.tax.model.TaxFavourite;
+import org.tax.model.TaxInvitation;
 import org.tax.model.TaxQuestion;
 import org.tax.model.TaxQuestionExample;
 import org.tax.model.TaxUser;
 import org.tax.model.TaxUserExample;
+import org.tax.model.TaxUserKey;
+import org.tax.model.TaxUserPro;
+import org.tax.model.TaxUserProExample;
 import org.tax.result.Result;
 import org.tax.service.TaxUserService;
 import org.tax.session.MySession;
 import org.tax.session.SessionControl;
 import org.tax.util.FormatUtil;
+import org.tax.util.LuceneUtil;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * @author wyhong
  * @date 2018-7-7
  */
 public class TaxUserServiceImpl implements TaxUserService {
-	
+
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(TaxGuestServiceImpl.class);
 
 	@Autowired
 	private MapperFactory mapperFactory;
-	
+
 	@Override
 	public String getUserByPro(String proId) {
 		String[] proIds = proId.split(";");
-		List<Candidate> candidates = new ArrayList<Candidate>();
-		TaxUserMapper taxUserMapper = mapperFactory.getTaxUserMapper();
+		List<Integer> values = new ArrayList<Integer>();
 		for (int i = 0; i < proIds.length; i++) {
-			List<Candidate> users = taxUserMapper.getUserByPro(proIds[i]);
-			for (int j = 0; j < proIds.length; j++) {
-				
-			}
+			values.add(Integer.parseInt(proIds[i]));
 		}
-		return null;
+		TaxUserProExample example = new TaxUserProExample();
+		example.setDistinct(true);
+		example.createCriteria().andProIdIn(values);
+		List<Candidate> list = mapperFactory.getTaxUserProMapper().selectByExample(example);
+		Result result = new Result();
+		result.setResult(list);
+		return JSONObject.toJSONString(list);
 	}
-	
+
 	@Override
-	public String updateInfo(TaxUser user) {
+	public String updateInfo(TaxUser user, HttpServletRequest request) {
 		Result result = new Result();
 		//检查是否用户在登陆状态(由拦截器搞)
-		//检查用户名 密码是否正确
+		//检查用户名 密码是否正确?????????????
+//		TaxUserExample exampleOfUser = new TaxUserExample();
+//		exampleOfUser.createCriteria().andUsernameEqualTo(user.getUsername()).andPasswordEqualTo(user.getPassword());
+//		List<TaxUser> selectUser = mapperFactory.getTaxUserMapper().selectByExample(exampleOfUser);
+//		if(selectUser==null || selectUser.size()==0){
+//			result.setMessage(Message.INVALID_PARAMS);
+//			result.setStatus(StatusCode.INVALID_PARAMS);
+//			return JSON.toJSONString(result);
+//		}
+		//修改基本信息
+		String userId = getUserFromRequest(request).getId();
 		TaxUserExample exampleOfUser = new TaxUserExample();
-		exampleOfUser.createCriteria().andUsernameEqualTo(user.getUsername()).andPasswordEqualTo(user.getPassword());
-		List<TaxUser> selectUser = mapperFactory.getTaxUserMapper().selectByExample(exampleOfUser);
-		if(selectUser==null || selectUser.size()==0){
-			result.setMessage(Message.INVALID_PARAMS);
-			result.setStatus(StatusCode.INVALID_PARAMS);
-			return JSON.toJSONString(result);
-		}
-		//修改信息
+		exampleOfUser.createCriteria().andIdEqualTo(userId);
 		int flag=mapperFactory.getTaxUserMapper().updateByExampleSelective(user, exampleOfUser);
 		if(flag<=0){
 			result.setMessage(Message.UPDATE_FALIUER);
 			result.setStatus(StatusCode.UPDATE_FALIUER);
 			return JSON.toJSONString(result);
 		}
+		//添加专业分类
+		String[] proIds = user.getProList().split(";");
+		for (int i = 0; i < proIds.length; i++) {
+			TaxUserProMapper taxUserProMapper = mapperFactory.getTaxUserProMapper();
+			TaxUserPro record = new TaxUserPro();
+			record.setProId(Integer.parseInt(proIds[i]));
+			record.setUserId(userId);
+			taxUserProMapper.insert(record);
+		}
+		//avatar单独接口处理
+		//更新完之后再更新一下session里的user
+		MySession session = SessionControl.getInstance().getSession(userId);
+		TaxUserKey key = new TaxUserKey();
+		key.setId(userId);
+		session.setAttribute(SessionConst.USER, mapperFactory.getTaxUserMapper().selectByPrimaryKey(key));
 		return JSON.toJSONString(result);
 	}
-	
+
 	/**以后修改为从鸿哥的Factory获取Session*/
 	@Override
 	public String modifyPassword(PasswordModification info, HttpServletRequest request) {
@@ -95,22 +123,22 @@ public class TaxUserServiceImpl implements TaxUserService {
 			result.setStatus(StatusCode.INVALID_PARAMS);
 			return JSON.toJSONString(result);
 		}
-		
+
 		/***************************************************************/
 		//测试时候才打开
-//		TaxUserKey dubiUserKey = new TaxUserKey();
-//		dubiUserKey.setId("a9da429220a64a12a34264cd971acdf7");
-//		TaxUser dubi = mapperFactory.getTaxUserMapper().selectByPrimaryKey(dubiUserKey);
-//		TaxUser user = dubi;
-//		PasswordModification passwordInfo = new PasswordModification();
-//		passwordInfo.setPassword(dubi.getPassword());
-//		passwordInfo.setNewPassword("newpassowrd");
-//		info = passwordInfo;
-//		passwordInfo.setNewPassword("");//非法修改
+		//		TaxUserKey dubiUserKey = new TaxUserKey();
+		//		dubiUserKey.setId("a9da429220a64a12a34264cd971acdf7");
+		//		TaxUser dubi = mapperFactory.getTaxUserMapper().selectByPrimaryKey(dubiUserKey);
+		//		TaxUser user = dubi;
+		//		PasswordModification passwordInfo = new PasswordModification();
+		//		passwordInfo.setPassword(dubi.getPassword());
+		//		passwordInfo.setNewPassword("newpassowrd");
+		//		info = passwordInfo;
+		//		passwordInfo.setNewPassword("");//非法修改
 		/***************************************************************/
-		
+
 		//从Session取出用户,确定旧密码是否正确
-//		TaxUser user = (TaxUser)request.getSession().getAttribute(SessionConst.USER);
+		//		TaxUser user = (TaxUser)request.getSession().getAttribute(SessionConst.USER);
 		//2018/7/12:wyhong
 		TaxUser user = getUserFromRequest(request);
 		if(!user.getPassword().equals(info.getPassword())){
@@ -132,13 +160,13 @@ public class TaxUserServiceImpl implements TaxUserService {
 		}
 		return JSON.toJSONString(result);
 	}
-	
+
 	/**以后修改为从鸿哥的Factory获取Session
 	 * 更改需要：
 	 * 细化检验各个字段
 	 * */
 	@Override
-	public String publishQuestion(TaxQuestion question, HttpServletRequest request) {
+	public synchronized String publishQuestion(TaxQuestion question, String invitationList, HttpServletRequest request) {
 		Result result = new Result();
 		//Question id 自增那么不需要管直接插入即可
 		//设置问题的authorId
@@ -153,9 +181,23 @@ public class TaxUserServiceImpl implements TaxUserService {
 			result.setMessage(Message.INVALID_PARAMS);
 			result.setStatus(StatusCode.INVALID_PARAMS);
 		}
+		//lucene创建索引
+		LuceneUtil.creatIndex(question);
+		//存放邀请列表
+		if(invitationList != null && !"".equals(invitationList)) {
+			int questionId = mapperFactory.getTaxQuestionMapper().getLastInsertId();
+			String[] invitations = invitationList.split(";");
+			TaxInvitationMapper taxInvitationMapper = mapperFactory.getTaxInvitationMapper();
+			for (int i = 0; i < invitations.length; i++) {
+				TaxInvitation record = new TaxInvitation();
+				record.setUserId(invitations[i]);
+				record.setQuestionId(questionId);
+				taxInvitationMapper.insert(record);
+			}
+		}
 		return JSON.toJSONString(result);
 	}
-	
+
 	private TaxUser getUserFromRequest(HttpServletRequest request) {
 		String userId = null;
 		Cookie[] cookies = request.getCookies();
@@ -184,7 +226,7 @@ public class TaxUserServiceImpl implements TaxUserService {
 		Result result = new Result();
 		//Question id 自增那么不需要管直接插入即可
 		//设置问题的authorId
-//		TaxUser author = (TaxUser) request.getSession().getAttribute(SessionConst.USER);
+		//		TaxUser author = (TaxUser) request.getSession().getAttribute(SessionConst.USER);
 		//2018/7/12:wyhong
 		TaxUser author = getUserFromRequest(request);
 		answer.setAuthorId(author.getId());
@@ -198,7 +240,7 @@ public class TaxUserServiceImpl implements TaxUserService {
 		}
 		return JSON.toJSONString(result);
 	}
-	
+
 	@Override
 	public String confirmSolution(int questionId) {
 		Result result = new Result();
@@ -249,13 +291,27 @@ public class TaxUserServiceImpl implements TaxUserService {
 		}
 		return JSON.toJSONString(result);
 	}
-	
+
 	/**鸿哥说写编辑头像，图片上传*/
 	@Override
 	public String modifyAvatar(String userId,
 			MultipartRequest multipartRequest) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public String getInfo(HttpServletRequest request) {
+		TaxUser user = getUserFromRequest(request);
+		UserInfo userInfo = new UserInfo();
+		userInfo.setUsername(user.getUsername());
+		userInfo.setTelephone(user.getTelephone());
+		userInfo.setEmail(user.getEmail());
+		userInfo.setPro_list(user.getProList());
+		userInfo.setImage(user.getImage());
+		Result result = new Result();
+		result.setResult(userInfo);
+		return JSONObject.toJSONString(result);
 	}
 
 }

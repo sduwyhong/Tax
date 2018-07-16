@@ -215,9 +215,11 @@
     -->
     update tax_user
     <set>
+    <!-- 
       <if test="record.id != null">
         id = #{record.id,jdbcType=VARCHAR},
       </if>
+     -->
       <if test="record.username != null">
         username = #{record.username,jdbcType=VARCHAR},
       </if>
