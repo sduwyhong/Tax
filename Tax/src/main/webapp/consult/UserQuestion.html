@@ -264,81 +264,6 @@ body {
 	<div id="headerpage"></div>
 	<!-- header end -->
 	
-	<!-- 此处script代码登陆前沒有 different!!! -->
-	<script>
-			// 窗体加载完成时轮询
-			var t, notifyNum = 0;
-			window.onload = function() {
-				loadNotifies();
-				t = setInterval(loadNotifies, 10000); //每10秒执行一次
-			}
-			// 窗体关闭之前清除此定时器
-			window.onbeforeunload = function() {
-				clearInterval(t);
-			}
-			
-			//消息提示
-			function loadNotifies() {
-				var param = {
-					pagingOrNot : "not",
-					readOrUnread : "0"
-				};
-				// 获取所有的通知
-				$.get('/lagsms/notifies/count', param, function(data) {
-					if(notifyNum == data) {
-						return;
-					}
-					notifyNum = data;
-					var numTxt = "";
-					if(notifyNum >= 100) {
-						numTxt = "99+";
-					} else if(notifyNum == 0) {
-						numTxt = "";
-					}
-					$("#news").text(numTxt);
-				});
-			}
-		</script>
-
-	<script>
-        $(function(){
-           $(".user_text").hover(function(){
-               var width_a = $(this).width();
-               var width_b = $(this).find(".user_id").width();
-               var indent_px = width_a - width_b;
-               if( width_a <= width_b ){
-                   $(this).css("text-indent",indent_px);
-               }
-           },function(){
-               $(this).css("text-indent","0");
-           });
-        });
-    </script>
-	<!-- input点击清除value值 -->
-	<script type="text/javascript">
-		wap_val = [];
-		$(".ssearch").each(function(i) {
-			wap_val[i] = $(this).val();
-			$(this).focusin(function() {
-				if ($(this).val() == wap_val[i]) {
-					$(this).val("");
-				}
-			}).focusout(function() {
-				if ($.trim($(this).val()) == "") {
-					$(this).val(wap_val[i]);
-				}
-			});
-		});
-		//  用户名显示
-		 $(".user_id").each(function(){
-		  var maxwidth=4;
-		  if($(this).text().length > maxwidth){
-		    $(this).text($(this).text().substring(0,maxwidth));
-		    $(this).html($(this).html()+'...');
-		  }
-		}); 
-	</script>
-	<!-- header end -->
 	<!-- 中间部分start -->
 	<div class="liuan_center_main">
 		<div class="liuan_main_headerContent">
@@ -349,7 +274,7 @@ body {
 						onfocus="if(this.value == this.defaultValue) this.value = ''"
 						onblur="if(this.value == '') this.value = this.defaultValue" 
 						style="min-width:900px;margin-right: 20px;">
-					<button type="submit" class="searchbtn">
+					<button type="button" class="searchbtn" onclick="selectedMajor()">
 						<i class="material-icons" style="color: white;vertical-align: middle;">search</i>
 					</button>
 				</form>
@@ -420,162 +345,36 @@ body {
 							<div class="gary">
 								<div class="darkblue"></div>
 							</div>
-							<ul style="border-bottom: 1px dashed #ccc; height: 70px;">
-								<li><a href="/lagsms/questions/ques_1513737987706/details">
-										想了解个人所得税流程</a></li>
-								<li><span>2017-12-20</span></li>
-								<li><span>浏览：</span> <span>274</span></li>
-								<li><span>回答：</span> <span>5</span></li>
-								<li style="width: 110px;"><span>收藏：</span> <span
-									class="starCount">4</span></li>
-								<li><span>分类：</span> <span>发票系统故障及操作指导,发票领购</span></li>
+							<ul class="questions" hidden="hidden" style="border-bottom: 1px dashed #ccc; height: 70px;">
+								<li>
+								<a href="/lagsms/questions/ques_1513743241249/details">
+										想了解个人所得税流程</a>
+								</li>
+								<li>
+									<span>2017-12-20</span>
+								</li>
+								<li hidden="hidden">
+									<span>悬赏：</span> <span>5</span>
+								</li>
+								<li>
+									<span>浏览：</span> <span>270</span>
+								</li>
+								<li>
+									<span>回答：</span> <span>5</span>
+								</li>
+								<li style="width: 110px;">
+									<span>收藏：</span> <span class="starCount">4</span>
+								</li>
+								<li>
+									<span>未采纳</span>
+								</li>
+								<li>
+									<span>分类：</span> <span>发票系统故障及操作指导,发票领购</span>
+								</li>
 								<li data-target-id="ques_1513737987706" data-target="question"
 									onclick="starQuestion();"
-									style="width: 73px; float: right; cursor: pointer;"><span>收藏</span>
-								</li>
-							</ul>
-							<ul style="border-bottom: 1px dashed #ccc; height: 70px;">
-								<li><a href="/lagsms/questions/ques_1513740963289/details">
-										电子税务的一些知识</a></li>
-								<li><span>2017-12-20</span></li>
-								<li><span>浏览：</span> <span>32</span></li>
-								<li><span>回答：</span> <span>0</span></li>
-								<li style="width: 110px;"><span>收藏：</span> <span
-									class="starCount">1</span></li>
-								<li><span>分类：</span> <span>发票系统故障及操作指导,发票领购</span></li>
-								<li data-target-id="ques_1513740963289" data-target="question"
-									onclick="starQuestion();"
-									style="width: 73px; float: right; cursor: pointer;"><span>收藏</span>
-								</li>
-							</ul>
-
-							<ul style="border-bottom: 1px dashed #ccc; height: 70px;">
-								<li><a href="/lagsms/questions/ques_1513754664159/details">
-										咨询税收</a></li>
-								<li><span>2017-12-20</span></li>
-
-								<li><span>浏览：</span> <span>23</span></li>
-								<li><span>回答：</span> <span>3</span></li>
-								<li style="width: 110px;"><span>收藏：</span> <span
-									class="starCount">1</span></li>
-								<li><span>分类：</span> <span>发票系统故障及操作指导</span></li>
-								<li data-target-id="ques_1513754664159" data-target="question"
-									onclick="starQuestion();"
-									style="width: 73px; float: right; cursor: pointer;"><span>收藏</span>
-								</li>
-							</ul>
-
-							<ul style="border-bottom: 1px dashed #ccc; height: 70px;">
-								<li><a href="/lagsms/questions/ques_1513613216919/details">
-										电子税务的定义</a></li>
-								<li><span>2017-12-19</span></li>
-
-								<li><span>浏览：</span> <span>52</span></li>
-								<li><span>回答：</span> <span>3</span></li>
-								<li style="width: 110px;"><span>收藏：</span> <span
-									class="starCount">2</span></li>
-								<li><span>分类：</span> <span>发票系统故障及操作指导,发票领购,发票开具,红字增值税发票开具</span>
-								</li>
-								<li data-target-id="ques_1513613216919" data-target="question"
-									onclick="starQuestion();"
-									style="width: 73px; float: right; cursor: pointer;"><span>收藏</span>
-								</li>
-							</ul>
-
-							<ul style="border-bottom: 1px dashed #ccc; height: 70px;">
-								<li><a href="/lagsms/questions/ques_1513392823785/details">
-										电子税务局</a></li>
-								<li><span>2017-12-16</span></li>
-
-								<li><span>浏览：</span> <span>257</span></li>
-								<li><span>回答：</span> <span>2</span></li>
-								<li style="width: 110px;"><span>收藏：</span> <span
-									class="starCount">1</span></li>
-								<li><span>分类：</span> <span>发票系统故障及操作指导,红字增值税发票开具</span></li>
-								<li data-target-id="ques_1513392823785" data-target="question"
-									onclick="starQuestion();"
-									style="width: 73px; float: right; cursor: pointer;"><span>收藏</span>
-								</li>
-							</ul>
-
-							<ul style="border-bottom: 1px dashed #ccc; height: 70px;">
-								<li><a href="/lagsms/questions/ques_1513393101988/details">
-										我要分享</a></li>
-								<li><span>2017-12-16</span></li>
-
-								<li><span>浏览：</span> <span>32</span></li>
-								<li><span>回答：</span> <span>1</span></li>
-								<li style="width: 110px;"><span>收藏：</span> <span
-									class="starCount">0</span></li>
-								<li><span>分类：</span> <span>发票系统故障及操作指导,红字增值税发票开具</span></li>
-								<li data-target-id="ques_1513393101988" data-target="question"
-									onclick="starQuestion();"
-									style="width: 73px; float: right; cursor: pointer;"><span>收藏</span>
-								</li>
-							</ul>
-
-							<ul style="border-bottom: 1px dashed #ccc; height: 70px;">
-								<li><a href="/lagsms/questions/ques_1513306278637/details">
-										该缴税了</a></li>
-								<li><span>2017-12-15</span></li>
-
-								<li><span>浏览：</span> <span>122</span></li>
-								<li><span>回答：</span> <span>1</span></li>
-								<li style="width: 110px;"><span>收藏：</span> <span
-									class="starCount">2</span></li>
-								<li><span>分类：</span> <span>发票系统故障及操作指导,红字增值税发票开具</span></li>
-								<li data-target-id="ques_1513306278637" data-target="question"
-									onclick="starQuestion();"
-									style="width: 73px; float: right; cursor: pointer;"><span>收藏</span>
-								</li>
-							</ul>
-
-							<ul style="border-bottom: 1px dashed #ccc; height: 70px;">
-								<li><a href="/lagsms/questions/ques_1513330800076/details">
-										这是一个简单的测试提问？</a></li>
-								<li><span>2017-12-15</span></li>
-
-								<li><span>浏览：</span> <span>20</span></li>
-								<li><span>回答：</span> <span>0</span></li>
-								<li style="width: 110px;"><span>收藏：</span> <span
-									class="starCount">1</span></li>
-								<li><span>分类：</span> <span>发票系统故障及操作指导,小规模纳税人增值税起征点是否有调整</span>
-								</li>
-								<li data-target-id="ques_1513330800076" data-target="question"
-									onclick="starQuestion();"
-									style="width: 73px; float: right; cursor: pointer;"><span>收藏</span>
-								</li>
-							</ul>
-
-							<ul style="border-bottom: 1px dashed #ccc; height: 70px;">
-								<li><a href="/lagsms/questions/ques_1513225973125/details">
-										车船税的征收？</a></li>
-								<li><span>2017-12-14</span></li>
-
-								<li><span>浏览：</span> <span>27</span></li>
-								<li><span>回答：</span> <span>1</span></li>
-								<li style="width: 110px;"><span>收藏：</span> <span
-									class="starCount">2</span></li>
-								<li><span>分类：</span> <span></span></li>
-								<li data-target-id="ques_1513225973125" data-target="question"
-									onclick="starQuestion();"
-									style="width: 73px; float: right; cursor: pointer;"><span>收藏</span>
-								</li>
-							</ul>
-
-							<ul style="border-bottom: 1px dashed #ccc; height: 70px;">
-								<li><a href="/lagsms/questions/ques_1513229403369/details">
-										作为承租方租用房屋需要缴纳哪些税？</a></li>
-								<li><span>2017-12-14</span></li>
-
-								<li><span>浏览：</span> <span>25</span></li>
-								<li><span>回答：</span> <span>1</span></li>
-								<li style="width: 110px;"><span>收藏：</span> <span
-									class="starCount">1</span></li>
-								<li><span>分类：</span> <span>发票系统故障及操作指导,发票领购</span></li>
-								<li data-target-id="ques_1513229403369" data-target="question"
-									onclick="starQuestion();"
-									style="width: 73px; float: right; cursor: pointer;"><span>收藏</span>
+									style="width: 73px; float: right; cursor: pointer;">
+									<span>收藏</span>
 								</li>
 							</ul>
 
@@ -643,6 +442,7 @@ body {
 	<script type="text/javascript" src="../js/Materialize/materialize.min.js"></script>
 	<script type="text/javascript" src="../js/Materialize/adbeus.js"></script>
 	<script type="text/javascript" src="../js/paging.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/path.js" charset="utf-8"></script>
 	
 	<!-- load header and footer -->
 	<script type="text/javascript">
@@ -653,88 +453,138 @@ body {
 	
 	<!-- 已登录状态，点击"我要咨询"和"收藏"的响应 differnet！！！ -->
 	<script type="text/javascript">
-				$(function() {
-					var userId='user_1530497588928';
-					var questionIds = ["ques_1513737987706","ques_1513740963289","ques_1513754664159","ques_1513613216919","ques_1513392823785","ques_1513393101988","ques_1513306278637","ques_1513330800076","ques_1513225973125","ques_1513229403369"];
-					var target = 'question';
-					 $.get('/lagsms/star/check',{
-						 target: target,
-						 userId: userId,
-						 t: questionIds
-					 }, function(data) { // [targetId]
-					 	var staredTargetIds = new Set(data);
-						var lis = $("#quesContent").find('ul li:last-child');
-						
-						for(var i = 0; i < lis.length; i++ ) {
-							var li = lis[i];
-							var targetId = li.dataset.targetId;
-							
-							if(staredTargetIds.has(targetId)) {
-								staredTargetIds.delete(targetId);
-								li.querySelector('span:last-child').innerHTML = '已收藏';
-							} else {
-								li.querySelector('span:last-child').innerHTML = '收藏';
-							}
-						}
-					});
-				});
-				//收藏
-				function starQuestion() {
-					var $target;
-					if(event.target.tagName === 'SPAN') {
-						$target = $(event.target).parent('li');
-					} else {
-						$target = $(event.target);
-					}
-					console.log($target);
-					var $starCount = $target.parent("ul").find('.starCount');
-					var target = $target.data("target");
-					var targetId = $target.data("target-id");
-					$.post("/lagsms/star",{
-						target: target,
-						targetId: targetId
-					},function(data) {
-					 	if(data.action == -1 && data.result > 0) { //取消成功
-							var count = parseInt($starCount.text());
-							$starCount.text(count - 1);
-							$target.find('span:last-child').html('收藏');
-							return;
-						}
-						if (data.action == 1 && data.result > 0) { //收藏成功
-							var count = parseInt($starCount.text());
-							$starCount.text(count + 1);
-							$target.find('span:last-child').html('已收藏');
-							return;
-						}
-			       	});
+		//URI参数可视化
+		var params = location.search.substr(1,location.search.length);
+		console.log(params);
+		var keyword = decodeURI(params.split('&')[0].split('=')[1]);
+		$('input[name=title]').val(keyword);
+		var majorParam = params.split('&')[1].split('=')[1];
+		var majorArr = majorParam.split(';');
+		console.log(majorArr);
+		if(majorArr.length > 0){
+			for(var i in majorArr){
+				$('input[type=checkbox][value='+majorArr[i]+']').attr('checked','checked');
+			}
+		}
+		//ajax
+		$('.questions[hidden!=hidden]').remove();
+		var totalPage = 0;
+		var totalCount = 0;
+		$.ajax({
+			url:path+'guest/search/'+keyword+'/'+majorParam+'/'+1,
+			asycn:false,
+			success:function(data){
+				console.log(data);
+				var list = data.result.list;
+				for(var i in list){
+					fillTable(list[i]);
 				}
-			
-				// 我要咨询
-				function userNotnull(){
-					 window.location.href='../addConsulting/addConsulting.html';
-				}
-			</script>
+				totalPage = data.result.totalPage;
+				totalCount = data.result.totalCount;
+			}
+		})
+		console.log(totalPage);
+		console.log(totalCount);
+		initPagination(totalPage, totalCount);
+		function selectedMajor(){//点击搜索 和 选中checkbox 皆调用此函数
+			var checked = $('input[type=checkbox]:checked');
+			var list = '';
+			checked.each(function(){
+				list += $(this).val() + ';';				
+			})
+			list = list.substr(0,list.length-1);
+			console.log(list);
+			location.href = 'UserQuestion.html?keyword='+$('input[name=title]').val()+'&majorCategory='+list;
+		}
+		function fillTable(question){
+			/*
+			<ul class="questions" hidden="hidden" style="border-bottom: 1px dashed #ccc; height: 70px;">
+				0<li>
+				<a href="/lagsms/questions/ques_1513743241249/details">
+						想了解个人所得税流程</a>
+				</li>
+				1<li>
+					<span>2017-12-20</span>
+				</li>
+				2<li hidden="hidden">
+					<span>悬赏：</span> <span>5</span>
+				</li>
+				3<li>
+					<span>浏览：</span> <span>270</span>
+				</li>
+				4<li>
+					<span>回答：</span> <span>5</span>
+				5</li>
+				<li style="width: 110px;">
+					<span>收藏：</span> <span class="starCount">4</span>
+				</li>
+				6<li>
+					<span>未采纳</span>
+				</li>
+				7<li>
+					<span>分类：</span> <span>发票系统故障及操作指导,发票领购</span>
+				</li>
+				8<li data-target-id="ques_1513737987706" data-target="question"
+					onclick="starQuestion();"
+					style="width: 73px; float: right; cursor: pointer;">
+					<span>收藏</span>
+				</li>
+			</ul>
+		*/
+			var template = $('.questions:first').clone();
+			var title = template.children('li:eq(0)').children();
+			title.text(question.title);
+			title.attr('href','javascript:questionDetail('+question.id+')');
+			template.children('li:eq(1)').children().text(getDate(question.publishDate));
+			template.children('li:eq(3)').children('span:eq(1)').text(question.click);
+			template.children('li:eq(4)').children('span:eq(1)').text(question.totalAnswerNum);
+			template.children('li:eq(5)').children('span:eq(1)').text(question.favourite);
+			var status = '未采纳';
+			if(question.status == 1) status == '已采纳';
+			template.children('li:eq(6)').children().text(status);
+			template.children('li:eq(7)').children('span:eq(1)').text(question.type);
+			template.children('li:eq(8)').attr('onclick','starQuestion('+question.id+')');
+			template.removeAttr('hidden');
+			$('.questions:last').after(template);
+		}
+		function initPagination(totalPage,totalCount){
+			//分页，只有一页不分页
+			$('#quesPaging').paging({
+			   initPageNo: 1, 			// 初始页码
+		       totalPages: totalPage, 	// 总页数
+		       totalCount: '合计 '+totalCount+'条数据', 			// 条目总数
+		       slideSpeed: 600, 							// 缓动速度。单位毫秒
+		       jump: true, 								// 是否支持跳转
+		       initLoad: false,
+		       callback: function(page) { 
+			       	// 回调函数
+			       	$('.questions[hidden!=hidden]').remove();
+			       	$.ajax({
+			       		url:path+'guest/search/'+keyword+'/'+majorParam+'/'+page,
+			       		success:function(data){
+			       			console.log(data);
+			       			if(data.status == 200) {
+			       				var list = data.result.list;
+			       				for(var i in list){
+							       	fillTable(list[i]);
+			       				}
+			       			}
+			       		}
+			       	})
+		   		}
+			});
+		}
+		//转换时间戳
+		function getDate(value){
+			 return new Date(parseInt(("/Date("+value+")/").substr(6, 13))).toLocaleDateString();  
+		}
+		// 我要咨询
+		function userNotnull(){
+			 window.location.href='addConsulting.html';
+		}
+	</script>
 
 	<script type="text/javascript">
-	//分页
-    /* 最新咨询 */
-    var totalCount = 15;
-    console.log('totalCount = ' + totalCount);
-    var rows = 10;
-    console.log('rows = ' + rows);
-    $('#quesPaging').paging({
-    		initPageNo: 1, 			// 初始页码
-        totalPages: Math.ceil(totalCount/rows), 	// 总页数
-        totalCount: '合计 15条数据', 			// 条目总数
-        slideSpeed: 600, 							// 缓动速度。单位毫秒
-        jump: true, 								// 是否支持跳转
-        initLoad: false,
-        callback: function(page) { 					// 回调函数
-     	   	$("#quesForm").children(":input[name='page']").val(page);
-    			$("#quesForm").submit();
-        }
-    });
-    
     /*选择*/
 	$('.searchchoose_up').click(function(){
 		$('.search_choose').animate({height:"180px"});
@@ -747,9 +597,10 @@ body {
 		$('.searchchoose_down').css('display','none');
 	})
 	 //FF下用JS实现自定义滚动条
+	 /*
 	$(function(){
     $("body").niceScroll({cursorborder:"",cursorcolor:"rgba(0,0,0,0)",boxzoom:true});
-	})
+	})*/
 </script>
 </body>
 </html>
