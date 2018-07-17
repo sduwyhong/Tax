@@ -37,5 +37,9 @@ public interface TaxGuestService {
 	String validateTelephone(String telephone);
 
 	void verifyCode(HttpServletRequest request, HttpServletResponse response);
+
+	String getQuestion(int questionId);
+
+	String getAnswer(int questionId, int page);
 	
 }

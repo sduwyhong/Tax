@@ -29,6 +29,7 @@ import org.tax.model.TaxFavourite;
 import org.tax.model.TaxInvitation;
 import org.tax.model.TaxQuestion;
 import org.tax.model.TaxQuestionExample;
+import org.tax.model.TaxQuestionKey;
 import org.tax.model.TaxUser;
 import org.tax.model.TaxUserExample;
 import org.tax.model.TaxUserKey;
@@ -77,14 +78,14 @@ public class TaxUserServiceImpl implements TaxUserService {
 		Result result = new Result();
 		//检查是否用户在登陆状态(由拦截器搞)
 		//检查用户名 密码是否正确?????????????
-//		TaxUserExample exampleOfUser = new TaxUserExample();
-//		exampleOfUser.createCriteria().andUsernameEqualTo(user.getUsername()).andPasswordEqualTo(user.getPassword());
-//		List<TaxUser> selectUser = mapperFactory.getTaxUserMapper().selectByExample(exampleOfUser);
-//		if(selectUser==null || selectUser.size()==0){
-//			result.setMessage(Message.INVALID_PARAMS);
-//			result.setStatus(StatusCode.INVALID_PARAMS);
-//			return JSON.toJSONString(result);
-//		}
+		//		TaxUserExample exampleOfUser = new TaxUserExample();
+		//		exampleOfUser.createCriteria().andUsernameEqualTo(user.getUsername()).andPasswordEqualTo(user.getPassword());
+		//		List<TaxUser> selectUser = mapperFactory.getTaxUserMapper().selectByExample(exampleOfUser);
+		//		if(selectUser==null || selectUser.size()==0){
+		//			result.setMessage(Message.INVALID_PARAMS);
+		//			result.setStatus(StatusCode.INVALID_PARAMS);
+		//			return JSON.toJSONString(result);
+		//		}
 		//修改基本信息
 		String userId = getUserFromRequest(request).getId();
 		TaxUserExample exampleOfUser = new TaxUserExample();
@@ -169,10 +170,21 @@ public class TaxUserServiceImpl implements TaxUserService {
 	@Override
 	public synchronized String publishQuestion(TaxQuestion question, String invitationList, HttpServletRequest request) {
 		Result result = new Result();
+		TaxUser author = getUserFromRequest(request);
+		//新增功能：发一个咨询花费10积分
+		//判断积分是否足够
+		//session缓存中的scores可能不够新，还是从数据库获取
+		long scores = mapperFactory.getTaxUserMapper().selectScoresById(author.getId());
+		if(scores < 10){
+			//不够：返回充值提示信息
+			result.setMessage(Message.SCORES_NOT_ENOUGH);
+			result.setStatus(StatusCode.SCORES_NOT_ENOUGH);
+			return JSONObject.toJSONString(result);
+		}
+		
 		//Question id 自增那么不需要管直接插入即可
 		//设置问题的authorId
 		//2018/7/12:wyhong
-		TaxUser author = getUserFromRequest(request);
 		question.setAuthorId(author.getId());
 		//设置问题的publishDate
 		question.setPublishDate(new Date());
@@ -181,21 +193,24 @@ public class TaxUserServiceImpl implements TaxUserService {
 		if(flag<=0){
 			result.setMessage(Message.INVALID_PARAMS);
 			result.setStatus(StatusCode.INVALID_PARAMS);
-		}else{
-			//lucene创建索引
-			question.setId(mapperFactory.getTaxQuestionMapper().getLastInsertId());
-			LuceneUtil.creatIndex(question);
-			//存放邀请列表
-			if(invitationList != null && !"".equals(invitationList)) {
-				int questionId = mapperFactory.getTaxQuestionMapper().getLastInsertId();
-				String[] invitations = invitationList.split(";");
-				TaxInvitationMapper taxInvitationMapper = mapperFactory.getTaxInvitationMapper();
-				for (int i = 0; i < invitations.length; i++) {
-					TaxInvitation record = new TaxInvitation();
-					record.setUserId(invitations[i]);
-					record.setQuestionId(questionId);
-					taxInvitationMapper.insert(record);
-				}
+			return JSON.toJSONString(result);
+		}
+		
+		//足够：成功发布后扣除10积分
+		mapperFactory.getTaxUserMapper().updateScoresById(author.getId());
+		//lucene创建索引
+		question.setId(mapperFactory.getTaxQuestionMapper().getLastInsertId());
+		LuceneUtil.creatIndex(question);
+		//存放邀请列表
+		if(invitationList != null && !"".equals(invitationList)) {
+			int questionId = mapperFactory.getTaxQuestionMapper().getLastInsertId();
+			String[] invitations = invitationList.split(";");
+			TaxInvitationMapper taxInvitationMapper = mapperFactory.getTaxInvitationMapper();
+			for (int i = 0; i < invitations.length; i++) {
+				TaxInvitation record = new TaxInvitation();
+				record.setUserId(invitations[i]);
+				record.setQuestionId(questionId);
+				taxInvitationMapper.insert(record);
 			}
 		}
 		return JSON.toJSONString(result);
@@ -241,58 +256,36 @@ public class TaxUserServiceImpl implements TaxUserService {
 		if(flag<=0){
 			result.setMessage(Message.INVALID_PARAMS);
 			result.setStatus(StatusCode.INVALID_PARAMS);
+		}else{
+			//更新主题帖回答数
+			Integer questionId = answer.getQuestionId();
+			mapperFactory.getTaxQuestionMapper().updateAnswerNum(questionId);
 		}
 		return JSON.toJSONString(result);
 	}
 
 	@Override
-	public String confirmSolution(int questionId) {
-		Result result = new Result();
-		TaxQuestionExample exampleOfQuestion = new TaxQuestionExample();
-		exampleOfQuestion.createCriteria().andIdEqualTo(questionId);
-		List<TaxQuestion> questionList = mapperFactory.getTaxQuestionMapper().selectByExample(exampleOfQuestion);
-		if(questionList.size()<=0){
-			result.setMessage(Message.INVALID_PARAMS);
-			result.setStatus(StatusCode.INVALID_PARAMS);
-		}
-		else{
-			TaxQuestion question = questionList.get(0);
-			//确认解答
-			question.setStatus(1);
-			int flag=mapperFactory.getTaxQuestionMapper().updateByPrimaryKey(question);
-			if(flag<=0){
-				result.setMessage(Message.INVALID_PARAMS);
-				result.setStatus(StatusCode.INVALID_PARAMS);
-			}
-		}
-		return JSON.toJSONString(result);
+	public String confirmSolution(int questionId, int answerId) {
+		//给tax_answer增加status，0代表未被采纳，1代表被采纳
+		//帖子发布者采纳一个回答，则此问题被解决，question和answer的status都置为1
+		//被采纳回答者积分+该问题的悬赏分数
+		return null;
 	}
 
 	@Override
 	public String collect(int questionId, HttpServletRequest request) {
 		Result result = new Result();
-		TaxQuestionExample exampleOfQuestion = new TaxQuestionExample();
-		exampleOfQuestion.createCriteria().andIdEqualTo(questionId);
-		List<TaxQuestion> questionList = mapperFactory.getTaxQuestionMapper().selectByExample(exampleOfQuestion);
-		if(questionList.size()<=0){
-			result.setMessage(Message.INVALID_PARAMS);
-			result.setStatus(StatusCode.INVALID_PARAMS);
-		}
-		else{
-			TaxQuestion question = questionList.get(0);
-			//更新收藏数
-			question.setFavourite(question.getFavourite()+1);
-			int flag=mapperFactory.getTaxQuestionMapper().updateByPrimaryKey(question);
-			if(flag<=0){
-				result.setMessage(Message.INVALID_PARAMS);
-				result.setStatus(StatusCode.INVALID_PARAMS);
-			}
-			//2018/7/12 wyhong:插入收藏实体
-			TaxFavourite favourite = new TaxFavourite();
-			favourite.setQuestionId(questionId);
-			favourite.setUserId(getUserFromRequest(request).getId());
-			mapperFactory.getTaxFavouriteMapper().insert(favourite);
-		}
+		TaxQuestionKey key = new TaxQuestionKey();
+		key.setId(questionId);
+		TaxQuestion question = mapperFactory.getTaxQuestionMapper().selectByPrimaryKey(key);
+		//更新收藏数(写个sql比较高效！)
+		question.setFavourite(question.getFavourite()+1);
+		mapperFactory.getTaxQuestionMapper().updateByPrimaryKey(question);
+		//2018/7/12 wyhong:插入收藏实体
+		TaxFavourite favourite = new TaxFavourite();
+		favourite.setQuestionId(questionId);
+		favourite.setUserId(getUserFromRequest(request).getId());
+		mapperFactory.getTaxFavouriteMapper().insert(favourite);
 		return JSON.toJSONString(result);
 	}
 

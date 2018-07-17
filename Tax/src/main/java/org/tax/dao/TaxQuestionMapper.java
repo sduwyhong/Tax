@@ -139,4 +139,6 @@ public interface TaxQuestionMapper {
     int updateByPrimaryKey(TaxQuestion record);
 
 	int getLastInsertId();
+
+	int click(int questionId);
 }

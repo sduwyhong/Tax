@@ -345,16 +345,13 @@ body {
 							<div class="gary">
 								<div class="darkblue"></div>
 							</div>
-							<ul class="questions" hidden="hidden" style="border-bottom: 1px dashed #ccc; height: 70px;">
+							<ul class="questions" hidden="hidden" style="border-bottom: 1px dashed #ccc; height: 80px;">
 								<li>
 								<a href="/lagsms/questions/ques_1513743241249/details">
 										想了解个人所得税流程</a>
 								</li>
 								<li>
 									<span>2017-12-20</span>
-								</li>
-								<li hidden="hidden">
-									<span>悬赏：</span> <span>5</span>
 								</li>
 								<li>
 									<span>浏览：</span> <span>270</span>
@@ -366,10 +363,10 @@ body {
 									<span>收藏：</span> <span class="starCount">4</span>
 								</li>
 								<li>
-									<span>未采纳</span>
-								</li>
-								<li>
 									<span>分类：</span> <span>发票系统故障及操作指导,发票领购</span>
+								</li>
+								<li style="width: 5%;">
+									<span>未采纳</span>
 								</li>
 								<li data-target-id="ques_1513737987706" data-target="question"
 									onclick="starQuestion();"
@@ -471,7 +468,12 @@ body {
 		var totalPage = 0;
 		var totalCount = 0;
 		$.ajax({
-			url:path+'guest/search/'+keyword+'/'+majorParam+'/'+1,
+			url:path+'guest/search',
+			data:{
+				keyword:keyword,
+				proId:majorParam,
+				page:1
+			},
 			asycn:false,
 			success:function(data){
 				console.log(data);
@@ -536,14 +538,14 @@ body {
 			title.text(question.title);
 			title.attr('href','javascript:questionDetail('+question.id+')');
 			template.children('li:eq(1)').children().text(getDate(question.publishDate));
-			template.children('li:eq(3)').children('span:eq(1)').text(question.click);
-			template.children('li:eq(4)').children('span:eq(1)').text(question.totalAnswerNum);
-			template.children('li:eq(5)').children('span:eq(1)').text(question.favourite);
+			template.children('li:eq(2)').children('span:eq(1)').text(question.click);
+			template.children('li:eq(3)').children('span:eq(1)').text(question.totalAnswerNum);
+			template.children('li:eq(4)').children('span:eq(1)').text(question.favourite);
+			template.children('li:eq(5)').children('span:eq(1)').text(question.type);
 			var status = '未采纳';
 			if(question.status == 1) status == '已采纳';
 			template.children('li:eq(6)').children().text(status);
-			template.children('li:eq(7)').children('span:eq(1)').text(question.type);
-			template.children('li:eq(8)').attr('onclick','starQuestion('+question.id+')');
+			template.children('li:eq(7)').attr('onclick','starQuestion('+question.id+')');
 			template.removeAttr('hidden');
 			$('.questions:last').after(template);
 		}

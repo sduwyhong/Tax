@@ -2,6 +2,8 @@ package org.tax.model;
 
 import java.util.Date;
 
+import lombok.ToString;
+@ToString
 public class TaxQuestion extends TaxQuestionKey {
     /**
      *

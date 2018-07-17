@@ -109,6 +109,7 @@
     <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
+    limit ${limitClause}
   </select>
   <delete id="deleteByExample" parameterType="org.tax.model.TaxAnswerExample">
     <!--

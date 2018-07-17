@@ -13,6 +13,6 @@ import org.tax.model.TaxQuestion;
 public class QuestionDetail {
 
 	private TaxQuestion question;
-	private TaxAnswer[] answers;
+	private TaxAnswerVO[] answers;
 	
 }

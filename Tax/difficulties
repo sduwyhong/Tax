@@ -1,3 +1,4 @@
 1、创建外键出错时检查是否存在引用方或被引用方用的是MyISAM引擎，MyISAM不支持外键，只有InnoDB支持
 2、是int unsigned而不是unsigned int
 3、用js的substr（startIndex，length）时，不要忘了要接收返回的新字符串，这个函数并不会改变原有函数
+4、js里出现一次button点击提交两次请求（明显特征是页面自己reload）==》①绑定了两个click事件②button的type为submit

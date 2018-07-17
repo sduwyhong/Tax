@@ -59,9 +59,9 @@ public class TaxGuestAction {
 		return taxGuestService.login(loginInfo, request, response);
 	}
 	
-	@RequestMapping(value="/search/{keyword}/{proId}/{page}",method={RequestMethod.GET,RequestMethod.POST},produces=JSON)
+	@RequestMapping(value="/search",method={RequestMethod.GET,RequestMethod.POST},produces=JSON)
 	@ResponseBody
-	public String search(@PathVariable("keyword") String keyword,@PathVariable("proId") String proId,@PathVariable("page") int page) {
+	public String search(@RequestParam("keyword") String keyword,@RequestParam("proId") String proId,@RequestParam("page") int page) {
 		return taxGuestService.search(keyword, proId, page);
 	}
 	
@@ -85,7 +85,19 @@ public class TaxGuestAction {
 	
 	@RequestMapping(value="/expert/{page}",method=RequestMethod.GET,produces=JSON)
 	@ResponseBody
-	public String method(@PathVariable("page") int page) {
+	public String getArticlesOfExperts(@PathVariable("page") int page) {
 		return taxGuestService.getArticlesOfExperts(page);
+	}
+	
+	@RequestMapping(value="/question/{questionId}",method=RequestMethod.GET,produces=JSON)
+	@ResponseBody
+	public String getQuestion(@PathVariable("questionId") int questionId) {
+		return taxGuestService.getQuestion(questionId);
+	}
+	
+	@RequestMapping(value="/answer/{questionId}/{page}",method=RequestMethod.GET,produces=JSON)
+	@ResponseBody
+	public String getAnswer(@PathVariable("questionId") int questionId, @PathVariable("page") int page) {
+		return taxGuestService.getAnswer(questionId, page);
 	}
 }

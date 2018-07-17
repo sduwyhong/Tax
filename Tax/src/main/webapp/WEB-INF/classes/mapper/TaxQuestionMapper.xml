@@ -350,4 +350,10 @@
   <select id="getLastInsertId" resultType="Integer">
   	SELECT LAST_INSERT_ID();
   </select>
+  
+  <update id="click">
+  	UPDATE tax_question
+  	SET click = click + 1
+  	WHERE id = #{questionId}
+  </update>
 </mapper>

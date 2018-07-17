@@ -32,7 +32,7 @@ public interface TaxUserService {
 	//加了个参数HttpServletRequest request 获取当前用户 以后用鸿哥SessionFactory获取即可
 	String publishAnswer(TaxAnswer answer, HttpServletRequest request);
 	
-	String confirmSolution(int questionId);
+	String confirmSolution(int questionId, int answerId);
 	
 	String collect(int questionId, HttpServletRequest request);
 	

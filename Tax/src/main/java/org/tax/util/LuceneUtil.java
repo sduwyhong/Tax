@@ -204,12 +204,10 @@ public class LuceneUtil {
 		// 根据关键词与种类搜索
 		// 注意调用时默认传入的type是形式为只有数字(数字应该保持唯一，且递增书写)与';'分割的形式 如: "1;2;4;5"
 		// 或者type.equals("")或者type==null
-		// 若这里keyword为null不应该使用这个方法查
-		if (keyword == null || keyword.equals("")
-				|| keyword.split("\\s+").length == 0)
-			return new ArrayList<TaxQuestion>();
-		if (type == null)// 为了使后面处理的type肯定不是null
-			type = "";
+		// 若这里keyword为null不应该使用这个方法查****************************************************
+		if (keyword == null || keyword.equals("") || keyword.split("\\s+").length == 0) return new ArrayList<TaxQuestion>();
+		// 为了使后面处理的type肯定不是null 
+		if (type == null) type = "";
 		try {
 			Directory idxDir = FSDirectory.open(new File(INDEX_LIB_PATH));
 			IndexReader idxReader = DirectoryReader.open(idxDir);
@@ -217,29 +215,21 @@ public class LuceneUtil {
 			// 对问题的title content中含有keyword先查询出来
 			String[] queries = { keyword, keyword };
 			String[] fields = { "questionTitle", "questionContent" };
-			BooleanClause.Occur[] clauses = { BooleanClause.Occur.SHOULD,
-					BooleanClause.Occur.SHOULD };
-			Query query = MultiFieldQueryParser.parse(queries, fields, clauses,
-					new IKAnalyzer());
+			BooleanClause.Occur[] clauses = { BooleanClause.Occur.SHOULD,BooleanClause.Occur.SHOULD };
+			Query query = MultiFieldQueryParser.parse(queries, fields, clauses,new IKAnalyzer());
 			TopDocs topDocs = null;
 			if (type.equals("")) {
-				ScoreDoc lastScoreDoc = getLastScoreDoc(pageIdx, pageSize,
-						query, null, idxSearcher);
-				topDocs = idxSearcher
-						.searchAfter(lastScoreDoc, query, pageSize);
+				ScoreDoc lastScoreDoc = getLastScoreDoc(pageIdx, pageSize,query, null, idxSearcher);
+				topDocs = idxSearcher.searchAfter(lastScoreDoc, query, pageSize);
 			} else {
 				String negativeWord = type;// 比如筛选负面或者正面词的新闻就是这么用
-				QueryParser qp = new QueryParser("questionType",
-						new IKAnalyzer());
+				QueryParser qp = new QueryParser("questionType", new IKAnalyzer());
 				try {
 					Query kwQuery = qp.parse(negativeWord);
-					QueryWrapperFilter qwFilter = new QueryWrapperFilter(
-							kwQuery);
+					QueryWrapperFilter qwFilter = new QueryWrapperFilter(kwQuery);
 					// 通过最后一个元素去搜索下一页的元素
-					ScoreDoc lastScoreDoc = getLastScoreDoc(pageIdx, pageSize,
-							query, qwFilter, idxSearcher);
-					topDocs = idxSearcher.searchAfter(lastScoreDoc, query,
-							qwFilter, pageSize);
+					ScoreDoc lastScoreDoc = getLastScoreDoc(pageIdx, pageSize, query, qwFilter, idxSearcher);
+					topDocs = idxSearcher.searchAfter(lastScoreDoc, query, qwFilter, pageSize);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

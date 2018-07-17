@@ -30,6 +30,7 @@ import org.tax.constant.SeperatorConst;
 import org.tax.constant.SessionConst;
 import org.tax.constant.StatusCode;
 import org.tax.factory.MapperFactory;
+import org.tax.model.TaxAnswer;
 import org.tax.model.TaxAnswerExample;
 import org.tax.model.TaxExpert;
 import org.tax.model.TaxExpertExample;
@@ -252,27 +253,40 @@ public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
 	 * */
 	@Override
 	public String search(String keyword, String type, int page) {
+		try {
+//			From OnlineShop:
+//			5.js以GET方式提交中文参数到后台出现乱码?????
+//			原因：get方式提交的参数编码，只支持iso-8859-1编码，而且出现“?”也表明编码为iso-8859-1。
+//			解决：以iso-8859-1编码为原始字节，再以utf-8解码即可
+			keyword = keyword = new String(keyword.getBytes("ISO-8859-1"),"UTF-8");
+		} catch (UnsupportedEncodingException e2) {
+			e2.printStackTrace();
+		}
+		LOGGER.debug("keyword:"+keyword+";type:"+type);
 		// 每个页的搜索栏，根据关键字搜索问题
 		Result result = new Result();
-		if(keyword!=null && type!=null){
+		if(keyword!=null && type!=null){//待删
 			try {
 				List<TaxQuestion> questionLuceneList = LuceneUtil.search(keyword, type,
 						page, PageConst.NUM_PER_PAGE);
 				List<TaxQuestion> questionList = new ArrayList<TaxQuestion>();
 				for(TaxQuestion questionLucene:questionLuceneList){
 					TaxQuestionKey questionKey = new TaxQuestionKey();
+					//7/17 20:37
+					questionKey.setId(questionLucene.getId());
 					TaxQuestion question = mapperFactory.getTaxQuestionMapper().selectByPrimaryKey(questionKey);
 					questionList.add(question);
 				}
-				List<QuestionBrief> questionBriefList = getQuestionBriefList(questionLuceneList);
+				//List<QuestionBrief> questionBriefList = getQuestionBriefList(questionLuceneList);
+				List<QuestionBrief> questionBriefList = getQuestionBriefList(questionList);
 				//设置PageInfo
 				PageInfo pageInfo = new PageInfo();
 				pageInfo.setCurrentPage(page);
 				pageInfo.setCurrentCount(questionBriefList.size());
 				// 要计算一下
 				TaxQuestionExample exampleOfQuestion = new TaxQuestionExample();
-				long totalCount = mapperFactory.getTaxQuestionMapper().countByExample(
-						exampleOfQuestion);
+				//???????????????
+				long totalCount = mapperFactory.getTaxQuestionMapper().countByExample(exampleOfQuestion);
 				long totalPage = totalCount / PageConst.NUM_PER_PAGE
 						+ ((totalCount % PageConst.NUM_PER_PAGE == 0) ? 0 : 1);
 				// 设置pageInfo
@@ -321,8 +335,7 @@ public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
 		pageInfo.setCurrentPage((long) page);
 		pageInfo.setCurrentCount(PageConst.NUM_PER_PAGE);
 		// 要计算一下
-		long totalCount = mapperFactory.getTaxQuestionMapper().countByExample(
-				exampleOfQuestion);
+		long totalCount = mapperFactory.getTaxQuestionMapper().countByExample(exampleOfQuestion);
 		long totalPage = totalCount / PageConst.NUM_PER_PAGE
 				+ ((totalCount % PageConst.NUM_PER_PAGE == 0) ? 0 : 1);
 		pageInfo.setTotalPage(totalPage);
@@ -349,8 +362,7 @@ public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
 		limitClauseSB.append(offset).append(",").append(limit);
 		exampleOfQuestion.setLimitClause(limitClauseSB.toString());
 		// 先获取请求页面对应的问题列表
-		List<TaxQuestion> questionList = mapperFactory.getTaxQuestionMapper()
-				.selectByExample(exampleOfQuestion);
+		List<TaxQuestion> questionList = mapperFactory.getTaxQuestionMapper().selectByExample(exampleOfQuestion);
 		// 根据请求页面的问题列表，包装成问题简介列表，然后放到pageBean中
 		List<QuestionBrief> questionBriefList = getQuestionBriefList(questionList);
 		// 设置pageInfo
@@ -537,7 +549,6 @@ public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
 			qb.setFavourite(question.getFavourite());// 收藏
 			qb.setStatus(question.getStatus());
 			qb.setReward(question.getPrize());
-			qb.setPublishDate(question.getPublishDate());
 			//分类名称
 			String[] questionTypeNameList = getQuestionTypeNameList(question
 					.getType());
@@ -618,6 +629,41 @@ public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public String getQuestion(int questionId) {
+		Result result = new Result();
+		TaxQuestionKey key = new TaxQuestionKey();
+		key.setId(questionId);
+		//浏览数+1
+		mapperFactory.getTaxQuestionMapper().click(questionId);
+		result.setResult(mapperFactory.getTaxQuestionMapper().selectByPrimaryKey(key));
+		return JSONObject.toJSONString(result);
+	}
+
+	@Override
+	public String getAnswer(int questionId, int page) {
+		TaxAnswerExample example = new TaxAnswerExample();
+		example.createCriteria().andQuestionIdEqualTo(questionId);
+		long totalCount = mapperFactory.getTaxAnswerMapper().countByExample(example);
+		long totalPage = totalCount%PageConst.NUM_PER_PAGE == 0 ? totalCount/PageConst.NUM_PER_PAGE : totalCount/PageConst.NUM_PER_PAGE + 1; 
+		int offset = PageConst.NUM_PER_PAGE*(page - 1);
+		example.setLimitClause(offset+","+PageConst.NUM_PER_PAGE);
+		//点赞数、收藏数由点赞、收藏接口维护
+		List<TaxAnswer> list = mapperFactory.getTaxAnswerMapper().selectByExample(example);
+		long currentPageCount = list.size();
+		
+		PageInfo pageInfo = new PageInfo<TaxAnswer>();
+		pageInfo.setCurrentCount(currentPageCount);
+		pageInfo.setCurrentPage(page);
+		pageInfo.setTotalCount(totalCount);
+		pageInfo.setTotalPage(totalPage);
+		pageInfo.setList(list);
+		
+		Result result = new Result();
+		result.setResult(pageInfo);
+		return JSONObject.toJSONString(result);
 	}
 
 

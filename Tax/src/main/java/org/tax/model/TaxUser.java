@@ -62,7 +62,7 @@ public class TaxUser extends TaxUserKey {
      *
      * @mbg.generated Sat Jul 07 16:56:15 CST 2018
      */
-    private Integer score = 0;
+    private Integer score = 100;
 
     /**
      *
