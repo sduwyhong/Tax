@@ -535,6 +535,8 @@ public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
 			qb.setTitle(question.getTitle());// 标题
 			qb.setClick(question.getClick());// 浏览
 			qb.setFavourite(question.getFavourite());// 收藏
+			qb.setStatus(question.getStatus());
+			qb.setReward(question.getPrize());
 			//分类名称
 			String[] questionTypeNameList = getQuestionTypeNameList(question
 					.getType());

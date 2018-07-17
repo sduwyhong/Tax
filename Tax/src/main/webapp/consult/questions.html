@@ -440,6 +440,9 @@ body {
 								<li>
 									<span>2017-12-20</span>
 								</li>
+								<li hidden="hidden">
+									<span>悬赏：</span> <span>5</span>
+								</li>
 								<li>
 									<span>浏览：</span> <span>270</span>
 								</li>
@@ -571,7 +574,7 @@ body {
 					$('.questions[hidden!=hidden]').remove();
 					var list = data.result.list;
 					for(var i in list) {
-						fillTable(list[i]);
+						fillTable(type,list[i]);
 					}
 					totalPage = data.result.totalPage;
 					totalCount = data.result.totalCount;
@@ -582,9 +585,9 @@ body {
 		console.log(totalPage);
 		console.log(totalCount);
 		console.log(_type);
-		initPagination(totalPage, totalCount, _type);
+		initPagination(totalPage, totalCount);
 	}
-	function fillTable(question){
+	function fillTable(type,question){
 		/*
 		<ul class="questions" hidden="hidden" style="border-bottom: 1px dashed #ccc; height: 70px;">
 			0<li>
@@ -594,19 +597,22 @@ body {
 			1<li>
 				<span>2017-12-20</span>
 			</li>
-			2<li>
-				<span>浏览：</span> <span>270</span>
+			2<li hidden="hidden">
+				<span>悬赏：</span> <span>5</span>
 			</li>
 			3<li>
+				<span>浏览：</span> <span>270</span>
+			</li>
+			4<li>
 				<span>回答：</span> <span>5</span>
-			4</li>
+			5</li>
 			<li style="width: 110px;">
 				<span>收藏：</span> <span class="starCount">4</span>
 			</li>
-			5<li>
+			6<li>
 				<span>分类：</span> <span>发票系统故障及操作指导,发票领购</span>
 			</li>
-			6<li data-target-id="ques_1513737987706" data-target="question"
+			7<li data-target-id="ques_1513737987706" data-target="question"
 				onclick="starQuestion();"
 				style="width: 73px; float: right; cursor: pointer;">
 				<span>收藏</span>
@@ -618,15 +624,20 @@ body {
 		title.text(question.title);
 		title.attr('href','javascript:questionDetail('+question.id+')');
 		template.children('li:eq(1)').children().text(getDate(question.publishDate));
-		template.children('li:eq(2)').children('span:eq(1)').text(question.click);
-		template.children('li:eq(3)').children('span:eq(1)').text(question.totalAnswerNum);
-		template.children('li:eq(4)').children('span:eq(1)').text(question.favourite);
-		template.children('li:eq(5)').children('span:eq(1)').text(question.type);
-		template.children('li:eq(6)').attr('onclick','starQuestion('+question.id+')');
+		if(type == 'reward'){
+			var rew = template.children('li:eq(2)');
+			rew.children('span:eq(1)').text(question.reward);
+			rew.removeAttr('hidden');
+		}
+		template.children('li:eq(3)').children('span:eq(1)').text(question.click);
+		template.children('li:eq(4)').children('span:eq(1)').text(question.totalAnswerNum);
+		template.children('li:eq(5)').children('span:eq(1)').text(question.favourite);
+		template.children('li:eq(6)').children('span:eq(1)').text(question.type);
+		template.children('li:eq(7)').attr('onclick','starQuestion('+question.id+')');
 		template.removeAttr('hidden');
 		$('.questions:last').after(template);
 	}
-	function initPagination(totalPage,totalCount,type){
+	function initPagination(totalPage,totalCount){
 		//分页，只有一页不分页
 		$('#quesPaging').paging({
 		   initPageNo: 1, 			// 初始页码
@@ -639,13 +650,13 @@ body {
 		       	// 回调函数
 		       	$('.questions[hidden!=hidden]').remove();
 		       	$.ajax({
-		       		url:path+'guest/question/'+type+'/'+page,
+		       		url:path+'guest/question/'+_type+'/'+page,
 		       		success:function(data){
 		       			console.log(data);
 		       			if(data.status == 200) {
 		       				var list = data.result.list;
 		       				for(var i in list){
-						       	fillTable(list[i]);
+						       	fillTable(_type,list[i]);
 		       				}
 		       			}
 		       		}

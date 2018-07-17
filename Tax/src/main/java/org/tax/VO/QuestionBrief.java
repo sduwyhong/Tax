@@ -13,4 +13,7 @@ public class QuestionBrief {
 	private Long totalAnswerNum;//总回答数
 	private String type;
 	private Date publishDate;
+	//7/17
+	private Integer status;
+	private Integer reward;
 }

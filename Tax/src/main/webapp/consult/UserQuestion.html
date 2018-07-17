@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="../css/paging.css">
 <link rel="stylesheet" href="../css/consult/questions.css">
 <link rel="stylesheet" href="../css/zeroModal.css">
+<link rel="stylesheet" type="text/css" href="../css/scayt.css">
+<link rel="stylesheet" type="text/css" href="../css/wsc.css">
 <style>
 #two {
 	border-bottom: 1px solid #fff;
@@ -354,24 +356,43 @@ body {
 				<button onclick="userNotnull();" class="consultation">我要咨询</button>
 			</div>
 			<!-- 选择类型 -->
-			<div class="search_choose" style="height: 40px;">
-				<ul>
-					<li
-						style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-						<a href="/lagsms/questions/search?majorCategory=040001">发票系统故障及操作指导</a>
-					</li>
-					<li
-						style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-						<a href="/lagsms/questions/search?majorCategory=040002">发票领购</a>
-					</li>
-					<li
-						style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-						<a href="/lagsms/questions/search?majorCategory=040003">发票代开</a>
-					</li>
-				</ul>
+			<div class="select_btn" style="display:inline-block;">
+				<form action="#" id="majorForm" method="GET">
+				<p>
+					<input type="checkbox" id="1" value="1" name="majorCategory" onclick="selectedMajor();"><label for="1">发票系统故障及操作指导</label>
+					<input type="checkbox" id="2" value="2" name="majorCategory" onclick="selectedMajor();"><label for="2">发票领购</label>
+					<input type="checkbox" id="3" value="3" name="majorCategory" onclick="selectedMajor();"><label for="3">发票代开</label>
+					<input type="checkbox" id="4" value="4" name="majorCategory" onclick="selectedMajor();"><label for="4">发票开具</label>
+					<input type="checkbox" id="5" value="5" name="majorCategory" onclick="selectedMajor();"><label for="5">红字增值税发票开具</label>
+					<input type="checkbox" id="6" value="6" name="majorCategory" onclick="selectedMajor();"><label for="6">申报有误能否作废</label>
+				</p>
+				<p>
+					<input type="checkbox" id="7" value="7" name="majorCategory" onclick="selectedMajor();"><label for="7">一般纳税人资格</label>
+					<input type="checkbox" id="8" value="8" name="majorCategory" onclick="selectedMajor();"><label for="8">辅导期一般纳税人</label>
+					<input type="checkbox" id="9" value="9" name="majorCategory" onclick="selectedMajor();"><label for="9">专用发票认证抵扣</label>
+					<input type="checkbox" id="10" value="10" name="majorCategory" onclick="selectedMajor();"><label for="10">小规模纳税人增值税起征点是否有调整</label>
+					<input type="checkbox" id="11" value="11" name="majorCategory" onclick="selectedMajor();"><label for="11">认定为一般纳税人之后是否可以转为小规模纳税人</label>
+					<input type="checkbox" id="12" value="12" name="majorCategory" onclick="selectedMajor();"><label for="12">小规模纳税人自行开具的增值税专用发票如何填写申报表</label>
+				</p>
+				<p>
+					<input type="checkbox" id="13" value="13" name="majorCategory" onclick="selectedMajor();"><label for="13">注销登记</label>
+					<input type="checkbox" id="14" value="14" name="majorCategory" onclick="selectedMajor();"><label for="14">发票检查</label>
+					<input type="checkbox" id="15" value="15" name="majorCategory" onclick="selectedMajor();"><label for="15">专用发票丢失</label>
+					<input type="checkbox" id="16" value="16" name="majorCategory" onclick="selectedMajor();"><label for="16">征收率</label>
+					<input type="checkbox" id="17" value="17" name="majorCategory" onclick="selectedMajor();"><label for="17">非国税业务</label>
+					<input type="checkbox" id="18" value="18" name="majorCategory" onclick="selectedMajor();"><label for="18">信用等级</label>
+				</p>
+				<p>
+					<input type="checkbox" id="19" value="19" name="majorCategory" onclick="selectedMajor();"><label for="19">营改增</label>
+					<input type="checkbox" id="20" value="20" name="majorCategory" onclick="selectedMajor();"><label for="20">金税管理</label>
+					<input type="checkbox" id="21" value="21" name="majorCategory" onclick="selectedMajor();"><label for="21">进出口税收</label>
+					<input type="checkbox" id="22" value="22" name="majorCategory" onclick="selectedMajor();"><label for="22">征收管理</label>
+					<input type="checkbox" id="23" value="23" name="majorCategory" onclick="selectedMajor();"><label for="23">发票保管</label>
+				</p>
+				</form>
 				<div class="searchchoose_up"></div>
 				<div class="searchchoose_down"></div>
-			</div>
+		</div>
 		</div>
 		<div class="liuan_center_tab">
 			<!-- 分页 start -->
