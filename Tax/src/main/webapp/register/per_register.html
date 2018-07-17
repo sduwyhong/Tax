@@ -329,11 +329,11 @@ body {
 								</tr>
 								<tr>
 									<td style="width: 25%;">验证码</td>
-									<td style="width: 75%;"><input data-ok="0" id="verifyCode"
-										type="text" style="width: 235px" placeholder="验证码"> <div class="code">
-				    	<!-- 验证码外必须被class为code的div嵌套 -->
-				        <canvas id="canvas" width="100" height="30"></canvas>
-				    </div></td>
+									<td style="width: 75%;">
+									<input data-ok="0" id="verifyCode" type="text" style="width: 235px" placeholder="验证码"> 
+									<a >
+										<img onclick="updateVerifyCode();" src="http://localhost:8888/Tax/api/v1/guest/verifyCode" alt="验证码">
+									</a></td>
 									<td><span id="code1" class="yanzheng"></span></td>
 								</tr>
 								<tr>
@@ -547,7 +547,8 @@ body {
 					username:userName,
 					password:hex_md5(pwd),
 					email:mail,
-					telephone:userTelephone
+					telephone:userTelephone,
+					code: $('#verifyCode').val()
 				},
 				success:function(data){
 					console.log(data);

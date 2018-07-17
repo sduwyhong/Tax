@@ -1,5 +1,6 @@
 package org.tax.service.impl;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -41,7 +42,6 @@ import org.tax.model.TaxShare;
 import org.tax.model.TaxShareExample;
 import org.tax.model.TaxUser;
 import org.tax.model.TaxUserExample;
-import org.tax.model.TaxUserExample.Criteria;
 import org.tax.model.TaxUserKey;
 import org.tax.result.Result;
 import org.tax.service.TaxGuestService;
@@ -49,6 +49,9 @@ import org.tax.session.MySession;
 import org.tax.session.SessionControl;
 import org.tax.util.LuceneUtil;
 import org.tax.util.UUIDUtil;
+import org.tax.validateCode.ValidateCodeControl;
+
+import cn.dsna.util.images.ValidateCode;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -95,12 +98,19 @@ public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
 	}
 	
 	@Override
-	public String register(TaxUser user) {
+	public String register(TaxUser user, String code, HttpServletRequest request) {
 		Result result = new Result();
 		/**
 		 * 未加验证码 
 		 * 未加验证:用户邮箱格式
 		 * */
+		//verifycode
+		String token  = getTokenFromCookie(request);
+		if(token != null && code != null && !ValidateCodeControl.getInstance().verify(token, code)) {
+			result.setStatus(StatusCode.INVALID_VERIFYCODE);
+			result.setMessage(Message.INVALID_VERIFYCODE);
+			return JSONObject.toJSONString(result);
+		}
 		//validation part
 		Validator validator = new Validator();
 		List<ConstraintViolation> list = validator.validate(user);
@@ -159,6 +169,14 @@ public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
 		/**
 		 * 未添加功能： 验证码
 		 * */
+		String token  = getTokenFromCookie(request);
+		String code = loginInfo.getVerifyCode();
+		if(token != null && code != null && !ValidateCodeControl.getInstance().verify(token, code)) {
+			result.setStatus(StatusCode.INVALID_VERIFYCODE);
+			result.setMessage(Message.INVALID_VERIFYCODE);
+			return JSONObject.toJSONString(result);
+		}
+		
 		if(loginInfo==null || loginInfo.getUsername()==null || loginInfo.getPassword()==null){
 			result.setMessage(Message.INVALID_PARAMS);
 			result.setStatus(StatusCode.INVALID_PARAMS);
@@ -215,6 +233,16 @@ public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
 			LOGGER.debug("get session:"+SessionControl.getInstance().getSession(user.getId()).getId());
 			return JSON.toJSONString(result);
 		}
+	}
+
+	public String getTokenFromCookie(HttpServletRequest request) {
+		Cookie[] cookies = request.getCookies();
+		for(Cookie cookie : cookies) {
+			if("token".equals(cookie.getName())){
+				return cookie.getValue();
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -574,6 +602,19 @@ public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
 			questionLiveList.add(questionLive);
 		}
 		return questionLiveList;
+	}
+
+	@Override
+	public void verifyCode(HttpServletRequest request,
+			HttpServletResponse response) {
+		ValidateCode validateCode = new ValidateCode(80, 45, 4, 0);
+		String token = ValidateCodeControl.getInstance().addCode(validateCode.getCode());
+		try {
+			response.addCookie(new Cookie("token", token));
+			validateCode.write(response.getOutputStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 

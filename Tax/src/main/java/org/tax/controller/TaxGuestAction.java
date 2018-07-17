@@ -30,6 +30,11 @@ public class TaxGuestAction {
 	@Autowired
 	TaxGuestService taxGuestService;
 	
+	@RequestMapping(value="/verifyCode",method=RequestMethod.GET)
+	public void verifyCode(HttpServletRequest request, HttpServletResponse response) {
+		taxGuestService.verifyCode(request, response);
+	}
+	
 	@RequestMapping(value="/validateTelephone",method=RequestMethod.POST,produces=JSON)
 	@ResponseBody
 	public String validateTelephone(String telephone) {
@@ -44,8 +49,8 @@ public class TaxGuestAction {
 	
 	@RequestMapping(value="/register",method=RequestMethod.POST,produces=JSON)
 	@ResponseBody
-	public String register(TaxUser user) {
-		return taxGuestService.register(user);
+	public String register(TaxUser user, @RequestParam("code") String code, HttpServletRequest request) {
+		return taxGuestService.register(user, code, request);
 	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces=JSON)

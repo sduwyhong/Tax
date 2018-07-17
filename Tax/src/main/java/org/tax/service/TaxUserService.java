@@ -41,4 +41,6 @@ public interface TaxUserService {
 	String getUserByPro(String proId);
 
 	String getInfo(HttpServletRequest request);
+
+	String logout(HttpServletRequest request, HttpServletResponse response);
 }

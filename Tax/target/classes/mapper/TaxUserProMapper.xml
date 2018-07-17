@@ -100,7 +100,6 @@
     <if test="distinct">
       distinct user_id
     </if>
-    <include refid="Base_Column_List" />
     from tax_user_pro
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />

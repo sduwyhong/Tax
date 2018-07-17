@@ -473,53 +473,34 @@ body {
 								<div class="darkblue"></div>
 							</div>
 							<ul style="border-bottom: 1px dashed #ccc; height: 70px;">
-								<li><a href="/lagsms/questions/ques_1513743241249/details">
-										想了解个人所得税流程</a></li>
-								<li><span>2017-12-20</span></li>
-								<li><span>浏览：</span> <span>270</span></li>
-								<li><span>回答：</span> <span>5</span></li>
-								<li style="width: 110px;"><span>收藏：</span> <span
-									class="starCount">4</span></li>
-								<li><span>分类：</span> <span>发票系统故障及操作指导,发票领购</span></li>
+								<li>
+								<a href="/lagsms/questions/ques_1513743241249/details">
+										想了解个人所得税流程</a>
+								</li>
+								<li>
+									<span>2017-12-20</span>
+								</li>
+								<li>
+									<span>浏览：</span> <span>270</span>
+								</li>
+								<li>
+									<span>回答：</span> <span>5</span>
+								</li>
+								<li style="width: 110px;">
+									<span>收藏：</span> <span class="starCount">4</span>
+								</li>
+								<li>
+									<span>分类：</span> <span>发票系统故障及操作指导,发票领购</span>
+								</li>
 								<li data-target-id="ques_1513737987706" data-target="question"
 									onclick="starQuestion();"
-									style="width: 73px; float: right; cursor: pointer;"><span>收藏</span>
-								</li>
-							</ul>
-
-							<ul style="border-bottom: 1px dashed #ccc; height: 70px;">
-								<li><a href="/lagsms/questions/ques_1513740963289/details">
-										电子税务的一些知识</a></li>
-								<li><span>2017-12-20</span></li>
-
-								<li><span>浏览：</span> <span>32</span></li>
-								<li><span>回答：</span> <span>0</span></li>
-								<li style="width: 110px;"><span>收藏：</span> <span
-									class="starCount">1</span></li>
-								<li><span>分类：</span> <span>发票系统故障及操作指导,发票领购</span></li>
-								<li data-target-id="ques_1513740963289" data-target="question"
-									onclick="starQuestion();"
-									style="width: 73px; float: right; cursor: pointer;"><span>收藏</span>
-								</li>
-							</ul>
-
-							<ul style="border-bottom: 1px dashed #ccc; height: 70px;">
-								<li><a href="/lagsms/questions/ques_1513754664159/details">
-										咨询税收</a></li>
-								<li><span>2017-12-20</span></li>
-
-								<li><span>浏览：</span> <span>23</span></li>
-								<li><span>回答：</span> <span>3</span></li>
-								<li style="width: 110px;"><span>收藏：</span> <span
-									class="starCount">1</span></li>
-								<li><span>分类：</span> <span>发票系统故障及操作指导</span></li>
-								<li data-target-id="ques_1513754664159" data-target="question"
-									onclick="starQuestion();"
-									style="width: 73px; float: right; cursor: pointer;"><span>收藏</span>
+									style="width: 73px; float: right; cursor: pointer;">
+									<span>收藏</span>
 								</li>
 							</ul>
 						</div>
-						
+						<!-- 分页 -->
+						<div id="quesPaging" class="box"></div>
 					</div>
 					<!-- latest end -->
 				</div>
@@ -527,7 +508,8 @@ body {
 				<!-- 实现分页 start-->
 				<!-- 不满一页：设置pagination的display：none
 					  点击数字: 由class=waves-effect变成class=active 
-					  首页时:prePage为disabled；尾页时 :nextPage的class为disabled 其他情况时class为waves-effect-->						
+					  首页时:prePage为disabled；尾页时 :nextPage的class为disabled 其他情况时class为waves-effect-->
+			 	 <!-- 						
 				<ul class="pagination" style="display: none;">
 					<li class="waves-effect waves-light btn-small" id="firstPage"><a href="#!" style="font-color: black">first</a></li>
     				<li class="disabled" id="prePage">
@@ -547,6 +529,7 @@ body {
     				</li>
   			  	  <li class="waves-effect waves-light btn-small" id="lastPage"><a href="#!" style="font-color: black">last</a></li>
   				</ul>	
+  				 -->
   				<!-- 实现分页 end-->
   				
 			</div>
@@ -601,8 +584,6 @@ body {
         jump: true, 								// 是否支持跳转
         initLoad: false,
         callback: function(page) { 					// 回调函数
-     	   	$("#quesForm").children(":input[name='page']").val(page);
-    			$("#quesForm").submit();
         }
     });
     

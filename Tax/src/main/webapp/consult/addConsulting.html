@@ -249,10 +249,18 @@ body {
 	<!-- header start -->
 	<div id="headerpage"></div>
 	<!-- header end -->
-
+<!-- load js -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../js/zeroModel.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/Materialize/materialize.min.js"></script>
+	<script type="text/javascript" src="../js/Materialize/adbeus.js"></script>
+	<script type="text/javascript" src="http://58.56.96.171:8009/lagsms/resources/ckeditor/config.js?t=H0CG"></script>
+	<script type="text/javascript" src="http://58.56.96.171:8009/lagsms/resources/ckeditor/lang/zh-cn.js?t=H0CG"></script>
+	<script type="text/javascript" src="http://58.56.96.171:8009/lagsms/resources/ckeditor/styles.js?t=H0CG"></script>
 
 	<script>
 			// 窗体加载完成时轮询
+			/*
 			var t, notifyNum = 0;
 			window.onload = function() {
 				loadNotifies();
@@ -262,7 +270,7 @@ body {
 			window.onbeforeunload = function() {
 				clearInterval(t);
 			}
-			
+			*/
 			//消息提示
 			function loadNotifies() {
 				var param = {
@@ -411,7 +419,7 @@ body {
 								<div class="clearfix" >
 									<label class="ordinary fl" style="font-size:17px;color:#000000b3;">相关用户:</label>
 									<div id="ordinary" class="ordinaryone fl">
-										<input type="checkbox" id="user_1513161259431" value="userId" name="invitedId" class="type_item"><label for="user_1513161259431">admin6</label>
+										<span class="candidates" hidden="hidden"><input type="checkbox" id="user_1513161259431" value="userId" name="invitedId" class="type_item"><label for="user_1513161259431">admin6</label></span>
 									</div>
 								</div>
 								<!-- 
@@ -467,15 +475,6 @@ body {
 	<div id = "footerpage"></div>
 	<!-- footer end -->
 	
-	<!-- load js -->
-	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script type="text/javascript" src="../js/zeroModel.min.js" charset="utf-8"></script>
-	<script type="text/javascript" src="../js/Materialize/materialize.min.js"></script>
-	<script type="text/javascript" src="../js/Materialize/adbeus.js"></script>
-	<script type="text/javascript" src="http://58.56.96.171:8009/lagsms/resources/ckeditor/config.js?t=H0CG"></script>
-	<script type="text/javascript" src="http://58.56.96.171:8009/lagsms/resources/ckeditor/lang/zh-cn.js?t=H0CG"></script>
-	<script type="text/javascript" src="http://58.56.96.171:8009/lagsms/resources/ckeditor/styles.js?t=H0CG"></script>
-	
 	<!-- load header and footer -->
 	<script type="text/javascript">
 		$("#headerpage").load("../header.html");
@@ -512,15 +511,33 @@ body {
 			var m = Array.from(selectedMajors).join(';');
 			m = encodeURI(m);
 			console.log(m);
-			$.ajax({
-				url:path+'user/getUserByPro',
-				data:{
-					proId:m
-				},
-				success:function(data){
-					console.log(data);
-				}
-			})
+			$('.candidates[hidden!=hidden]').remove();
+			if(m.length > 0){
+				$.ajax({
+					url:path+'user/getUserByPro',
+					data:{
+						proId:m
+					},
+					success:function(data){
+						console.log(data);
+						/*<span class="candidates" hidden="hidden"><input type="checkbox" id="user_1513161259431" value="userId" name="invitedId" class="type_item"><label for="user_1513161259431">admin6</label></span>*/
+						var users = data.result;
+						//clear
+						for(var i in users) {
+							var template = $('.candidates:first').clone();
+							var random = Date.now();
+							var input = template.children('input');
+							input.attr('id',random);
+							input.val(users[i].id);
+							var label = template.children('label');
+							label.text(users[i].username);
+							label.attr('for',random);
+							template.removeAttr('hidden');
+							$('.candidates:last').after(template);
+						}
+					}
+				})
+			}
 		}
 	
 		 function save() {
@@ -547,7 +564,7 @@ body {
 			  	}
 			}
 			chestr = chestr.substr(0,chestr.length-1);
-			alert(chestr);
+			console.log(chestr);
 			if(chestr == "") {
 				alert("请先选择一个专业");
 			  	return false;
@@ -562,7 +579,7 @@ body {
 			  }
 			}
 			chestrone = chestrone.substr(0,chestrone.length-1);
-			alert(chestrone);
+			console.log(chestrone);
 			if(chestrone == "") {
 				alert("请先选择一个用户");
 			  return false;
@@ -579,7 +596,8 @@ body {
 				return false;
 			}
 			//文本域校验
-			var content = $('input[name=content]').text();
+			//CKEDITOR.instances.控件ID.getData();
+			var content = CKEDITOR.instances.editor.getData();
 			console.log(content.trim());
 			/* text.replace(/\ +/g, ""); //去掉空格
 	        text.replace(/[ ]/g, "");    //去掉空格
@@ -587,7 +605,6 @@ body {
 			if (null == content || content == "") {
 				alert("请填写正文");
 				return false;
-			
 			}
 	        //是否登录用户校验
 			var userId='user_1530497588928';
@@ -598,7 +615,7 @@ body {
 			}
 			
 			$.ajax({
-				url:path+'user/publishQuestion',
+				url:path+'user/question',
 				type:'post',
 				data:{
 					prize:$('#rewardAmount').val(),

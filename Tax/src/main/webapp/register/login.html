@@ -145,10 +145,9 @@
 					<span class="yanzheng"></span>
 					<input id="YANZHENG" name="logyan" class="text" style="border-bottom:none;color: #000000 !important; position:absolute; z-index:100;"value="" type="password" placeholder="请输入验证码">
 					</input>
-					<div class="code">
-				    	<!-- 验证码外必须被class为code的div嵌套 -->
-				        <canvas id="canvas" width="100" height="30"></canvas>
-				    </div>
+					<a >
+						<img onclick="updateVerifyCode();" src="http://localhost:8888/Tax/api/v1/guest/verifyCode" alt="验证码" style="padding-left:270px;">
+					</a>
 				</div>
 					
 				<div id="LOGIN" class="mb2" style="padding-left:80px">
@@ -313,7 +312,7 @@
 			  }
 		}); 
 		function updateVerifyCode() {
-			event.target.src = "verifyCode?t=" + Date.now();
+			event.target.src = path+"guest/verifyCode?t=" + Date.now();
 		}
 /* 		var menu = document.getElementById("menu").getElementsByTagName("a");
 		for(var i = 0; i < menu.length; i++) {
@@ -373,7 +372,8 @@
 				type:'post',
 				data:{
 					username:userName,
-					password:hex_md5(pwd)
+					password:hex_md5(pwd),
+					verifyCode:$('input[name=logyan]').val()
 				},
 				success:function(data) {
 					console.log(data);
@@ -383,6 +383,9 @@
 					}else if(data.status == 400){
 						alert('用户名和密码有误，请重新登陆！');
 						$("#j_password").val('');
+					}else if(data.status == 401){
+						alert('验证码有误！');
+						location.reload();
 					}
 				}
 			})

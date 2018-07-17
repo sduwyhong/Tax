@@ -31,14 +31,14 @@ import com.alibaba.fastjson.JSONObject;
 public class LoginInterceptor implements HandlerInterceptor {
 
 	static final Logger LOGGER = Logger.getLogger(LoginInterceptor.class); 
-	
+
 	@Autowired
 	TaxUserMapper taxUserMapper;
-	
+
 	@Override
 	public void afterCompletion(HttpServletRequest arg0,
 			HttpServletResponse arg1, Object arg2, Exception arg3)
-			throws Exception {
+					throws Exception {
 	}
 
 	@Override
@@ -50,20 +50,22 @@ public class LoginInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
 			Object arg2) throws Exception {
 		Cookie[] cookies = request.getCookies();
-		for (Cookie cookie : cookies) {
-			if(cookie.getName().equals(CookieConst.USER)){
-				//客户端有cookie，后台没session对象，则这里判断一下要不要补一个session
-				String userId = URLDecoder.decode(cookie.getValue(),"UTF-8").split(";")[0];
-				LOGGER.debug("userId :"+userId);
-				MySession session = SessionControl.getInstance().getSession(userId);
-				if(session == null){
-					session = new MySession(UUIDUtil.genUUID());
-					TaxUserKey key = new TaxUserKey();
-					key.setId(userId);
-					session.setAttribute(SessionConst.USER, taxUserMapper.selectByPrimaryKey(key));
-					SessionControl.getInstance().addSession(userId, session);
+		if(cookies.length > 0) {
+			for (Cookie cookie : cookies) {
+				if(cookie.getName().equals(CookieConst.USER)){
+					//客户端有cookie，后台没session对象，则这里判断一下要不要补一个session
+					String userId = URLDecoder.decode(cookie.getValue(),"UTF-8").split(";")[0];
+					LOGGER.debug("userId :"+userId);
+					MySession session = SessionControl.getInstance().getSession(userId);
+					if(session == null){
+						session = new MySession(UUIDUtil.genUUID());
+						TaxUserKey key = new TaxUserKey();
+						key.setId(userId);
+						session.setAttribute(SessionConst.USER, taxUserMapper.selectByPrimaryKey(key));
+						SessionControl.getInstance().addSession(userId, session);
+					}
+					return true;
 				}
-				return true;
 			}
 		}
 		Result result = new Result();

@@ -17,7 +17,7 @@ import org.tax.model.TaxUser;
  * */
 public interface TaxGuestService {
 
-	String register(TaxUser user);
+	String register(TaxUser user, String code, HttpServletRequest request);
 	
 	String login(LoginInfo loginInfo, HttpServletRequest request, HttpServletResponse response);
 	
@@ -35,5 +35,7 @@ public interface TaxGuestService {
 	String validateUsername(String username);
 
 	String validateTelephone(String telephone);
+
+	void verifyCode(HttpServletRequest request, HttpServletResponse response);
 	
 }

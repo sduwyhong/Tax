@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,7 +69,7 @@ public class TaxUserServiceImpl implements TaxUserService {
 		List<Candidate> list = mapperFactory.getTaxUserProMapper().selectByExample(example);
 		Result result = new Result();
 		result.setResult(list);
-		return JSONObject.toJSONString(list);
+		return JSONObject.toJSONString(result);
 	}
 
 	@Override
@@ -180,19 +181,21 @@ public class TaxUserServiceImpl implements TaxUserService {
 		if(flag<=0){
 			result.setMessage(Message.INVALID_PARAMS);
 			result.setStatus(StatusCode.INVALID_PARAMS);
-		}
-		//lucene创建索引
-		LuceneUtil.creatIndex(question);
-		//存放邀请列表
-		if(invitationList != null && !"".equals(invitationList)) {
-			int questionId = mapperFactory.getTaxQuestionMapper().getLastInsertId();
-			String[] invitations = invitationList.split(";");
-			TaxInvitationMapper taxInvitationMapper = mapperFactory.getTaxInvitationMapper();
-			for (int i = 0; i < invitations.length; i++) {
-				TaxInvitation record = new TaxInvitation();
-				record.setUserId(invitations[i]);
-				record.setQuestionId(questionId);
-				taxInvitationMapper.insert(record);
+		}else{
+			//lucene创建索引
+			question.setId(mapperFactory.getTaxQuestionMapper().getLastInsertId());
+			LuceneUtil.creatIndex(question);
+			//存放邀请列表
+			if(invitationList != null && !"".equals(invitationList)) {
+				int questionId = mapperFactory.getTaxQuestionMapper().getLastInsertId();
+				String[] invitations = invitationList.split(";");
+				TaxInvitationMapper taxInvitationMapper = mapperFactory.getTaxInvitationMapper();
+				for (int i = 0; i < invitations.length; i++) {
+					TaxInvitation record = new TaxInvitation();
+					record.setUserId(invitations[i]);
+					record.setQuestionId(questionId);
+					taxInvitationMapper.insert(record);
+				}
 			}
 		}
 		return JSON.toJSONString(result);
@@ -208,6 +211,7 @@ public class TaxUserServiceImpl implements TaxUserService {
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 				}
+				break;
 			}
 		}
 		LOGGER.debug("userId:"+userId);
@@ -312,6 +316,28 @@ public class TaxUserServiceImpl implements TaxUserService {
 		Result result = new Result();
 		result.setResult(userInfo);
 		return JSONObject.toJSONString(result);
+	}
+
+	@Override
+	public String logout(HttpServletRequest request,
+			HttpServletResponse response) {
+		Cookie[] cookies = request.getCookies();
+		String userId = null;
+		for(Cookie cookie:cookies) {
+			if(CookieConst.USER.equals(cookie.getName())){
+				cookie.setMaxAge(0);
+				cookie.setPath(CookieConst.PATH);//necessary
+				try {
+					userId = URLDecoder.decode(cookie.getValue(),"UTF-8").split(";")[0];
+					LOGGER.debug("logout userId:"+userId);
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+				response.addCookie(cookie);
+			}
+		}
+		SessionControl.getInstance().rmSession(userId);
+		return JSONObject.toJSONString(new Result());
 	}
 
 }

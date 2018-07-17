@@ -10,6 +10,7 @@
 <script type="text/javascript" src="../js/zeroModel.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="../js/Materialize/materialize.min.js"></script>
 <script type="text/javascript" src="../js/Materialize/adbeus.js"></script>
+<script type="text/javascript" src="../js/path.js"></script>
 <!-- Let browser konw website is optimized for mobile -->
 <meta name="viewport" content="width=device-width,initial-scale=1.0" />
 
@@ -82,13 +83,27 @@
 	   						</li>
 	    					<li class="divider"></li>
 	    					<li>
-	   							<a href="#!">
+	   							<a href="javascript:logout()">
 	   								<span class="UIMenuItem-inner">退出</span>
 	   							</a>
 	   						</li>
 	  					</ul>
   						<!-- 下拉菜单栏 end -->
 					</div>
+					<script type="text/javascript">
+						function logout(){
+							$.ajax({
+								url:path+'user/logout',
+								type:'post',
+								success:function(data){
+									if(data.status == 200) {
+										alert('goodbye');
+										location.href = '../homepage/index.html';
+									}
+								}
+							})
+						}
+					</script>
  					<script type="text/javascript">
 	 					var cookies = document.cookie;
 	 					var cookieArray = cookies.split(';');
