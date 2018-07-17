@@ -525,7 +525,7 @@ body {
 						//clear
 						for(var i in users) {
 							var template = $('.candidates:first').clone();
-							var random = Date.now();
+							var random = Math.random();
 							var input = template.children('input');
 							input.attr('id',random);
 							input.val(users[i].id);
@@ -613,12 +613,15 @@ body {
 				alert("请先登录用户");
 				return false;
 			}
-			
+			var prize = $('#rewardAmount').val();
+			if(prize == undefined || prize < 1){
+				prize = 0;
+			}
 			$.ajax({
 				url:path+'user/question',
 				type:'post',
 				data:{
-					prize:$('#rewardAmount').val(),
+					prize:prize,
 					type:chestr,
 					invitationList:chestrone,
 					title:$('input[name=title]').val(),

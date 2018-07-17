@@ -32,6 +32,7 @@ public class ValidateCodeControl {
 	
 	public String addCode(String code) {
 		String key = UUIDUtil.genUUID();
+		LOGGER.debug("token:"+key+";code:"+code);
 		codeMap.put(key, code+";"+new Date().getTime());
 		return key;
 	}

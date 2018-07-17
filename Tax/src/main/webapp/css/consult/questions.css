@@ -6,9 +6,10 @@ body,dd,dl,dt,h1,h2,h3,h4,h5,h6,li,p,ul {
 body{
 	overflow-x: hidden;
 }
+/*
 ul{
 	list-style: none;
-}
+}*/
 a{
 	text-decoration: none;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -114,7 +115,7 @@ button{
 	border:none;
 	cursor: pointer;
 	margin:0 0;
-	background:url(../image/home/search_btn.png) center rgb(27,85,169)no-repeat;
+	background:url(../../image/home/search_btn.png) center rgb(27,85,169)no-repeat;
 	float:left;
 	outline:none;
 }
@@ -148,7 +149,7 @@ button{
 	bottom:0;
 	margin:auto 0;
 	cursor:pointer;
-	background:url(../image/home/down.png) no-repeat;
+	background:url(../../image/home/down.png) no-repeat;
 	display:none;
 }
 .searchchoose_up{
@@ -159,7 +160,7 @@ button{
 	bottom:15px;
 	margin:auto 0;
 	cursor:pointer;
-	background:url(../image/home/up.png) no-repeat;
+	background:url(../../image/home/up.png) no-repeat;
 	
 }
 /* 中间部分end */
@@ -492,7 +493,7 @@ button{
 }
 .starCountImg{
 	width:120px;
-	background:url(../image/home/collect_qian.png) no-repeat;
+	background:url(../../image/home/collect_qian.png) no-repeat;
 }
 .question_title{
 	width: 100px;
@@ -522,7 +523,7 @@ button{
 	bottom:0;
 	margin:auto 0;
 	cursor:pointer;
-	background:url(../image/home/down.png) no-repeat;
+	background:url(../../image/home/down.png) no-repeat;
 }
 .searchchoose_down{
 	width:14px;
@@ -532,7 +533,7 @@ button{
 	top:105px;
 	margin:auto 0;
 	cursor:pointer;
-	background:url(../image/home/up.png) no-repeat;
+	background:url(../../image/home/up.png) no-repeat;
 	display:none;
 }
 /*  new  */

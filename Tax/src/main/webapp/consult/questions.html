@@ -265,46 +265,6 @@ body {
 <script type="text/javascript" src="../js/zeroModel.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="../js/Materialize/materialize.min.js"></script>
 <script type="text/javascript" src="../js/Materialize/adbeus.js"></script>
-	<script>
-        $(function(){
-           $(".user_text").hover(function(){
-               var width_a = $(this).width();
-               var width_b = $(this).find(".user_id").width();
-               var indent_px = width_a - width_b;
-               if( width_a <= width_b ){
-                   $(this).css("text-indent",indent_px);
-               }
-           },function(){
-               $(this).css("text-indent","0");
-           });
-        });
-    </script>
-	<!-- input点击清除value值 -->
-	<script type="text/javascript">
-		wap_val = [];
-		$(".ssearch").each(function(i) {
-			wap_val[i] = $(this).val();
-			$(this).focusin(function() {
-				if ($(this).val() == wap_val[i]) {
-					$(this).val("");
-				}
-			}).focusout(function() {
-				if ($.trim($(this).val()) == "") {
-					$(this).val(wap_val[i]);
-				}
-			});
-		});
-		//  用户名显示
-		 $(".user_id").each(function(){
-		  var maxwidth=4;
-		  if($(this).text().length > maxwidth){
-		    $(this).text($(this).text().substring(0,maxwidth));
-		    $(this).html($(this).html()+'...');
-		  }
-		}); 
-	</script>
-
-
 	<!-- header end -->
 	<!-- 中间部分start -->
 	<div class="liuan_center_main">
@@ -450,11 +410,11 @@ body {
 			<!-- 分页 start -->
 			<div class="tab_a" id="tab_b" style="height: 1100px;">
 				<ul class="tabOne tabOneys" id="tabOne">
-					<li><a class="active" style="font-size: 20px;">最新咨询</a></li>
+					<li><a class="active" style="font-size: 20px;" href="javascript:getQuestions()" id="latest">最新咨询</a></li>
 					<li><a style="font-size: 16px;"
-						href="/lagsms/questions?type=hot">热门咨询</a></li>
+						href="javascript:getQuestions('hot')" id="hot">热门咨询</a></li>
 					<li><a style="font-size: 16px;"
-						href="/lagsms/questions?type=reward">悬赏咨询</a></li>
+						href="javascript:getQuestions('reward')" id="reward">悬赏咨询</a></li>
 				</ul>
 				<form id="quesForm" action="/lagsms/questions" style="display: none">
 					<input name="type" type="hidden" value="latest"> <input
@@ -472,7 +432,7 @@ body {
 							<div class="gary">
 								<div class="darkblue"></div>
 							</div>
-							<ul style="border-bottom: 1px dashed #ccc; height: 70px;">
+							<ul class="questions" hidden="hidden" style="border-bottom: 1px dashed #ccc; height: 70px;">
 								<li>
 								<a href="/lagsms/questions/ques_1513743241249/details">
 										想了解个人所得税流程</a>
@@ -548,6 +508,7 @@ body {
 	<script type="text/javascript" src="../js/Materialize/materialize.min.js"></script>
 	<script type="text/javascript" src="../js/Materialize/adbeus.js"></script>
 	<script type="text/javascript" src="../js/paging.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/path.js" charset="utf-8"></script>
 	
 	<!-- load header and footer -->
 	<script type="text/javascript">
@@ -557,36 +518,145 @@ body {
 	
 	<!-- 未登录状态，点击"我要咨询"和"收藏"的响应 -->
 	<script type="text/javascript">
-				function starQuestion() {
-					zeroModal.alert("请先登录用户");
-				}				
-				function userNotnull() {
-					if(!auth){
-						zeroModal.alert("请先登录用户");
-					}else{
-						location.href = 'addConsulting.html';
+		function userNotnull(){
+			if(!auth){
+				alert('请先登录！');
+				location.href = '../register/login.html';
+			}else{
+				location.href = '../consult/addConsulting.html';
+			}
+		}
+		function questionDetail(questionId){
+			location.href = '../posts/post.html?id='+questionId;
+		}
+		function starQuestion(questionId) {
+			//zeroModal.alert("请先登录用户");
+			$.ajax({
+				url:path+'user/collect/'+questionId,
+				type:'post',
+				success:function(data){
+					if(data.status == 200) {
+						alert('收藏成功！');
+					}else if(data.status == 403){
+						alert('请先登录！');
+						location.href = '../register/login.html';
 					}
 				}
-			</script>
+			})
+		}				
+	</script>
 	<script type="text/javascript">
-	
-	//分页
-    /* 最新咨询 */
-    var totalCount = 15;
-    console.log('totalCount = ' + totalCount);
-    var rows = 10;
-    console.log('rows = ' + rows);
-    $('#quesPaging').paging({
-    		initPageNo: 1, 			// 初始页码
-        totalPages: Math.ceil(totalCount/rows), 	// 总页数
-        totalCount: '合计 15条数据', 			// 条目总数
-        slideSpeed: 600, 							// 缓动速度。单位毫秒
-        jump: true, 								// 是否支持跳转
-        initLoad: false,
-        callback: function(page) { 					// 回调函数
-        }
-    });
-    
+	if($('.questions').size() == 1){
+		//触发a标签的点击事件，要转换成js对象，jq的trigger不起作用
+		$('#latest')[0].click();
+	}
+	var totalPage = 0;
+	var totalCount = 0;
+	var _type = 'latest';
+	function getQuestions(type,page){
+		if(type == undefined || !type.length > 0){
+			type = 'latest';
+		}
+		if(page == undefined || page < 1){
+			page = 1;
+		}
+		$.ajax({
+			url:path+'guest/question/'+type+'/'+page,
+			type:'get',
+			async:false,  //设置同步请求,
+			success:function(data){
+				console.log(data);
+				if(data.status == 200) {
+					//拼表格
+					$('.questions[hidden!=hidden]').remove();
+					var list = data.result.list;
+					for(var i in list) {
+						fillTable(list[i]);
+					}
+					totalPage = data.result.totalPage;
+					totalCount = data.result.totalCount;
+					_type = type;
+				}
+			}
+		})
+		console.log(totalPage);
+		console.log(totalCount);
+		console.log(_type);
+		initPagination(totalPage, totalCount, _type);
+	}
+	function fillTable(question){
+		/*
+		<ul class="questions" hidden="hidden" style="border-bottom: 1px dashed #ccc; height: 70px;">
+			0<li>
+			<a href="/lagsms/questions/ques_1513743241249/details">
+					想了解个人所得税流程</a>
+			</li>
+			1<li>
+				<span>2017-12-20</span>
+			</li>
+			2<li>
+				<span>浏览：</span> <span>270</span>
+			</li>
+			3<li>
+				<span>回答：</span> <span>5</span>
+			4</li>
+			<li style="width: 110px;">
+				<span>收藏：</span> <span class="starCount">4</span>
+			</li>
+			5<li>
+				<span>分类：</span> <span>发票系统故障及操作指导,发票领购</span>
+			</li>
+			6<li data-target-id="ques_1513737987706" data-target="question"
+				onclick="starQuestion();"
+				style="width: 73px; float: right; cursor: pointer;">
+				<span>收藏</span>
+			</li>
+		</ul>
+	*/
+		var template = $('.questions:first').clone();
+		var title = template.children('li:eq(0)').children();
+		title.text(question.title);
+		title.attr('href','javascript:questionDetail('+question.id+')');
+		template.children('li:eq(1)').children().text(getDate(question.publishDate));
+		template.children('li:eq(2)').children('span:eq(1)').text(question.click);
+		template.children('li:eq(3)').children('span:eq(1)').text(question.totalAnswerNum);
+		template.children('li:eq(4)').children('span:eq(1)').text(question.favourite);
+		template.children('li:eq(5)').children('span:eq(1)').text(question.type);
+		template.children('li:eq(6)').attr('onclick','starQuestion('+question.id+')');
+		template.removeAttr('hidden');
+		$('.questions:last').after(template);
+	}
+	function initPagination(totalPage,totalCount,type){
+		//分页，只有一页不分页
+		$('#quesPaging').paging({
+		   initPageNo: 1, 			// 初始页码
+	       totalPages: totalPage, 	// 总页数
+	       totalCount: '合计 '+totalCount+'条数据', 			// 条目总数
+	       slideSpeed: 600, 							// 缓动速度。单位毫秒
+	       jump: true, 								// 是否支持跳转
+	       initLoad: false,
+	       callback: function(page) { 
+		       	// 回调函数
+		       	$('.questions[hidden!=hidden]').remove();
+		       	$.ajax({
+		       		url:path+'guest/question/'+type+'/'+page,
+		       		success:function(data){
+		       			console.log(data);
+		       			if(data.status == 200) {
+		       				var list = data.result.list;
+		       				for(var i in list){
+						       	fillTable(list[i]);
+		       				}
+		       			}
+		       		}
+		       	})
+	   		}
+		});
+	}
+	//转换时间戳
+	function getDate(value){
+		 return new Date(parseInt(("/Date("+value+")/").substr(6, 13))).toLocaleDateString();  
+	}
     /*选择*/
 	$('.searchchoose_up').click(function(){
 		$('.search_choose').animate({height:"180px"});
@@ -599,9 +669,10 @@ body {
 		$('.searchchoose_down').css('display','none');
 	})
 	 //FF下用JS实现自定义滚动条
+	 /*
 	$(function(){
     $("body").niceScroll({cursorborder:"",cursorcolor:"rgba(0,0,0,0)",boxzoom:true});
-	})
+	})*/
 </script>
 </body>
 </html>
