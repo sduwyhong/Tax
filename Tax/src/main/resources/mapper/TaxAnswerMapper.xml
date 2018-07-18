@@ -291,7 +291,7 @@
   
   <update id="updateLike">
   	UPDATE tax_answer
-  	SET like = like + 1
+  	SET likes = likes + 1
   	WHERE id = #{id}
   </update>
   

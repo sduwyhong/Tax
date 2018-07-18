@@ -68,6 +68,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 				}
 			}
 		}
+		LOGGER.debug(cookies == null);
 		Result result = new Result();
 		result.setStatus(StatusCode.PERMISSION_DENIED);
 		result.setMessage(Message.PERMISSION_DENIED);

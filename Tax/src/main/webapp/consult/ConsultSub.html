@@ -342,14 +342,14 @@ body {
 								</li>
 								<li><span>-</span></li>
 								<li class="star_answer_action star-answer"
-									data-target-id="answ_1513851709298" onclick="starAnswer();"
-									style="cursor: pointer;">
-									<span id="starAnswer">收藏：</span>
-									<span id="cancelStarAnswer" style="display: none;">取消收藏：</span>
+									data-target-id="answ_1513851709298"
+									style="cursor: pointer;" id="answer_event_target">
+									<span id="starAnswer" >收藏：</span>
+									<span id="cancelStarAnswer" style="display: none;" >取消收藏：</span>
 									<span class="starCount star-answer-num">-</span>
 								</li>
 								<li class="like-answer" data-answer-id="answ_1513851709298"
-									onclick="likeAnswer();" style="cursor: pointer;">
+									 style="cursor: pointer;">
 									<span style="cursor: pointer;">点赞：</span>
 									<span class="likeCount like-answer-num">-</span>
 								</li>
@@ -605,12 +605,15 @@ body {
 			if(auth){
 				isFavouriteAnswer(answer.id);
 			}
+			template.children('li:eq(3)').attr('onclick','starAnswer('+answer.id+')');
 			template.children('li:eq(3)').children('span:eq(2)').text(answer.favourite);
+			template.children('li:eq(4)').children('span:eq(0)').attr('onclick','likeAnswer('+answer.id+')');
 			template.children('li:eq(4)').children('span:eq(1)').text(answer.likes);
 			var status = answer.status;
 			if(status == 1){
 				template.children('li:eq(5)').children('span:eq(2)').show();
 			}else if(auth && userId == authorId){
+				template.children('li:eq(5)').children('span:eq(1)').attr('onclick', 'confirmSolution('+answer.id+')');
 				template.children('li:eq(5)').children('span:eq(1)').show();
 			}else{
 				template.children('li:eq(5)').children('span:eq(0)').show();
@@ -681,8 +684,11 @@ body {
 					console.log(data);
 					if(data.status == 200) {
 						alert('收藏成功！');
+						$('#star').hide();
+						$('#stared').show();
 					}else if(data.status == 403){
-						alert('请先登录！');
+						if(data.message == 'permission denied') alert('请先登录！');
+						else alert('不可以收藏自己的回答！自恋狂');
 					}else{
 						alert('收藏失败！');
 					}
@@ -697,6 +703,8 @@ body {
 					console.log(data);
 					if(data.status == 200) {
 						alert('取消收藏成功！');
+						$('#star').show();
+						$('#stared').hide();
 					}else if(data.status == 403){
 						alert('请先登录！');
 					}else{
@@ -728,6 +736,7 @@ body {
 						if(data.result == true){
 							$('#starAnswer').hide();
 							$('#cancelStarAnswer').show();
+							//cancel待实现
 						}
 					}
 				}
@@ -761,9 +770,11 @@ body {
 					if(data.status == 200){
 						$('#starAnswer').hide();
 						$('#cancelStarAnswer').show();
-						$('.starCount').text($('.starCount').text() + 1);
+						console.log(parseInt($('.starCount').text()));
+						$('.starCount').text(parseInt($('.starCount').text()) + 1);
 					}else if(data.status == 403){
-						alert('请先登录！');
+						if(data.message == 'permission denied') alert('请先登录！');
+						else alert('不可以收藏自己的回答！自恋狂');
 					}
 				}
 			})
@@ -775,7 +786,7 @@ body {
 				success:function(data){
 					console.log(data);
 					if(data.status == 200){
-						$('.likeCount').text($('.likeCount').text() + 1);
+						$('.likeCount').text(parseInt($('.likeCount').text()) + 1);
 					}else if(data.status == 403){
 						alert('请先登录！');
 					}

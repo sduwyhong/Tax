@@ -390,7 +390,7 @@ public class TaxUserServiceImpl implements TaxUserService {
 		String operatorId = getUserIdFromRequest(request);
 		if(answer.getAuthorId().equals(operatorId)) {
 			result.setStatus(StatusCode.PERMISSION_DENIED);
-			result.setMessage(Message.PERMISSION_DENIED);
+			result.setMessage("you can't star your own answers, narcissism");
 		}else{
 			answer.setFavourite(answer.getFavourite() + 1);
 			mapperFactory.getTaxAnswerMapper().updateByPrimaryKey(answer);
@@ -438,6 +438,7 @@ public class TaxUserServiceImpl implements TaxUserService {
 		example.createCriteria().andQuestionIdEqualTo(questionId).andUserIdEqualTo(getUserIdFromRequest(request));
 		Result result = new Result();
 		if(mapperFactory.getTaxFavouriteMapper().countByExample(example) > 0) result.setResult(true); 
+		else result.setResult(false);
 		return JSONObject.toJSONString(result);
 	}
 
@@ -447,6 +448,7 @@ public class TaxUserServiceImpl implements TaxUserService {
 		example.createCriteria().andAnswerIdEqualTo(answerId).andUserIdEqualTo(getUserIdFromRequest(request));
 		Result result = new Result();
 		if(mapperFactory.getTaxFavouriteAnswerMapper().countByExample(example) > 0) result.setResult(true); 
+		else result.setResult(false);
 		return JSONObject.toJSONString(result);
 	}
 
