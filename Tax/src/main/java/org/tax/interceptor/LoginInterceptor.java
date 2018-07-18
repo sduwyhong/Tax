@@ -50,7 +50,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
 			Object arg2) throws Exception {
 		Cookie[] cookies = request.getCookies();
-		if(cookies.length > 0) {
+		if(cookies != null && cookies.length > 0) {
 			for (Cookie cookie : cookies) {
 				if(cookie.getName().equals(CookieConst.USER)){
 					//客户端有cookie，后台没session对象，则这里判断一下要不要补一个session

@@ -110,13 +110,13 @@
 	 					var auth = false;
 	 					for(var i in cookieArray){
 	 						if(cookieArray[i].split('=')[0].trim() == '_user'){
-	 							console.log(cookieArray[i]);
+	 							//console.log(cookieArray[i]);
 	 							var value = cookieArray[i].split('=')[1].split('%3B');
-	 							console.log(value);
+	 							//console.log(value);
 	 							var id = value[0];
-	 							console.log(id);
+	 							//console.log(id);
 	 							var name = decodeURI(value[1]);
-	 							console.log(name);
+	 							//console.log(name);
 	 							$('#guestStatus').hide();
 	 							$('#userStatus').show();
 	 							$('.user_name').text(name);

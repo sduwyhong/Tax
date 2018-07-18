@@ -75,10 +75,40 @@ public class TaxUserAction {
 		return taxUserService.confirmSolution(questionId, answerId, request);
 	}
 	
-	@RequestMapping(value="/collect/{questionId}",method=RequestMethod.POST,produces=JSON)
+	@RequestMapping(value="/likeAnswer/{answerId}",method=RequestMethod.POST,produces=JSON)
 	@ResponseBody
-	public String collect(@PathVariable("questionId") int questionId, HttpServletRequest request) {
+	public String likeAnswer(@PathVariable("answerId") int answerId) {
+		return taxUserService.likeAnswer(answerId);
+	}
+	
+	@RequestMapping(value="/collectQuestion/{questionId}",method=RequestMethod.POST,produces=JSON)
+	@ResponseBody
+	public String collectQuestion(@PathVariable("questionId") int questionId, HttpServletRequest request) {
 		return taxUserService.collectQuestion(questionId, request);
+	}
+	
+	@RequestMapping(value="/collectAnswer/{questionId}/{answerId}",method=RequestMethod.POST,produces=JSON)
+	@ResponseBody
+	public String collectAnswer(@PathVariable("answerId")int answerId, @PathVariable("questionId")int questionId, HttpServletRequest request) {
+		return taxUserService.collectAnswer(answerId, questionId, request);
+	}
+	
+	@RequestMapping(value="/cancelCollectQuestion/{questionId}",method=RequestMethod.POST,produces=JSON)
+	@ResponseBody
+	public String cancelCollectQuestion(@PathVariable("questionId") int questionId, HttpServletRequest request) {
+		return taxUserService.cancelCollectQuestion(questionId, request);
+	}
+	
+	@RequestMapping(value="/checkFavouriteQuestion/{questionId}",method=RequestMethod.GET,produces=JSON)
+	@ResponseBody
+	public String checkFavouriteQuestion(@PathVariable("questionId") int questionId, HttpServletRequest request) {
+		return taxUserService.checkFavouriteQuestion(questionId, request);
+	}
+	
+	@RequestMapping(value="/checkFavouriteAnswer/{answerId}",method=RequestMethod.GET,produces=JSON)
+	@ResponseBody
+	public String checkFavouriteAnswer(@PathVariable("answerId") int answerId, HttpServletRequest request) {
+		return taxUserService.checkFavouriteAnswer(answerId, request);
 	}
 	
 	@RequestMapping(value="/avatar/{userId}",method=RequestMethod.POST,produces=JSON)

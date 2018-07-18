@@ -301,14 +301,20 @@ body {
 						<li><span>浏览：</span><span  id="click">-</span></li>
 						<!-- <li><span>回答：</span><span id="answerNum">5</span></li> -->
 
-
+						<!-- 
 						<li data-target-id="ques_1513737987706" data-target="question"
 							onclick="report();"
 							style="cursor: pointer; float: right; cursor: pointer;"
 							id="report">举报</li>
-						<li class="check_not_login" data-target-id="ques_1513737987706"
+						 -->
+						<li id="star" class="check_not_login" data-target-id="ques_1513737987706"
 							data-target="question" onclick="starQuestion();"
 							style="cursor: pointer; float: right;">收藏</li>
+						<li id="stared" class="check_not_login" data-target-id="ques_1513737987706"
+							data-target="question" onclick="cancelStarQuestion();"
+							style="cursor: pointer; float: right;display: none;">取消收藏</li>
+						<li style="float:right;cursor:pointer;display: none;" id="del_question"><span class="quesContent_spanTwo" onclick="delQuestion()">删除</span></li>
+						<li style="float:right;cursor:pointer;display: none;" id="edit_question"><span class="quesContent_spanOne" onclick="editQuestion();">编辑</span></li>
 					</ul>
 				</div>
 				<!-- 最佳回答 -->
@@ -338,7 +344,8 @@ body {
 								<li class="star_answer_action star-answer"
 									data-target-id="answ_1513851709298" onclick="starAnswer();"
 									style="cursor: pointer;">
-									<span>收藏：</span>
+									<span id="starAnswer">收藏：</span>
+									<span id="cancelStarAnswer" style="display: none;">取消收藏：</span>
 									<span class="starCount star-answer-num">-</span>
 								</li>
 								<li class="like-answer" data-answer-id="answ_1513851709298"
@@ -346,9 +353,13 @@ body {
 									<span style="cursor: pointer;">点赞：</span>
 									<span class="likeCount like-answer-num">-</span>
 								</li>
-								<li id="report_one">
-									<span data-target-id="answ_1513851709298" data-target="answer" onclick="report();" 
-										  style="text-decoration: none; color: black; cursor: pointer;">举报</span>
+								<li id="solution">
+									<span data-target-id="answ_1513851709298" data-target="answer" onclick="" 
+										  style="text-decoration: none; color: black; cursor: pointer;display: none;">未被采纳</span>
+									<span data-target-id="answ_1513851709298" data-target="answer" onclick="" 
+										  style="text-decoration: none; color: black; cursor: pointer;display: none;">采纳</span>
+									<span data-target-id="answ_1513851709298" data-target="answer" onclick="" 
+										  style="text-decoration: none; color: black; cursor: pointer;display: none;"><strong style="color: red;">被采纳</strong></span>
 								</li>
 							</ul>
 							
@@ -475,9 +486,13 @@ body {
 	<script type="text/javascript">
 		var cookies = document.cookie;
 		var cookieArray = cookies.split(';');
+		var userId = '';
 		var auth = false;
 		for(var i in cookieArray){
 			if(cookieArray[i].split('=')[0].trim() == '_user'){
+				var value = cookieArray[i].split('=')[1].split('%3B');
+				console.log(value);
+				userId = value[0];
 				auth = true;
 				break;
 			}
@@ -495,8 +510,10 @@ body {
 	<script type="text/javascript">
 		//咨询
 		var questionId = location.search.substr(1,location.search.length-1).split("=")[1];
+		var authorId = '';
 		$.ajax({
 			url:path+'guest/question/'+questionId,
+			async:false,
 			success:function(data){
 				console.log(data);
 				var question = data.result;
@@ -511,6 +528,17 @@ body {
 				$('#content').html(question.content);
 				$('#click').text(question.click);
 				$('#publishDate').text(getDate(question.publishDate));
+				//看是否已收藏
+				console.log(auth);
+				if(auth){
+					isFavouriteQuestion();
+				}
+				console.log(userId);
+				authorId = question.authorId;
+				if(authorId == userId) {
+					$('#del_question').show();
+					$('#edit_question').show();
+				}
 			}
 		})
 		//查询回答
@@ -535,7 +563,7 @@ body {
 		initPagination(totalPage,totalCount);
 		function fillTable(answer){
 			/*
-			<ul data-answer-id="answ_1513851709298" class="answer_template"
+			<ul hidden="hidden" data-answer-id="answ_1513851709298" class="answer_template"
 				style="border-bottom: 1px dashed #ccc; height: 136px;">
 				<li>
 					<a href="/lagsms/users/user_1513264931170/zone">
@@ -543,24 +571,29 @@ body {
 					</a>
 				</li>
 				<li><p class="over"></p>
-					<p>回答了解流程税是怎么计算的流程是什么？</p>
+					<p>-</p>
 					<p></p>
 				</li>
-				<li><span>2017-12-21</span></li>
+				<li><span>-</span></li>
 				<li class="star_answer_action star-answer"
 					data-target-id="answ_1513851709298" onclick="starAnswer();"
 					style="cursor: pointer;">
-					<span>收藏：</span>
-					<span class="starCount star-answer-num">2</span>
+					<span id="starAnswer">收藏：</span>
+					<span id="cancelStarAnswer" style="display: none;">取消收藏：</span>
+					<span class="starCount star-answer-num">-</span>
 				</li>
 				<li class="like-answer" data-answer-id="answ_1513851709298"
 					onclick="likeAnswer();" style="cursor: pointer;">
 					<span style="cursor: pointer;">点赞：</span>
-					<span class="likeCount like-answer-num">1</span>
+					<span class="likeCount like-answer-num">-</span>
 				</li>
-				<li id="report_one">
-					<span data-target-id="answ_1513851709298" data-target="answer" onclick="report();" 
-						  style="text-decoration: none; color: black; cursor: pointer;">举报</span>
+				<li id="solution">
+					<span data-target-id="answ_1513851709298" data-target="answer" onclick="" 
+						  style="text-decoration: none; color: black; cursor: pointer;display: none;">未被采纳</span>
+					<span data-target-id="answ_1513851709298" data-target="answer" onclick="" 
+						  style="text-decoration: none; color: black; cursor: pointer;display: none;">采纳</span>
+					<span data-target-id="answ_1513851709298" data-target="answer" onclick="" 
+						  style="text-decoration: none; color: black; cursor: pointer;display: none;"><strong style="color: red;">被采纳</strong></span>
 				</li>
 			</ul>
 			*/
@@ -569,8 +602,19 @@ body {
 			template.children('li:eq(0)').children().children().attr('src',path+'guest/avatar/'+answer.authorId);
 			template.children('li:eq(1)').children('p:eq(1)').html(answer.content);
 			template.children('li:eq(2)').children().text(getDate(answer.publishDate));
-			template.children('li:eq(3)').children('span:eq(1)').text(answer.favourite);
+			if(auth){
+				isFavouriteAnswer(answer.id);
+			}
+			template.children('li:eq(3)').children('span:eq(2)').text(answer.favourite);
 			template.children('li:eq(4)').children('span:eq(1)').text(answer.likes);
+			var status = answer.status;
+			if(status == 1){
+				template.children('li:eq(5)').children('span:eq(2)').show();
+			}else if(auth && userId == authorId){
+				template.children('li:eq(5)').children('span:eq(1)').show();
+			}else{
+				template.children('li:eq(5)').children('span:eq(0)').show();
+			}
 			$('.answer_template:last').after(template);
 		}
 		function initPagination(totalPage,totalCount){
@@ -606,6 +650,8 @@ body {
 		function getDate(value){
 			 return new Date(parseInt(("/Date("+value+")/").substr(6, 13))).toLocaleDateString();  
 		}
+		
+		//login
 		function publishAnswer(){
 			$.ajax({
 				url:path+'user/answer',
@@ -621,6 +667,115 @@ body {
 						location.reload();
 					}else if(data.status == 400) {
 						alert('参数有误！');
+					}else if(data.status == 403){
+						alert('请先登录！');
+					}
+				}
+			})
+		}
+		function starQuestion(){
+			$.ajax({
+				url:path+'user/collectQuestion/'+questionId,
+				type:'post',
+				success:function(data){
+					console.log(data);
+					if(data.status == 200) {
+						alert('收藏成功！');
+					}else if(data.status == 403){
+						alert('请先登录！');
+					}else{
+						alert('收藏失败！');
+					}
+				}
+			})
+		}
+		function cancelStarQuestion(){
+			$.ajax({
+				url:path+'user/cancelCollectQuestion/'+questionId,
+				type:'post',
+				success:function(data){
+					console.log(data);
+					if(data.status == 200) {
+						alert('取消收藏成功！');
+					}else if(data.status == 403){
+						alert('请先登录！');
+					}else{
+						alert('取消收藏失败！');
+					}
+				}
+			})
+		}
+		function isFavouriteQuestion(){
+			$.ajax({
+				url:path+'user/checkFavouriteQuestion/'+questionId,
+				success:function(data){
+					console.log(data);
+					if(data.status == 200){
+						if(data.result == true){
+							$('#star').hide();
+							$('#stared').show();
+						}
+					}
+				}
+			})
+		}
+		function isFavouriteAnswer(answerId){
+			$.ajax({
+				url:path+'user/checkFavouriteAnswer/'+answerId,
+				success:function(data){
+					console.log(data);
+					if(data.status == 200){
+						if(data.result == true){
+							$('#starAnswer').hide();
+							$('#cancelStarAnswer').show();
+						}
+					}
+				}
+			})
+		}
+		function confirmSolution(answerId){
+			if(confirm('确认采纳此回答？')){
+				$.ajax({
+					url:path+'user/confirm/'+questionId+'/'+answerId,
+					type:'post',
+					success:function(data){
+						console.log(data);
+						if(data.status == 200){
+							alert('采纳成功!');
+							location.reload();
+						}else if(data.status == 403){
+							alert('请先登录！');
+						}else{
+							alert('服务器忙！');
+						}
+					}
+				})
+			}
+		}
+		function starAnswer(answerId){
+			$.ajax({
+				url:path+'user/collectAnswer/'+questionId+'/'+answerId,
+				type:'post',
+				success:function(data){
+					console.log(data);
+					if(data.status == 200){
+						$('#starAnswer').hide();
+						$('#cancelStarAnswer').show();
+						$('.starCount').text($('.starCount').text() + 1);
+					}else if(data.status == 403){
+						alert('请先登录！');
+					}
+				}
+			})
+		}
+		function likeAnswer(answerId){
+			$.ajax({
+				url:path+'user/likeAnswer/'+answerId,
+				type:'post',
+				success:function(data){
+					console.log(data);
+					if(data.status == 200){
+						$('.likeCount').text($('.likeCount').text() + 1);
 					}else if(data.status == 403){
 						alert('请先登录！');
 					}

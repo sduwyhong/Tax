@@ -5,6 +5,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tax.dao.TaxAnswerMapper;
 import org.tax.dao.TaxExpertMapper;
+import org.tax.dao.TaxFavouriteAnswerMapper;
 import org.tax.dao.TaxFavouriteMapper;
 import org.tax.dao.TaxInvitationMapper;
 import org.tax.dao.TaxMessageMapper;
@@ -31,6 +32,8 @@ public class MapperFactory {
 	private TaxAnswerMapper taxAnswerMapper;
 	@Autowired
 	private TaxFavouriteMapper taxFavouriteMapper;
+	@Autowired
+	private TaxFavouriteAnswerMapper taxFavouriteAnswerMapper;
 	@Autowired
 	private TaxUserProMapper taxUserProMapper;
 	@Autowired

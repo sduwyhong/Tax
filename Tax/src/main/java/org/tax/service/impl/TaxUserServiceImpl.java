@@ -30,6 +30,9 @@ import org.tax.factory.MapperFactory;
 import org.tax.model.TaxAnswer;
 import org.tax.model.TaxAnswerKey;
 import org.tax.model.TaxFavourite;
+import org.tax.model.TaxFavouriteAnswer;
+import org.tax.model.TaxFavouriteAnswerExample;
+import org.tax.model.TaxFavouriteExample;
 import org.tax.model.TaxInvitation;
 import org.tax.model.TaxMessage;
 import org.tax.model.TaxQuestion;
@@ -384,17 +387,18 @@ public class TaxUserServiceImpl implements TaxUserService {
 		TaxAnswerKey key = new TaxAnswerKey();
 		key.setId(answerId);
 		TaxAnswer answer = mapperFactory.getTaxAnswerMapper().selectByPrimaryKey(key );
-		String operatorId = getUserFromRequest(request).getId(); 
+		String operatorId = getUserIdFromRequest(request);
 		if(answer.getAuthorId().equals(operatorId)) {
 			result.setStatus(StatusCode.PERMISSION_DENIED);
 			result.setMessage(Message.PERMISSION_DENIED);
 		}else{
 			answer.setFavourite(answer.getFavourite() + 1);
 			mapperFactory.getTaxAnswerMapper().updateByPrimaryKey(answer);
-			TaxFavourite record = new TaxFavourite();
+			TaxFavouriteAnswer record = new TaxFavouriteAnswer();
 			record.setQuestionId(questionId);
+			record.setAnswerId(answerId);
 			record.setUserId(operatorId);
-			mapperFactory.getTaxFavouriteMapper().insert(record);
+			mapperFactory.getTaxFavouriteAnswerMapper().insert(record);
 		}
 		return JSONObject.toJSONString(result);
 	}
@@ -410,6 +414,40 @@ public class TaxUserServiceImpl implements TaxUserService {
 	public String sendMessage(TaxMessage message) {
 		mapperFactory.getTaxMessageMapper().insert(message);
 		return JSONObject.toJSONString(OK);
+	}
+
+	@Override
+	public String cancelCollectQuestion(int questionId,
+			HttpServletRequest request) {
+		TaxFavouriteExample example = new TaxFavouriteExample();
+		String userId = getUserIdFromRequest(request);
+		example.createCriteria().andQuestionIdEqualTo(questionId).andUserIdEqualTo(userId );
+		int updateResult = mapperFactory.getTaxFavouriteMapper().deleteByExample(example);
+		Result result = new Result();
+		if(updateResult == 0){
+			result.setStatus(StatusCode.INVALID_PARAMS);
+			result.setMessage("you haven't star this question!");
+		}
+		return JSONObject.toJSONString(result);
+	}
+
+	@Override
+	public String checkFavouriteQuestion(int questionId,
+			HttpServletRequest request) {
+		TaxFavouriteExample example = new TaxFavouriteExample();
+		example.createCriteria().andQuestionIdEqualTo(questionId).andUserIdEqualTo(getUserIdFromRequest(request));
+		Result result = new Result();
+		if(mapperFactory.getTaxFavouriteMapper().countByExample(example) > 0) result.setResult(true); 
+		return JSONObject.toJSONString(result);
+	}
+
+	@Override
+	public String checkFavouriteAnswer(int answerId, HttpServletRequest request) {
+		TaxFavouriteAnswerExample example = new TaxFavouriteAnswerExample();
+		example.createCriteria().andAnswerIdEqualTo(answerId).andUserIdEqualTo(getUserIdFromRequest(request));
+		Result result = new Result();
+		if(mapperFactory.getTaxFavouriteAnswerMapper().countByExample(example) > 0) result.setResult(true); 
+		return JSONObject.toJSONString(result);
 	}
 
 	

@@ -99,6 +99,13 @@ create table tax_favourite (
 	user_id varchar(32) not null,
  	constraint fk_user_id_favourite foreign key (user_id) references tax_user(id)
 );
+create table tax_favourite_answer (
+	id int unsigned not null primary key auto_increment,
+	question_id int unsigned not null,
+	answer_id int unsigned not null,
+	user_id varchar(32) not null,
+ 	constraint fk_user_id_favourite_answer foreign key (user_id) references tax_user(id)
+);
 create table tax_message (
 	id int unsigned not null primary key auto_increment,
 	sender_id varchar(32) not null,
