@@ -55,5 +55,7 @@ public interface TaxUserService {
 	String checkFavouriteQuestion(int questionId, HttpServletRequest request);
 
 	String checkFavouriteAnswer(int answerId, HttpServletRequest request);
+
+	String cancelCollectAnswer(int answerId, HttpServletRequest request);
 	
 }

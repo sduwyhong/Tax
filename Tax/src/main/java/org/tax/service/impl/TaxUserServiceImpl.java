@@ -285,9 +285,9 @@ public class TaxUserServiceImpl implements TaxUserService {
 		TaxQuestionKey key = new TaxQuestionKey();
 		key.setId(questionId);
 		TaxQuestion question = mapperFactory.getTaxQuestionMapper().selectByPrimaryKey(key );
-		if(getUserFromRequest(request).getId().equals(question.getAuthorId())){
+		if(!getUserFromRequest(request).getId().equals(question.getAuthorId())){
 			result.setStatus(StatusCode.PERMISSION_DENIED);
-			result.setMessage(Message.PERMISSION_DENIED);
+			result.setMessage("you are not the publisher!");
 		}else{
 			question.setStatus(1);
 			mapperFactory.getTaxQuestionMapper().updateByPrimaryKey(question);
@@ -427,6 +427,8 @@ public class TaxUserServiceImpl implements TaxUserService {
 		if(updateResult == 0){
 			result.setStatus(StatusCode.INVALID_PARAMS);
 			result.setMessage("you haven't star this question!");
+		}else{
+			mapperFactory.getTaxQuestionMapper().minusFavourite(questionId);
 		}
 		return JSONObject.toJSONString(result);
 	}
@@ -449,6 +451,24 @@ public class TaxUserServiceImpl implements TaxUserService {
 		Result result = new Result();
 		if(mapperFactory.getTaxFavouriteAnswerMapper().countByExample(example) > 0) result.setResult(true); 
 		else result.setResult(false);
+		return JSONObject.toJSONString(result);
+	}
+
+	@Override
+	public String cancelCollectAnswer(int answerId, HttpServletRequest request) {
+		TaxFavouriteAnswerExample example = new TaxFavouriteAnswerExample();
+		String userId = getUserIdFromRequest(request);
+		example.createCriteria().andAnswerIdEqualTo(answerId).andUserIdEqualTo(userId );
+		int updateResult = mapperFactory.getTaxFavouriteAnswerMapper().deleteByExample(example);
+		Result result = new Result();
+		if(updateResult == 0){
+			result.setStatus(StatusCode.INVALID_PARAMS);
+			result.setMessage("you haven't star this answer!");
+		}else{
+			//回答收藏数-1
+			mapperFactory.getTaxAnswerMapper().minusFavourite(answerId);
+		}
+		
 		return JSONObject.toJSONString(result);
 	}
 

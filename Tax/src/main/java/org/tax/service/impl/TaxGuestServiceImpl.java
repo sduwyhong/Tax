@@ -28,6 +28,7 @@ import org.tax.VO.PageInfo;
 import org.tax.VO.QuestionBrief;
 import org.tax.VO.QuestionLive;
 import org.tax.VO.ShareExpertDetail;
+import org.tax.VO.TaxUserVO;
 import org.tax.VO.UserModule;
 import org.tax.constant.CookieConst;
 import org.tax.constant.Message;
@@ -688,10 +689,29 @@ public class TaxGuestServiceImpl implements TaxGuestService {
 		userModule.setUserNum(userNum);
 		userModule.setAnswerNum(answerNum);
 		userModule.setSolvedNum(solvedNum);
-		userModule.setExpertRankingList(rankingList);
+		userModule.setExpertRankingList(fillUserVO(rankingList));
 		Result result = new Result();
 		result.setResult(userModule);
 		return JSONObject.toJSONString(result);
+	}
+
+	private List<TaxUserVO> fillUserVO(List<TaxUser> rankingList) {
+		List<TaxUserVO> list = new ArrayList<TaxUserVO>();
+		int i = 1;
+		for(TaxUser user : rankingList){
+			TaxUserVO vo = new TaxUserVO();
+			vo.setId(user.getId());
+			vo.setUsername(user.getUsername());
+			vo.setLast_visit(user.getLastVisit());
+			vo.setScores(user.getScore());
+			vo.setEmail(user.getEmail());
+			vo.setRank(i++);
+			TaxAnswerExample example = new TaxAnswerExample();
+			example.createCriteria().andAuthorIdEqualTo(user.getId());
+			vo.setAnswerNum(mapperFactory.getTaxAnswerMapper().countByExample(example));
+			list.add(vo);
+		}
+		return list;
 	}
 
 	@Override

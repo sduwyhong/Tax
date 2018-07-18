@@ -304,4 +304,10 @@
   	limit #{offset},#{num}
   	</if>
   </select>
+  
+  <update id="minusFavourite">
+  	UPDATE tax_answer
+  	SET favourite = favourite - 1
+  	WHERE id = #{answerId}
+  </update>
 </mapper>

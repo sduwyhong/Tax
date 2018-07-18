@@ -18,6 +18,6 @@ public class UserModule {
 	private long solvedNum;
 	//都是按积分排序
 	//private List<TaxUser> greateExperts;
-	private List<TaxUser> expertRankingList;
+	private List<TaxUserVO> expertRankingList;
 	
 }

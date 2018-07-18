@@ -99,6 +99,12 @@ public class TaxUserAction {
 		return taxUserService.cancelCollectQuestion(questionId, request);
 	}
 	
+	@RequestMapping(value="/cancelCollectAnswer/{answerId}",method=RequestMethod.POST,produces=JSON)
+	@ResponseBody
+	public String cancelCollectAnswer(@PathVariable("answerId") int answerId, HttpServletRequest request) {
+		return taxUserService.cancelCollectAnswer(answerId, request);
+	}
+	
 	@RequestMapping(value="/checkFavouriteQuestion/{questionId}",method=RequestMethod.GET,produces=JSON)
 	@ResponseBody
 	public String checkFavouriteQuestion(@PathVariable("questionId") int questionId, HttpServletRequest request) {

@@ -147,4 +147,6 @@ public interface TaxQuestionMapper {
 
 	List<TaxQuestion> selectByFavourite(@Param("userId")String userId, @Param("pagination")boolean pagination, @Param("offset")int offset, @Param("num")int num);
 
+	int minusFavourite(int questionId);
+
 }

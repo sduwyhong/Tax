@@ -77,6 +77,12 @@ public class TaxGuestAction {
 		return taxGuestService.getQuestions(page);
 	}
 	
+	@RequestMapping(value="/userModule",method=RequestMethod.GET,produces=JSON)
+	@ResponseBody
+	public String getUserModule() {
+		return taxGuestService.getUserModule();
+	}
+	
 	@RequestMapping(value="/share/{page}",method=RequestMethod.GET,produces=JSON)
 	@ResponseBody
 	public String getShares(@PathVariable("page") int page) {
@@ -103,7 +109,7 @@ public class TaxGuestAction {
 	
 	@RequestMapping(value="/avatar/{userId}",method=RequestMethod.GET)
 	@ResponseBody
-	public void getAnswer(@PathVariable("userId") String userId, HttpServletResponse response) {
+	public void getAvatar(@PathVariable("userId") String userId, HttpServletResponse response) {
 		taxGuestService.getAvatar(userId, response);
 	}
 }

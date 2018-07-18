@@ -205,7 +205,7 @@ button{
 	width: 120px;
     text-align: center;
     display:block;
-    background: url(../image/send_letter.png) left no-repeat;
+    background: url(../../image/send_letter.png) left no-repeat;
     cursor:pointer;
 }
 .letter{
@@ -219,7 +219,7 @@ button{
 	width: 120px;
     text-align: center;
     display:block;
-    background: url(../image/invite.png) left no-repeat;
+    background: url(../../image/invite.png) left no-repeat;
     cursor:pointer;
 }
 
@@ -235,7 +235,7 @@ button{
 .expert_org_more a{
 	line-height: 35px;
     cursor: pointer;
-    background: url(../image/home/blue_head.png) right no-repeat;
+    background: url(../../image/home/blue_head.png) right no-repeat;
     padding-right:20px;
 	color:#000;
 }

@@ -33,9 +33,11 @@
 .UILink, .UILink:visited {
     color: #3ccfcf;
 }
+/*
 a:visited {
     color: #4257b2;
 }
+*/
 .UILink {
     -webkit-appearance: none;
     -moz-appearance: none;

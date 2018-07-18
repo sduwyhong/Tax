@@ -39,7 +39,10 @@ public class ValidateCodeControl {
 	
 	public boolean verify(String key, String code) {
 		boolean flag = true;
-		String[] codeInfo = codeMap.get(key).split(";");
+		//没有生成新验证码就verify，codeMap.get(key)为null
+		String value = codeMap.get(key);
+		if(value == null) return false;
+		String[] codeInfo = value.split(";");
 		String correctCode = codeInfo[0];
 		long createdTime = Long.parseLong(codeInfo[1]);
 		LOGGER.debug("correct:"+correctCode+";input:"+code);

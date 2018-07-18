@@ -603,9 +603,14 @@ body {
 			template.children('li:eq(1)').children('p:eq(1)').html(answer.content);
 			template.children('li:eq(2)').children().text(getDate(answer.publishDate));
 			if(auth){
-				isFavouriteAnswer(answer.id);
+				if(isFavouriteAnswer(answer.id)) {
+					template.children('li:eq(3)').children('span:eq(0)').hide();
+					template.children('li:eq(3)').children('span:eq(1)').show();
+					template.children('li:eq(3)').attr('onclick','cancelStarAnswer('+answer.id+')');
+				}else{
+					template.children('li:eq(3)').attr('onclick','starAnswer('+answer.id+')');
+				}
 			}
-			template.children('li:eq(3)').attr('onclick','starAnswer('+answer.id+')');
 			template.children('li:eq(3)').children('span:eq(2)').text(answer.favourite);
 			template.children('li:eq(4)').children('span:eq(0)').attr('onclick','likeAnswer('+answer.id+')');
 			template.children('li:eq(4)').children('span:eq(1)').text(answer.likes);
@@ -728,19 +733,18 @@ body {
 			})
 		}
 		function isFavouriteAnswer(answerId){
+			var flag = false;
 			$.ajax({
 				url:path+'user/checkFavouriteAnswer/'+answerId,
+				async:false,
 				success:function(data){
 					console.log(data);
 					if(data.status == 200){
-						if(data.result == true){
-							$('#starAnswer').hide();
-							$('#cancelStarAnswer').show();
-							//cancel待实现
-						}
+						flag = data.result;
 					}
 				}
 			})
+			return flag;
 		}
 		function confirmSolution(answerId){
 			if(confirm('确认采纳此回答？')){
@@ -753,7 +757,8 @@ body {
 							alert('采纳成功!');
 							location.reload();
 						}else if(data.status == 403){
-							alert('请先登录！');
+							if(data.message == 'permission denied') alert('请先登录！');
+							else alert('你不是发帖者！');
 						}else{
 							alert('服务器忙！');
 						}
@@ -768,10 +773,13 @@ body {
 				success:function(data){
 					console.log(data);
 					if(data.status == 200){
-						$('#starAnswer').hide();
-						$('#cancelStarAnswer').show();
+						alert('收藏答案成功！');
+						//$('#starAnswer').hide();
+						//$('#cancelStarAnswer').show();
 						console.log(parseInt($('.starCount').text()));
-						$('.starCount').text(parseInt($('.starCount').text()) + 1);
+						//多个class为likeCount，不好实现，reload bazaar
+						//$('.starCount').text(parseInt($('.starCount').text()) + 1);
+						location.reload();
 					}else if(data.status == 403){
 						if(data.message == 'permission denied') alert('请先登录！');
 						else alert('不可以收藏自己的回答！自恋狂');
@@ -786,9 +794,28 @@ body {
 				success:function(data){
 					console.log(data);
 					if(data.status == 200){
-						$('.likeCount').text(parseInt($('.likeCount').text()) + 1);
+						//多个class为likeCount，不好实现，reload bazaar
+						//$('.likeCount').text(parseInt($('.likeCount').text()) + 1);
+						location.reload();
 					}else if(data.status == 403){
 						alert('请先登录！');
+					}
+				}
+			})
+		}
+		function cancelStarAnswer(answerId){
+			$.ajax({
+				url:path+'user/cancelCollectAnswer/'+answerId,
+				type:'post',
+				success:function(data){
+					console.log(data);
+					if(data.status == 200) {
+						alert('取消收藏成功！');
+						location.reload();
+					}else if(data.status == 403){
+						alert('请先登录！');
+					}else{
+						alert('取消收藏失败！');
 					}
 				}
 			})

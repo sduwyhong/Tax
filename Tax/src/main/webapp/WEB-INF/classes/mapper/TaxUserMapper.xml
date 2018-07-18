@@ -316,7 +316,7 @@
   </update>
   
   
-  <select id="selectScoresById">
+  <select id="selectScoresById" resultType="Long">
   	SELECT score
   	FROM tax_user
   	WHERE id = #{id}

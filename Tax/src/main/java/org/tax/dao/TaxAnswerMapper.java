@@ -138,4 +138,6 @@ public interface TaxAnswerMapper {
 	int updateLike(int id);
 
 	List<AnswerVO> selectAnswerVOByUser(@Param("userId")String userId, @Param("pagination")boolean pagination, @Param("offset")int offset, @Param("num")int num);
+
+	int minusFavourite(int answerId);
 }

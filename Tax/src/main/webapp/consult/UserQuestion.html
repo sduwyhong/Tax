@@ -580,6 +580,9 @@ body {
 		function getDate(value){
 			 return new Date(parseInt(("/Date("+value+")/").substr(6, 13))).toLocaleDateString();  
 		}
+		function questionDetail(questionId){
+			location.href = '../consult/ConsultSub.html?id='+questionId;
+		}
 		// 我要咨询
 		function userNotnull(){
 			 window.location.href='addConsulting.html';
