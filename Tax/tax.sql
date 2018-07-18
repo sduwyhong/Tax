@@ -68,6 +68,7 @@ create table tax_answer(
 	content varchar(1000) not null,
 	favourite int unsigned default 0,
 	likes int unsigned default 0,
+	status tinyint unsigned default 0,
  	constraint fk_author_id_answer foreign key (author_id) references tax_user(id)
 );
 create table tax_share(

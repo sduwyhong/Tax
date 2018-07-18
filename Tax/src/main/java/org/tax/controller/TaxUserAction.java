@@ -68,16 +68,16 @@ public class TaxUserAction {
 		return taxUserService.publishAnswer(answer, request);
 	}
 	
-	@RequestMapping(value="/confirm/{questionId}",method=RequestMethod.POST,produces=JSON)
+	@RequestMapping(value="/confirm/{questionId}/{answerId}",method=RequestMethod.POST,produces=JSON)
 	@ResponseBody
-	public String confirmSolution(@PathVariable("questionId") int questionId) {
-		return taxUserService.confirmSolution(questionId);
+	public String confirmSolution(@PathVariable("questionId") int questionId,@PathVariable("answerId") int answerId, HttpServletRequest request) {
+		return taxUserService.confirmSolution(questionId, answerId, request);
 	}
 	
 	@RequestMapping(value="/collect/{questionId}",method=RequestMethod.POST,produces=JSON)
 	@ResponseBody
 	public String collect(@PathVariable("questionId") int questionId, HttpServletRequest request) {
-		return taxUserService.collect(questionId, request);
+		return taxUserService.collectQuestion(questionId, request);
 	}
 	
 	@RequestMapping(value="/avatar/{userId}",method=RequestMethod.POST,produces=JSON)

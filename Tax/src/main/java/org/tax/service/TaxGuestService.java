@@ -41,5 +41,25 @@ public interface TaxGuestService {
 	String getQuestion(int questionId);
 
 	String getAnswer(int questionId, int page);
+	//用户专区（查询总用户数据、查询优秀用户、查询积分排行榜)
+	String getUserModule();
+	//个人界面（需要数据：我的提问、回答、发出的邀请、收到的邀请、收藏、发出的私信、收到的私信），每个模块显示4条
+	String getUserDetail(String userId);
+	
+	String getQuestionsByUser(String userId);
+	
+	String getAnswersByUser(String userId);
+	
+	String getInvitationSentByUser(String userId);
+	
+	String getInvitationReceivedByUser(String userId);
+	
+	String getFavouriteByUser(String userId);
+	
+	String getMessagesSentByUser(String userId);
+	
+	String getMessagesReceivedByUser(String userId);
+	
+	void getAvatar(String userId);
 	
 }

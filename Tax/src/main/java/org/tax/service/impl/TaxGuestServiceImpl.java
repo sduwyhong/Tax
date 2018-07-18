@@ -18,11 +18,14 @@ import net.sf.oval.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.tax.VO.InvitationVO;
 import org.tax.VO.LoginInfo;
+import org.tax.VO.MyModule;
 import org.tax.VO.PageInfo;
 import org.tax.VO.QuestionBrief;
 import org.tax.VO.QuestionLive;
 import org.tax.VO.ShareExpertDetail;
+import org.tax.VO.UserModule;
 import org.tax.constant.CookieConst;
 import org.tax.constant.Message;
 import org.tax.constant.PageConst;
@@ -62,7 +65,7 @@ import com.alibaba.fastjson.JSONObject;
  * @date 2018-7-7
  */
 public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
-		TaxGuestService {
+TaxGuestService {
 
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(TaxGuestServiceImpl.class);
@@ -83,7 +86,7 @@ public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
 		}
 		return JSONObject.toJSONString(result);
 	}
-	
+
 	@Override
 	public String validateTelephone(String telephone) {
 		TaxUserExample example = new TaxUserExample();
@@ -97,7 +100,7 @@ public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
 		}
 		return JSONObject.toJSONString(result);
 	}
-	
+
 	@Override
 	public String register(TaxUser user, String code, HttpServletRequest request) {
 		Result result = new Result();
@@ -127,12 +130,12 @@ public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
 			result.setResult(errors);
 			return JSON.toJSONString(result);
 		}
-//		if (user.getUsername() == null) {
-//			// 用户名为空s
-//			result.setMessage(Message.INVALID_USERNAME_OR_PASSWORD);
-//			result.setStatus(StatusCode.INVALID_USERNAME_OR_PASSWORD);
-//			return JSON.toJSONString(result);
-//		}
+		//		if (user.getUsername() == null) {
+		//			// 用户名为空s
+		//			result.setMessage(Message.INVALID_USERNAME_OR_PASSWORD);
+		//			result.setStatus(StatusCode.INVALID_USERNAME_OR_PASSWORD);
+		//			return JSON.toJSONString(result);
+		//		}
 		//make sure the username hasn't been used yet
 		TaxUserExample exampleOfUser = new TaxUserExample();
 		exampleOfUser.createCriteria().andUsernameEqualTo(user.getUsername());
@@ -143,12 +146,12 @@ public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
 			result.setStatus(StatusCode.DUPLICATE_USERNAME);
 			return JSON.toJSONString(result);
 		}
-//		else if(!FormatUtil.rexCheckPassword(user.getPassword())){
-//			//密码不符合格式
-//			result.setMessage(Message.PASSWORD_INVALID_FORMAT);
-//			result.setStatus(StatusCode.PASSWORD_INVALID_FORMAT);
-//			return JSON.toJSONString(result);
-//		}
+		//		else if(!FormatUtil.rexCheckPassword(user.getPassword())){
+		//			//密码不符合格式
+		//			result.setMessage(Message.PASSWORD_INVALID_FORMAT);
+		//			result.setStatus(StatusCode.PASSWORD_INVALID_FORMAT);
+		//			return JSON.toJSONString(result);
+		//		}
 		try {
 			// 添加注册时间字段(不知道是否需要)
 			user.setId(UUIDUtil.genUUID());
@@ -177,7 +180,7 @@ public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
 			result.setMessage(Message.INVALID_VERIFYCODE);
 			return JSONObject.toJSONString(result);
 		}
-		
+
 		if(loginInfo==null || loginInfo.getUsername()==null || loginInfo.getPassword()==null){
 			result.setMessage(Message.INVALID_PARAMS);
 			result.setStatus(StatusCode.INVALID_PARAMS);
@@ -188,7 +191,7 @@ public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
 		 * */
 		TaxUserExample example = new TaxUserExample();
 		example.createCriteria().andUsernameEqualTo(loginInfo.getUsername())
-				.andPasswordEqualTo(loginInfo.getPassword());
+		.andPasswordEqualTo(loginInfo.getPassword());
 		List<TaxUser> list = mapperFactory.getTaxUserMapper().selectByExample(
 				example);
 		if (list == null || list.size() == 0) {
@@ -254,10 +257,10 @@ public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
 	@Override
 	public String search(String keyword, String type, int page) {
 		try {
-//			From OnlineShop:
-//			5.js以GET方式提交中文参数到后台出现乱码?????
-//			原因：get方式提交的参数编码，只支持iso-8859-1编码，而且出现“?”也表明编码为iso-8859-1。
-//			解决：以iso-8859-1编码为原始字节，再以utf-8解码即可
+			//			From OnlineShop:
+			//			5.js以GET方式提交中文参数到后台出现乱码?????
+			//			原因：get方式提交的参数编码，只支持iso-8859-1编码，而且出现“?”也表明编码为iso-8859-1。
+			//			解决：以iso-8859-1编码为原始字节，再以utf-8解码即可
 			keyword = keyword = new String(keyword.getBytes("ISO-8859-1"),"UTF-8");
 		} catch (UnsupportedEncodingException e2) {
 			e2.printStackTrace();
@@ -653,17 +656,138 @@ public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
 		//点赞数、收藏数由点赞、收藏接口维护
 		List<TaxAnswer> list = mapperFactory.getTaxAnswerMapper().selectByExample(example);
 		long currentPageCount = list.size();
-		
+
 		PageInfo pageInfo = new PageInfo<TaxAnswer>();
 		pageInfo.setCurrentCount(currentPageCount);
 		pageInfo.setCurrentPage(page);
 		pageInfo.setTotalCount(totalCount);
 		pageInfo.setTotalPage(totalPage);
 		pageInfo.setList(list);
-		
+
 		Result result = new Result();
 		result.setResult(pageInfo);
 		return JSONObject.toJSONString(result);
+	}
+
+	@Override
+	public String getUserModule() {
+		TaxUserExample u_example = new TaxUserExample();
+		//用户专区（查询总用户数据、查询优秀用户、查询积分排行榜)
+		long userNum = mapperFactory.getTaxUserMapper().countByExample(u_example);
+		TaxAnswerExample a_example = new TaxAnswerExample();
+		long answerNum = mapperFactory.getTaxAnswerMapper().countByExample(a_example );
+		TaxQuestionExample q_example = new TaxQuestionExample();
+		q_example.createCriteria().andStatusEqualTo(1);
+		long solvedNum = mapperFactory.getTaxQuestionMapper().countByExample(q_example);
+		u_example.setOrderByClause("score DESC");
+		u_example.setLimitClause("0,5");
+		List<TaxUser> rankingList  = mapperFactory.getTaxUserMapper().selectByExample(u_example);
+		UserModule userModule = new UserModule();
+		userModule.setUserNum(userNum);
+		userModule.setAnswerNum(answerNum);
+		userModule.setSolvedNum(solvedNum);
+		userModule.setExpertRankingList(rankingList);
+		Result result = new Result();
+		result.setResult(userModule);
+		return JSONObject.toJSONString(result);
+	}
+
+	@Override
+	public String getUserDetail(String userId) {
+		MyModule myModule = new MyModule();
+		TaxUserKey key = new TaxUserKey();
+		key.setId(userId);
+		//个人界面（需要数据：我的提问、回答、发出的邀请、收到的邀请、收藏、发出的私信、收到的私信），每个模块显示4条
+		TaxUser user = mapperFactory.getTaxUserMapper().selectByPrimaryKey(key );
+		myModule.setEmail(user.getEmail());
+		myModule.setLast_visit(user.getLastVisit());
+		String proList = user.getProList();
+		if(proList != null && proList.length() > 0){
+			StringBuilder sb = new StringBuilder();
+			String[] proIds = proList.split(";");
+			TaxProKey p_key = new TaxProKey();
+			for (int i = 0; i < proIds.length; i++) {
+				String proName = mapperFactory.getTaxProMapper().selectByPrimaryKey(p_key).getName();
+				if(i == proIds.length - 1) {
+					sb.append(proName);
+				}else{
+					sb.append(proName+",");
+				}
+			}
+			myModule.setPro_list(sb.toString());
+		}
+		myModule.setScore(user.getScore());
+		TaxQuestionExample q_example = new TaxQuestionExample();
+		q_example.createCriteria().andAuthorIdEqualTo(userId);
+		myModule.setQuestionNum(mapperFactory.getTaxQuestionMapper().countByExample(q_example ));
+		myModule.setQuestions(mapperFactory.getTaxQuestionMapper().selectQuestionBriefByUser(userId,true,0,4));
+		TaxAnswerExample a_example = new TaxAnswerExample();
+		a_example.createCriteria().andAuthorIdEqualTo(userId);
+		myModule.setAnswerNum(mapperFactory.getTaxAnswerMapper().countByExample(a_example ));
+		myModule.setAnswers(mapperFactory.getTaxAnswerMapper().selectAnswerVOByUser(userId,true,0,4));
+		//后面要装进VO，邀请列表要显示被邀请人用户名
+		//receive
+		List<InvitationVO> receiveds = mapperFactory.getTaxInvitationMapper().selectInvitationVOReceived(userId,true,0,4);
+		//sents
+		List<InvitationVO> sents = mapperFactory.getTaxInvitationMapper().selectInvitationVOSent(userId,true,0,4);
+		//shares：pass temporarily
+		myModule.setFavourites(mapperFactory.getTaxQuestionMapper().selectByFavourite(userId,true,0,4));
+		myModule.setMessage_receiveds(mapperFactory.getTaxMessageMapper().selectMessageVOReceived(userId,true,0,4));
+		myModule.setMessage_sents(mapperFactory.getTaxMessageMapper().selectMessageVOSent(userId,true,0,4));
+		return null;
+	}
+
+	@Override
+	public String getQuestionsByUser(String userId) {
+		Result result = new Result();
+		result.setResult(mapperFactory.getTaxQuestionMapper().selectQuestionBriefByUser(userId,false,0,0));
+		return JSONObject.toJSONString(result);
+	}
+
+	@Override
+	public String getAnswersByUser(String userId) {
+		Result result = new Result();
+		result.setResult(mapperFactory.getTaxAnswerMapper().selectAnswerVOByUser(userId,false,0,0));
+		return JSONObject.toJSONString(result);
+	}
+
+	@Override
+	public String getInvitationSentByUser(String userId) {
+		Result result = new Result();
+		result.setResult(mapperFactory.getTaxInvitationMapper().selectInvitationVOSent(userId,false,0,0));
+		return JSONObject.toJSONString(result);
+	}
+
+	@Override
+	public String getInvitationReceivedByUser(String userId) {
+		Result result = new Result();
+		result.setResult(mapperFactory.getTaxInvitationMapper().selectInvitationVOReceived(userId,false,0,0));
+		return JSONObject.toJSONString(result);
+	}
+
+	@Override
+	public String getFavouriteByUser(String userId) {
+		Result result = new Result();
+		result.setResult(mapperFactory.getTaxQuestionMapper().selectByFavourite(userId,false,0,0));
+		return JSONObject.toJSONString(result);
+	}
+
+	@Override
+	public String getMessagesSentByUser(String userId) {
+		Result result = new Result();
+		result.setResult(mapperFactory.getTaxMessageMapper().selectMessageVOSent(userId,false,0,0));
+		return JSONObject.toJSONString(result);
+	}
+
+	@Override
+	public String getMessagesReceivedByUser(String userId) {
+		Result result = new Result();
+		result.setResult(mapperFactory.getTaxMessageMapper().selectMessageVOReceived(userId,false,0,0));
+		return JSONObject.toJSONString(result);
+	}
+
+	@Override
+	public void getAvatar(String userId) {
 	}
 
 

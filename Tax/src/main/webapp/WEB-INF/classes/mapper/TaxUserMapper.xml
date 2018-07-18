@@ -112,6 +112,9 @@
     <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
+    <if test="orderByClause != null">
+      limit ${limitClause}
+    </if>
   </select>
   <delete id="deleteByExample" parameterType="org.tax.model.TaxUserExample">
     <!--
@@ -311,4 +314,30 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  
+  
+  <select id="selectScoresById">
+  	SELECT score
+  	FROM tax_user
+  	WHERE id = #{id}
+  </select>
+  
+  <update id="minusScores">
+  	UPDATE tax_user
+  	SET score = score - #{score}
+  	WHERE id = #{id}
+  </update>
+  
+  <update id="addScores">
+  	UPDATE tax_user
+  	SET score = score + #{score}
+  	WHERE id = #{id}
+  </update>
+  
+  <update id="updateAvatarAddress">
+  	UPDATE tax_user
+  	SET image = #{filePath}
+  	WHERE id = #{id}
+  </update>
+  
 </mapper>

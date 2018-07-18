@@ -211,4 +211,11 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectInvitationSent" resultType="org.tax.model.TaxInvitation">
+  	SELECT i.*
+  	FROM tax_invitation i, tax_question q
+  	WHERE i.question_id = q.id
+  	AND q.author_id = #{senderId}
+  </select>
 </mapper>

@@ -122,4 +122,6 @@ public interface TaxInvitationMapper {
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(TaxInvitation record);
+
+	List<TaxInvitation> selectInvitationSent(String senderId);
 }

@@ -141,4 +141,5 @@ public interface TaxQuestionMapper {
 	int getLastInsertId();
 
 	int click(int questionId);
+
 }

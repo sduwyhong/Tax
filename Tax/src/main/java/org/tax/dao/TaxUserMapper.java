@@ -139,4 +139,13 @@ public interface TaxUserMapper {
     int updateByPrimaryKey(TaxUser record);
 
 	List<Candidate> getUserByPro(String string);
+
+	long selectScoresById(String id);
+
+	int minusScores(@Param("score")int score, @Param("id")String id);
+
+	int addScores(@Param("score")int score, @Param("id")String id);
+
+	int updateAvatarAddress(@Param("filePath")String filePath, @Param("id")String userId);
+
 }

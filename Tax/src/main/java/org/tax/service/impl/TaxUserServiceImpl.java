@@ -1,5 +1,7 @@
 package org.tax.service.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -13,11 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.multipart.MultipartRequest;
+import org.springframework.web.multipart.MultipartFile;
 import org.tax.VO.Candidate;
 import org.tax.VO.PasswordModification;
 import org.tax.VO.UserInfo;
 import org.tax.constant.CookieConst;
+import org.tax.constant.FilePathConst;
 import org.tax.constant.Message;
 import org.tax.constant.SessionConst;
 import org.tax.constant.StatusCode;
@@ -25,10 +28,11 @@ import org.tax.dao.TaxInvitationMapper;
 import org.tax.dao.TaxUserProMapper;
 import org.tax.factory.MapperFactory;
 import org.tax.model.TaxAnswer;
+import org.tax.model.TaxAnswerKey;
 import org.tax.model.TaxFavourite;
 import org.tax.model.TaxInvitation;
+import org.tax.model.TaxMessage;
 import org.tax.model.TaxQuestion;
-import org.tax.model.TaxQuestionExample;
 import org.tax.model.TaxQuestionKey;
 import org.tax.model.TaxUser;
 import org.tax.model.TaxUserExample;
@@ -54,6 +58,8 @@ public class TaxUserServiceImpl implements TaxUserService {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(TaxGuestServiceImpl.class);
 
+	private final Result OK = new Result();
+	
 	@Autowired
 	private MapperFactory mapperFactory;
 
@@ -181,7 +187,7 @@ public class TaxUserServiceImpl implements TaxUserService {
 			result.setStatus(StatusCode.SCORES_NOT_ENOUGH);
 			return JSONObject.toJSONString(result);
 		}
-		
+
 		//Question id 自增那么不需要管直接插入即可
 		//设置问题的authorId
 		//2018/7/12:wyhong
@@ -195,9 +201,9 @@ public class TaxUserServiceImpl implements TaxUserService {
 			result.setStatus(StatusCode.INVALID_PARAMS);
 			return JSON.toJSONString(result);
 		}
-		
+
 		//足够：成功发布后扣除10积分
-		mapperFactory.getTaxUserMapper().updateScoresById(author.getId());
+		mapperFactory.getTaxUserMapper().minusScores(10,author.getId());
 		//lucene创建索引
 		question.setId(mapperFactory.getTaxQuestionMapper().getLastInsertId());
 		LuceneUtil.creatIndex(question);
@@ -256,25 +262,39 @@ public class TaxUserServiceImpl implements TaxUserService {
 		if(flag<=0){
 			result.setMessage(Message.INVALID_PARAMS);
 			result.setStatus(StatusCode.INVALID_PARAMS);
-		}else{
-			//更新主题帖回答数
-			Integer questionId = answer.getQuestionId();
-			mapperFactory.getTaxQuestionMapper().updateAnswerNum(questionId);
 		}
 		return JSON.toJSONString(result);
 	}
 
 	@Override
-	public String confirmSolution(int questionId, int answerId) {
+	public String confirmSolution(int questionId, int answerId, HttpServletRequest request) {
 		//给tax_answer增加status，0代表未被采纳，1代表被采纳
 		//帖子发布者采纳一个回答，则此问题被解决，question和answer的status都置为1
-		//被采纳回答者积分+该问题的悬赏分数
-		return null;
+		//make sure the operator is the publisher
+		Result result = new Result();
+		TaxQuestionKey key = new TaxQuestionKey();
+		key.setId(questionId);
+		TaxQuestion question = mapperFactory.getTaxQuestionMapper().selectByPrimaryKey(key );
+		if(getUserFromRequest(request).getId().equals(question.getAuthorId())){
+			result.setStatus(StatusCode.PERMISSION_DENIED);
+			result.setMessage(Message.PERMISSION_DENIED);
+		}else{
+			question.setStatus(1);
+			mapperFactory.getTaxQuestionMapper().updateByPrimaryKey(question);
+			mapperFactory.getTaxAnswerMapper().updateStatus(1, answerId);
+			//被采纳回答者积分+该问题的悬赏分数
+			int scores = question.getPrize();
+			String answerAuthorId = ""; 
+			TaxAnswerKey _key = new TaxAnswerKey();
+			_key.setId(answerId);
+			TaxAnswer answer = mapperFactory.getTaxAnswerMapper().selectByPrimaryKey(_key);
+			if(scores > 0) mapperFactory.getTaxUserMapper().addScores(scores, answer.getAuthorId());
+		}
+		return JSONObject.toJSONString(result);
 	}
 
 	@Override
-	public String collect(int questionId, HttpServletRequest request) {
-		Result result = new Result();
+	public String collectQuestion(int questionId, HttpServletRequest request) {
 		TaxQuestionKey key = new TaxQuestionKey();
 		key.setId(questionId);
 		TaxQuestion question = mapperFactory.getTaxQuestionMapper().selectByPrimaryKey(key);
@@ -286,15 +306,27 @@ public class TaxUserServiceImpl implements TaxUserService {
 		favourite.setQuestionId(questionId);
 		favourite.setUserId(getUserFromRequest(request).getId());
 		mapperFactory.getTaxFavouriteMapper().insert(favourite);
-		return JSON.toJSONString(result);
+		return JSON.toJSONString(OK);
 	}
 
 	/**鸿哥说写编辑头像，图片上传*/
 	@Override
-	public String modifyAvatar(String userId,
-			MultipartRequest multipartRequest) {
-		// TODO Auto-generated method stub
-		return null;
+	public String modifyAvatar(String userId, MultipartFile multipartFile) {
+		File dir = new File(FilePathConst.AVATAR_DIR);
+		if(!dir.exists()) {
+			dir.mkdirs();
+		}
+		String filePath =  FilePathConst.AVATAR_DIR + multipartFile.getOriginalFilename();
+		try {
+			multipartFile.transferTo(new File(filePath));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		//update user image
+		mapperFactory.getTaxUserMapper().updateAvatarAddress(filePath, userId);
+		return JSONObject.toJSONString(OK);
 	}
 
 	@Override
@@ -330,7 +362,44 @@ public class TaxUserServiceImpl implements TaxUserService {
 			}
 		}
 		SessionControl.getInstance().rmSession(userId);
-		return JSONObject.toJSONString(new Result());
+		return JSONObject.toJSONString(OK);
 	}
 
+	@Override
+	public String collectAnswer(int answerId, int questionId,
+			HttpServletRequest request) {
+		//不可以收藏自己的帖子
+		Result result = new Result();
+		TaxAnswerKey key = new TaxAnswerKey();
+		key.setId(answerId);
+		TaxAnswer answer = mapperFactory.getTaxAnswerMapper().selectByPrimaryKey(key );
+		String operatorId = getUserFromRequest(request).getId(); 
+		if(answer.getAuthorId().equals(operatorId)) {
+			result.setStatus(StatusCode.PERMISSION_DENIED);
+			result.setMessage(Message.PERMISSION_DENIED);
+		}else{
+			answer.setFavourite(answer.getFavourite() + 1);
+			mapperFactory.getTaxAnswerMapper().updateByPrimaryKey(answer);
+			TaxFavourite record = new TaxFavourite();
+			record.setQuestionId(questionId);
+			record.setUserId(operatorId);
+			mapperFactory.getTaxFavouriteMapper().insert(record);
+		}
+		return JSONObject.toJSONString(result);
+	}
+
+	@Override
+	public String likeAnswer(int answerId) {
+		//点赞，加一就完事儿了
+		mapperFactory.getTaxAnswerMapper().updateLike(answerId);
+		return JSONObject.toJSONString(OK);
+	}
+
+	@Override
+	public String sendMessage(TaxMessage message) {
+		mapperFactory.getTaxMessageMapper().insert(message);
+		return JSONObject.toJSONString(OK);
+	}
+
+	
 }

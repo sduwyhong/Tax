@@ -2,6 +2,8 @@ package org.tax.model;
 
 import java.util.Date;
 
+import org.tax.constant.FilePathConst;
+
 import net.sf.oval.constraint.Email;
 import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.MaxLength;
@@ -89,7 +91,7 @@ public class TaxUser extends TaxUserKey {
      *
      * @mbg.generated Sat Jul 07 16:56:15 CST 2018
      */
-    private String image = "default avatar URL";
+    private String image = FilePathConst.AVATAR_DIR + FilePathConst.DEFAULT_AVATAR;
 
     /**
      *

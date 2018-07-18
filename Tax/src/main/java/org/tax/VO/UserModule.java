@@ -1,5 +1,7 @@
 package org.tax.VO;
 
+import java.util.List;
+
 import lombok.Data;
 
 import org.tax.model.TaxUser;
@@ -11,10 +13,11 @@ import org.tax.model.TaxUser;
 @Data
 public class UserModule {
 
-	private int expertNum;
-	private int solvedNum;
-	private int confirmationNum;
-	private TaxUser[] greateExperts;
-	private TaxUser[] expertRankingList;
+	private long userNum;
+	private long answerNum;
+	private long solvedNum;
+	//都是按积分排序
+	//private List<TaxUser> greateExperts;
+	private List<TaxUser> expertRankingList;
 	
 }
