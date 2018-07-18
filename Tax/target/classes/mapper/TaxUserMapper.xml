@@ -340,7 +340,7 @@
   	WHERE id = #{id}
   </update>
   
-  <select id="getAvatar">
+  <select id="getAvatar" resultType="String">
   	SELECT image
   	FROM tax_user
   	WHERE id = #{userId}

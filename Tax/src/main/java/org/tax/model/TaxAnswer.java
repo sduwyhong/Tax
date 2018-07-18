@@ -46,7 +46,7 @@ public class TaxAnswer extends TaxAnswerKey {
      *
      * @mbg.generated Wed Jul 18 08:58:27 CST 2018
      */
-    private Integer favourite;
+    private Integer favourite = 0;
 
     /**
      *
@@ -55,7 +55,7 @@ public class TaxAnswer extends TaxAnswerKey {
      *
      * @mbg.generated Wed Jul 18 08:58:27 CST 2018
      */
-    private Integer likes;
+    private Integer likes = 0;
 
     /**
      *

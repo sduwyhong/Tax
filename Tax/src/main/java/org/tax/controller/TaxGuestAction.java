@@ -71,9 +71,9 @@ public class TaxGuestAction {
 		return taxGuestService.getByCondition(type, page);
 	}
 	
-	@RequestMapping(value="/question/{page}",method=RequestMethod.GET,produces=JSON)
+	@RequestMapping(value="/question",method=RequestMethod.GET,produces=JSON)
 	@ResponseBody
-	public String getQuestions(@PathVariable("page") int page) {
+	public String getQuestions(@RequestParam("page") int page) {
 		return taxGuestService.getQuestions(page);
 	}
 	
@@ -99,5 +99,11 @@ public class TaxGuestAction {
 	@ResponseBody
 	public String getAnswer(@PathVariable("questionId") int questionId, @PathVariable("page") int page) {
 		return taxGuestService.getAnswer(questionId, page);
+	}
+	
+	@RequestMapping(value="/avatar/{userId}",method=RequestMethod.GET)
+	@ResponseBody
+	public void getAnswer(@PathVariable("userId") String userId, HttpServletResponse response) {
+		taxGuestService.getAvatar(userId, response);
 	}
 }

@@ -67,8 +67,7 @@ import com.alibaba.fastjson.JSONObject;
  * @author wyhong
  * @date 2018-7-7
  */
-public class TaxGuestServiceImpl extends BaseServiceImpl<TaxUser> implements
-TaxGuestService {
+public class TaxGuestServiceImpl implements TaxGuestService {
 
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(TaxGuestServiceImpl.class);

@@ -290,12 +290,16 @@ public class TaxUserServiceImpl implements TaxUserService {
 			mapperFactory.getTaxQuestionMapper().updateByPrimaryKey(question);
 			mapperFactory.getTaxAnswerMapper().updateStatus(1, answerId);
 			//被采纳回答者积分+该问题的悬赏分数
+			//帖子发布者-该问题的悬赏分数
 			int scores = question.getPrize();
 			String answerAuthorId = ""; 
 			TaxAnswerKey _key = new TaxAnswerKey();
 			_key.setId(answerId);
 			TaxAnswer answer = mapperFactory.getTaxAnswerMapper().selectByPrimaryKey(_key);
-			if(scores > 0) mapperFactory.getTaxUserMapper().addScores(scores, answer.getAuthorId());
+			if(scores > 0) {
+				mapperFactory.getTaxUserMapper().addScores(scores, answer.getAuthorId());
+				mapperFactory.getTaxUserMapper().minusScores(scores, question.getAuthorId());
+			}
 		}
 		return JSONObject.toJSONString(result);
 	}

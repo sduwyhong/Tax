@@ -258,47 +258,6 @@ body {
 	<div id="headerpage"></div>
 	<!-- header end -->
 
-
-	<script>
-		$(function() {
-			$(".user_text").hover(function() {
-				var width_a = $(this).width();
-				var width_b = $(this).find(".user_id").width();
-				var indent_px = width_a - width_b;
-				if (width_a <= width_b) {
-					$(this).css("text-indent", indent_px);
-				}
-			}, function() {
-				$(this).css("text-indent", "0");
-			});
-		});
-	</script>
-	<!-- input点击清除value值 -->
-	<script type="text/javascript">
-		wap_val = [];
-		$(".ssearch").each(function(i) {
-			wap_val[i] = $(this).val();
-			$(this).focusin(function() {
-				if ($(this).val() == wap_val[i]) {
-					$(this).val("");
-				}
-			}).focusout(function() {
-				if ($.trim($(this).val()) == "") {
-					$(this).val(wap_val[i]);
-				}
-			});
-		});
-		//  用户名显示
-		$(".user_id").each(function() {
-			var maxwidth = 4;
-			if ($(this).text().length > maxwidth) {
-				$(this).text($(this).text().substring(0, maxwidth));
-				$(this).html($(this).html() + '...');
-			}
-		});
-	</script>
-
-
 	<!-- header end -->
 	<!-- 中间部分start -->
 	<div class="liuan_content_wrapall">
@@ -309,26 +268,27 @@ body {
 			<span class="fl"
 				style="width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
 				<a href="/lagsms/questions/ques_1513737987706/details"
-				class="nav_style"> 想了解个人所得税流程 </a>
+				class="nav_style" id="position_title"> - </a>
 			</span>
 		</div>
 		<div class="liuan_content" style="margin-right: 50px;padding-left: 50px;">
 			<div class="notsolved" style="width:auto;">
 				<!-- 头部 start -->
-				<div class="mark">
+				<div class="mark" id="status">
 					<img src="../image/questionmark.png"> <span>未解决</span>
+					<img src="../image/answerb.png" style="display: none;"> <span style="display: none;">已解决</span>
 				</div>
 				<div class="mark_content">
 					<ul>
-						<li><p>问题：想了解个人所得税流程</p></li>
-						<li><span>2017-12-20</span></li>
+						<li><p id="title">-</p></li>
+						<li><span id="publishDate">-</span></li>
 					</ul>
 				</div>
 				<!-- 头部 end -->
 				<div class="user_messageone">
 					<!-- 问题详情 start -->
 					<div class="user_messageone_list_content">
-						<span>内容：</span> <span id="hidden"><p>个人说的税是怎么计算的，流程是什么？</p>
+						<span>内容：</span> <span id="hidden"><p id="content">-</p>
 						</span>
 					</div>
 					<!-- 问题详情 end -->
@@ -338,8 +298,8 @@ body {
 			<div class="liuan_content_three">
 				<div class="liuan_content_three_nav">
 					<ul>
-						<li><span>浏览：</span><span>273</span></li>
-						<li><span>回答：</span><span>5</span></li>
+						<li><span>浏览：</span><span  id="click">-</span></li>
+						<!-- <li><span>回答：</span><span id="answerNum">5</span></li> -->
 
 
 						<li data-target-id="ques_1513737987706" data-target="question"
@@ -363,7 +323,7 @@ body {
 					<div class="user_messageTwo_list" id="user_messageTwo_list">
 						<div id="answerContent" class="user_messageTwo_list_content">
 						
-							<ul data-answer-id="answ_1513851709298"
+							<ul hidden="hidden" data-answer-id="answ_1513851709298" class="answer_template"
 								style="border-bottom: 1px dashed #ccc; height: 136px;">
 								<li>
 									<a href="/lagsms/users/user_1513264931170/zone">
@@ -371,20 +331,20 @@ body {
 									</a>
 								</li>
 								<li><p class="over"></p>
-									<p>回答了解流程税是怎么计算的流程是什么？</p>
+									<p>-</p>
 									<p></p>
 								</li>
-								<li><span>2017-12-21</span></li>
+								<li><span>-</span></li>
 								<li class="star_answer_action star-answer"
 									data-target-id="answ_1513851709298" onclick="starAnswer();"
 									style="cursor: pointer;">
 									<span>收藏：</span>
-									<span class="starCount star-answer-num">2</span>
+									<span class="starCount star-answer-num">-</span>
 								</li>
 								<li class="like-answer" data-answer-id="answ_1513851709298"
 									onclick="likeAnswer();" style="cursor: pointer;">
 									<span style="cursor: pointer;">点赞：</span>
-									<span class="likeCount like-answer-num">1</span>
+									<span class="likeCount like-answer-num">-</span>
 								</li>
 								<li id="report_one">
 									<span data-target-id="answ_1513851709298" data-target="answer" onclick="report();" 
@@ -392,80 +352,36 @@ body {
 								</li>
 							</ul>
 							
-							<ul data-answer-id="answ_1513852908209"
-								style="border-bottom: 1px dashed #ccc; height: 136px;">
-								<li>
-									<a href="/lagsms/users/u0001/zone">
-										<img src="../image/u2815.png" alt="Avatar">
-									</a>
-								</li>
-								<li><p class="over"></p>
-									<p>回答审核</p>
-									<p></p></li>
-								<li><span>2017-12-21</span></li>
-								<li class="star_answer_action star-answer"
-									data-target-id="answ_1513852908209" onclick="starAnswer();"
-									style="cursor: pointer;">
-									<span>收藏：</span>
-									<span class="starCount star-answer-num">0</span>
-								</li>
-								<li class="like-answer" data-answer-id="answ_1513852908209"
-									onclick="likeAnswer();" style="cursor: pointer;">
-									<span style="cursor: pointer;">点赞：</span>
-									<span class="likeCount like-answer-num">1</span>
-								</li>
-								<li id="report_one">
-									<span data-target-id="answ_1513852908209" data-target="answer"
-										  onclick="report();" 
-										  style="text-decoration: none; color: black; cursor: pointer;">举报</span>
-								</li>
-							</ul>
-							
 						</div>
 					</div>
 				</div>
+				<!-- 分页 -->
+				<div id="answerPaging" class="box"></div>
 			</div>
-			
-			<!-- 实现分页 start-->
-			<!-- 不满一页：设置pagination的display：none 否则为block
-				  点击数字: 由class=waves-effect变成class=active 
-				  首页时:prePage为disabled；尾页时 :nextPage的class为disabled 其他情况时class为waves-effect-->						
-			<ul class="pagination" style="display: none;">
-				<li class="waves-effect waves-light btn-small" id="firstPage"><a href="#!" style="font-color: black">first</a></li>
-    			<li class="disabled" id="prePage">
-    				<a href="#!">
-    					<i class="material-icons">chevron_left</i>
-    				</a>
-    			</li>
-    			<li class="active"><a href="#!">1</a></li>
-    			<li class="waves-effect" id="onePage"><a href="#!" style="font-color: black">2</a></li>
-    			<li class="waves-effect" id="twoPage"><a href="#!" style="font-color: black">3</a></li>
-    			<li class="waves-effect" id="threePage"><a href="#!" style="font-color: black">4</a></li>
-   				<li class="waves-effect" id="fourPage"><a href="#!" style="font-color: black">5</a></li>
-    			<li class="waves-effect" id="nextPage">
-    				<a href="#!" style="font-color: black">
-    					<i class="material-icons">chevron_right</i>
-    				</a>
-    			</li>
-  		    	<li class="waves-effect waves-light btn-small" id="lastPage"><a href="#!" style="font-color: black">last</a></li>
-  			</ul>	
-  			<!-- 实现分页 end-->
-			
 			
 			<!--其他回答 end -->
 			<div style="margin-top: 51px;">
 				<p class="liuan_content_three_p">我要回答</p>
 
-
-
-				<span
-					style="float: left; line-height: 40px; font-size: 18px; margin: 20px 0">请先</span>
-				<div
-					style="width: 120px; height: 40px; line-height: 40px; text-align: center; float: left; margin: 20px 10px; background: rgb(26, 86, 169)">
-					<a href="/lagsms/login"
-						style="width: 100%; height: 100%; color: #fff; text-decoration: none; font-weight: bold">登录</a>
+				<div id="hasntLogin">
+					<span
+						style="float: left; line-height: 40px; font-size: 18px; margin: 20px 0">请先</span>
+					<div
+						style="width: 120px; height: 40px; line-height: 40px; text-align: center; float: left; margin: 20px 10px; background: rgb(26, 86, 169)">
+						<a href="../register/login.html"
+							style="width: 100%; height: 100%; color: #fff; text-decoration: none; font-weight: bold">登录</a>
+					</div>
 				</div>
-
+				<div id="hasLogin" class="text_area" style="display: none;">
+					<textarea name="content" id="editor" class="fl" cols="30"
+						rows="10" style="visibility: hidden; display: none;"></textarea>
+					<script type="text/javascript">
+						CKEDITOR.replace('editor')
+					</script>
+					<div class="liuan_content_four_button">
+						<button type="button" onclick="publishAnswer()">提交</button>
+					</div>
+				</div>
 
 			</div>
 		</div>
@@ -519,9 +435,6 @@ body {
 							<td style="width: 50px;">内容：</td>
 							<td>
 								<textarea id="quescontent" name="content" style="visibility: hidden; display: none;">&lt;p&gt;个人说的税是怎么计算的，流程是什么？&lt;/p&gt;</textarea>
-								<script type="text/javascript">
-									CKEDITOR.replace('editor')
-								</script>
 							</td>
 						</tr>
 					</tbody>
@@ -538,10 +451,6 @@ body {
 	<!-- 弹出修改详细信息窗口 end -->
 	<!--  尾部 start -->
 	<div id = "footerpage"></div>
-	<script>
-		$("#footerpage").load("../footer.html");
-	</script>
-
 
 	<!-- load js -->
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -553,263 +462,170 @@ body {
 	<script type="text/javascript" src="../ckeditor/config.js"></script>
 	<script type="text/javascript" src="../ckeditor/lang/zh-cn.js"></script>
 	<script type="text/javascript" src="../ckeditor/styles.js"></script>
+	<script type="text/javascript" src="../js/path.js"></script>
 	
 	<!-- load header and footer -->
 	<script type="text/javascript">
 		$("#headerpage").load("../header.html");
 		$("#footerpage").load("../footer.html");
 	</script>
-
-
 	<script type="text/javascript">
-		CKEDITOR.replace("quescontent");
-
-		$('#sunmitTable').submit(function() {
+		CKEDITOR.replace('editor')
+	</script>
+	<script type="text/javascript">
+		var cookies = document.cookie;
+		var cookieArray = cookies.split(';');
+		var auth = false;
+		for(var i in cookieArray){
+			if(cookieArray[i].split('=')[0].trim() == '_user'){
+				auth = true;
+				break;
+			}
+		}
+		console.log(auth);
+		if(auth){
+			$('#hasntLogin').hide();
+			$('#hasLogin').show();
+		}else{
+			$('#hasntLogin').show();
+			$('#hasLogin').hide();
+		}
+		
+	</script>
+	<script type="text/javascript">
+		//咨询
+		var questionId = location.search.substr(1,location.search.length-1).split("=")[1];
+		$.ajax({
+			url:path+'guest/question/'+questionId,
+			success:function(data){
+				console.log(data);
+				var question = data.result;
+				if(question.status == 1){
+					$("#status").children('img:eq(0)').hide();
+					$("#status").children('span:eq(0)').hide();
+					$("#status").children('img:eq(1)').show();
+					$("#status").children('span:eq(1)').show();
+				}
+				$('#position_title').text(question.title);
+				$('#title').text(question.title);
+				$('#content').html(question.content);
+				$('#click').text(question.click);
+				$('#publishDate').text(getDate(question.publishDate));
+			}
+		})
+		//查询回答
+		var totalPage = 0;
+		var totalCount = 0;
+		$.ajax({
+			url:path+'guest/answer/'+questionId+'/'+1,
+			async:false,
+			success:function(data){
+				console.log(data);
+				if(data.status == 200) {
+					var list = data.result.list;
+					for(var i in list){
+						var answer = list[i];
+						fillTable(answer);
+					}
+				}
+				totalPage = data.result.totalPage;
+				totalCount = data.result.totalCount;
+			}
+		})
+		initPagination(totalPage,totalCount);
+		function fillTable(answer){
+			/*
+			<ul data-answer-id="answ_1513851709298" class="answer_template"
+				style="border-bottom: 1px dashed #ccc; height: 136px;">
+				<li>
+					<a href="/lagsms/users/user_1513264931170/zone">
+						<img src="../image/u2815.png" alt="Avatar">
+					</a>
+				</li>
+				<li><p class="over"></p>
+					<p>回答了解流程税是怎么计算的流程是什么？</p>
+					<p></p>
+				</li>
+				<li><span>2017-12-21</span></li>
+				<li class="star_answer_action star-answer"
+					data-target-id="answ_1513851709298" onclick="starAnswer();"
+					style="cursor: pointer;">
+					<span>收藏：</span>
+					<span class="starCount star-answer-num">2</span>
+				</li>
+				<li class="like-answer" data-answer-id="answ_1513851709298"
+					onclick="likeAnswer();" style="cursor: pointer;">
+					<span style="cursor: pointer;">点赞：</span>
+					<span class="likeCount like-answer-num">1</span>
+				</li>
+				<li id="report_one">
+					<span data-target-id="answ_1513851709298" data-target="answer" onclick="report();" 
+						  style="text-decoration: none; color: black; cursor: pointer;">举报</span>
+				</li>
+			</ul>
+			*/
+			var template = $('.answer_template:first').clone();
+			template.removeAttr('hidden');
+			template.children('li:eq(0)').children().children().attr('src',path+'guest/avatar/'+answer.authorId);
+			template.children('li:eq(1)').children('p:eq(1)').html(answer.content);
+			template.children('li:eq(2)').children().text(getDate(answer.publishDate));
+			template.children('li:eq(3)').children('span:eq(1)').text(answer.favourite);
+			template.children('li:eq(4)').children('span:eq(1)').text(answer.likes);
+			$('.answer_template:last').after(template);
+		}
+		function initPagination(totalPage,totalCount){
+			//分页，只有一页不分页
+			$('#answerPaging').paging({
+			   initPageNo: 1, 			// 初始页码
+		       totalPages: totalPage, 	// 总页数
+		       totalCount: '合计 '+totalCount+'条数据', 			// 条目总数
+		       slideSpeed: 600, 							// 缓动速度。单位毫秒
+		       jump: true, 								// 是否支持跳转
+		       initLoad: false,
+		       callback: function(page) { 
+			       	// 回调函数
+			       	$('.answer_template[hidden!=hidden]').remove();
+			       	$.ajax({
+						url:path+'guest/answer/'+questionId+'/'+page,
+						async:false,
+						success:function(data){
+							console.log(data);
+							if(data.status == 200) {
+								var list = data.result.list;
+								for(var i in list){
+									var answer = list[i];
+									fillTable(answer);
+								}
+							}
+						}
+					})
+		   		}
+			});
+		}
+		//转换时间戳
+		function getDate(value){
+			 return new Date(parseInt(("/Date("+value+")/").substr(6, 13))).toLocaleDateString();  
+		}
+		function publishAnswer(){
 			$.ajax({
-				url : "/lagsms/report",
-				type : "post",
-				dataType : "json",
-				data : $('#sunmitTable').serialize(),
-				success : function(data) {
-					if (data.result == '1') {
-						zeroModal.success('操作成功!');
-					} else {
-						zeroModal.error('操作失败!');
+				url:path+'user/answer',
+				type:'post',
+				data:{
+					questionId:questionId,
+					content:CKEDITOR.instances.editor.getData()
+				},
+				success:function(data){
+					console.log(data);
+					if(data.status = 200){
+						alert('成功回答！');
+						location.reload();
+					}else if(data.status == 400) {
+						alert('参数有误！');
+					}else if(data.status == 403){
+						alert('请先登录！');
 					}
 				}
 			})
-		});
-		//弹出框
-		function closePopWin() {
-			$('.ex_liuan_PopWinbg').hide();
-		}
-	</script>
-	<!--  尾部 end -->
-
-
-
-
-	<script type="text/javascript">
-		function checkLikeAnswers(data) {
-		}
-		function notloginAction() {
-			zeroModal.alert("请先登录用户");
-		}
-		function starQuestion() {
-			zeroModal.alert("请先登录用户");
-		}
-		function starAnswer() {
-			zeroModal.alert("请先登录用户");
-		}
-		function report() {
-			zeroModal.alert("请先登录用户");
-		}
-		function acceptAnswer() {
-			zeroModal.alert("请先登录用户");
-		}
-		function likeAnswer() {
-			zeroModal.alert("请先登录用户");
-		}
-	</script>
-
-
-	<script type="text/javascript">
-		//分页
-		/* 咨询详情 */
-		var count = 5;
-		var page = Math.ceil(count / 10);
-		var questionId = 'ques_1513737987706';
-
-		// 如果问题提问者已经采纳最佳答案
-		var hasBestAnswer = false;// 已经存在最佳答案
-		var canAcceptAnswer = false;// 已经存在最佳答案
-
-		// 分页获取 该question的相关回答answers
-		$('#answersPaging').paging({
-			initPageNo : 1, //初始页码
-			totalPages : page, //总页数
-			totalCount : '合计5条数据', //条目总数
-			slideSpeed : 600, //缓动速度。单位毫秒
-			jump : true, //是否支持跳转
-			callback : function(page) { //回调函数
-				$.get("/lagsms/questions/ques_1513737987706/answers", {
-					page : page,
-					rows : 10,
-				}, function(data) {
-					initAndCheckAnswers(data);
-				});
-			}
-		});
-		var imgUrl = '/lagsms/file/showPicFile?fileId=';
-		var defaultImgUrl = '../image/u2815.png';
-		// 初始化答案 以及 check answers
-		function initAndCheckAnswers(data) {
-			var dataHTML = data
-					.map(function(value, index, array) {
-						var bestAnswer = canAcceptAnswer && !hasBestAnswer ? ('<li data-answer-id="'
-								+ value.id
-								+ '" data-question-id="'
-								+ questionId + '" onclick="acceptAnswer();" style="cursor:pointer;">采纳</li>')
-								: '';
-						var userAvatar = value.user && value.user.avatar ? (imgUrl + value.user.avatar)
-								: defaultImgUrl;
-						return '<ul data-answer-id="' + value.id + '" style="border-bottom:1px dashed #ccc;height:136px;">'
-								+ '<li>'
-								+ '<a href="/lagsms/users/' + value.user.userId + '/zone">'
-								+ '<img src="' + userAvatar + '" alt="Avatar">'
-								+ '</a>' + '</li>' + '<li><p class="over">'
-								+ value.content
-								+ '</p></li>'
-								+ '<li><span>'
-								+ value.createdTime
-								+ '</span></li>'
-								+ '<li class="star_answer_action star-answer" data-target-id="'
-								+ value.id
-								+ '" onclick="starAnswer();" style="cursor:pointer;">'
-								+ '<span>收藏：</span>'
-								+ '<span class="starCount star-answer-num">'
-								+ (value.starCount ? value.starCount : 0)
-								+ '</span>'
-								+ '</li>'
-								+ '<li class="like-answer" data-answer-id="'
-								+ value.id
-								+ '" onclick="likeAnswer();"  style="cursor:pointer;">'
-								+ '<span style="cursor:pointer;">点赞：</span>'
-								+ '<span class="likeCount like-answer-num">'
-								+ (value.likeCount ? value.likeCount : 0)
-								+ '</span>'
-								+ '</li>'
-								+ bestAnswer
-								+ '<li id="report_one">'
-								+ '<span data-target-id="'
-								+ value.id
-								+ '" data-target="answer" onclick="report();" style="text-decoration: none;color:black;cursor:pointer;">举报</span>'
-								+ '</li>' + '</ul>';
-					});
-
-			$("#answerContent").html(dataHTML.join(""));
-			/* 判断登陆用户是否收藏答案 */
-
-			var answerIds = data.map(function(obj) {
-				return obj.id;
-			});
-			if (answerIds.length == 0) {
-				return;
-			}
-			checkLikeAnswers(answerIds);
-			checkStarAnswers(answerIds);
-		}
-
-		//点击回到顶部下500px 时间0
-		jQuery(function() {
-			$('#nextPage').click(function() {
-				$('html,body').animate({
-					scrollTop : '500px'
-				}, 0);
-				return false;
-			});
-			$('#prePage').click(function() {
-				$('html,body').animate({
-					scrollTop : '500px'
-				}, 0);
-				return false;
-			});
-			$('#firstPage').click(function() {
-				$('html,body').animate({
-					scrollTop : '500px'
-				}, 0);
-				return false;
-			});
-			$('#lastPage').click(function() {
-				$('html,body').animate({
-					scrollTop : '500px'
-				}, 0);
-				return false;
-			});
-			$('.sel-page').click(function() {
-				$('html,body').animate({
-					scrollTop : '500px'
-				}, 0);
-				return false;
-			});
-			$('.selpage').click(function() {
-				$('html,body').animate({
-					scrollTop : '500px'
-				}, 0);
-				return false;
-			});
-			$('.jump-button').click(function() {
-				$('html,body').animate({
-					scrollTop : '500px'
-				}, 0);
-				return false;
-			});
-			$('.turnPage').click(function() {
-				$('html,body').animate({
-					scrollTop : '500px'
-				}, 0);
-				return false;
-			});
-			$('.last-page').click(function() {
-				$('html,body').animate({
-					scrollTop : '500px'
-				}, 0);
-				return false;
-			});
-		});
-
-		//修改弹出框
-		function reportdel() {
-			$('.ex_liuan_PopWinbgdel').show();
-		}
-		function closePopWindel() {
-			$('.ex_liuan_PopWinbgdel').hide();
-		}
-
-		//删除
-		$(document).ready(function() {
-			CKEDITOR.replace('editorContent');
-
-			$("#del").click(function() {
-				zeroModal.confirm('是否删除？', function() {
-					$.ajax({
-						url : "/lagsms/questions/ques_1513737987706/del",
-						type : 'POST',
-						processData : false,
-						contentType : false,
-						success : function(data) {
-							console.log(data);
-							if (data == 1) {
-								zeroModal.alert('删除成功');
-							} else {
-								zeroModal.alert('删除失败');
-							}
-						}
-					});
-				});
-			});
-		});
-
-		function subEdit() {
-			$.ajax({
-				url : "/lagsms/questions/update",
-				type : 'POST',
-				dataType : "json",
-				data : $('#editQuestion').serialize(),
-				success : function(data) {
-					console.log(data);
-					if (data == 1) {
-						zeroModal.alert('修改成功');
-						closePopWindel();
-						$(".zeromodal-btn").click(function() {
-							history.go(0);
-						})
-					} else {
-						zeroModal.alert('修改失败');
-						closePopWindel();
-					}
-				}
-			});
 		}
 	</script>
 
