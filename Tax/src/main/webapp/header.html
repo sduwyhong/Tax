@@ -60,7 +60,7 @@
 						<a class="btn-small dropdown-button" id="drop" href="../users/per_data.html" data-activates="dropdown" data-hover="false" data-beloworigin="true"
 							style="background-color:transparent">
 							<img class="user_img" src="../image/cat.jpg">
-							<span class="user_name">edo7ris</span>
+							<span class="user_name">-</span>
 							<span style="color: #ffaf26bf;vertical-align: middle;">&#9660</span>
 							<i class="mdi-navigation-arrow-drop-down right"></i>
 						</a>
@@ -114,6 +114,7 @@
 	 							var value = cookieArray[i].split('=')[1].split('%3B');
 	 							//console.log(value);
 	 							var id = value[0];
+	 							$('#drop').attr('href','../users/per_data.html?id='+id);
 	 							//console.log(id);
 	 							var name = decodeURI(value[1]);
 	 							//console.log(name);
@@ -121,6 +122,7 @@
 	 							$('#userStatus').show();
 	 							$('.user_name').text(name);
 	 							auth = true;
+	 							break;
 	 						}
 	 					}
 	 					if(!auth){
