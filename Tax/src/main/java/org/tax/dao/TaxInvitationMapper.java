@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.tax.VO.InvitationVO;
 import org.tax.model.TaxInvitation;
 import org.tax.model.TaxInvitationExample;
 import org.tax.model.TaxInvitationKey;
@@ -123,5 +124,9 @@ public interface TaxInvitationMapper {
     })
     int updateByPrimaryKey(TaxInvitation record);
 
-	List<TaxInvitation> selectInvitationSent(String senderId);
+	//List<TaxInvitation> selectInvitationSent(String senderId);
+
+	List<InvitationVO> selectInvitationVOReceived(@Param("userId")String userId, @Param("pagination")boolean pagination, @Param("offset")int offset, @Param("num")int num);
+
+	List<InvitationVO> selectInvitationVOSent(@Param("userId")String userId, @Param("pagination")boolean pagination, @Param("offset")int offset, @Param("num")int num);
 }

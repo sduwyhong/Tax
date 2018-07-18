@@ -148,7 +148,11 @@ public class TaxUserServiceImpl implements TaxUserService {
 		//从Session取出用户,确定旧密码是否正确
 		//		TaxUser user = (TaxUser)request.getSession().getAttribute(SessionConst.USER);
 		//2018/7/12:wyhong
-		TaxUser user = getUserFromRequest(request);
+		//TaxUser user = getUserFromRequest(request);
+		//连续改两次密码，session中的数据不是最新的
+		TaxUserKey key = new TaxUserKey();
+		key.setId(getUserIdFromRequest(request));
+		TaxUser user = mapperFactory.getTaxUserMapper().selectByPrimaryKey(key);
 		if(!user.getPassword().equals(info.getPassword())){
 			result.setMessage(Message.INVALID_PARAMS);
 			result.setStatus(StatusCode.INVALID_PARAMS);
@@ -167,6 +171,20 @@ public class TaxUserServiceImpl implements TaxUserService {
 			mapperFactory.getTaxUserMapper().updateByPrimaryKey(user);
 		}
 		return JSON.toJSONString(result);
+	}
+
+	private String getUserIdFromRequest(HttpServletRequest request) {
+		Cookie[] cookies = request.getCookies();
+		for(Cookie cookie : cookies) {
+			if(cookie.getName().equals(CookieConst.USER)) {
+				try {
+					return URLDecoder.decode(cookie.getValue(), "UTF-8").split(";")[0];
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return null;
 	}
 
 	/**以后修改为从鸿哥的Factory获取Session
@@ -223,18 +241,7 @@ public class TaxUserServiceImpl implements TaxUserService {
 	}
 
 	private TaxUser getUserFromRequest(HttpServletRequest request) {
-		String userId = null;
-		Cookie[] cookies = request.getCookies();
-		for(Cookie cookie : cookies) {
-			if(cookie.getName().equals(CookieConst.USER)) {
-				try {
-					userId = URLDecoder.decode(cookie.getValue(), "UTF-8").split(";")[0];
-				} catch (UnsupportedEncodingException e) {
-					e.printStackTrace();
-				}
-				break;
-			}
-		}
+		String userId  = getUserIdFromRequest(request);
 		LOGGER.debug("userId:"+userId);
 		MySession session = SessionControl.getInstance().getSession(userId);
 		LOGGER.debug("session num:"+SessionControl.getInstance().getNumOnline());

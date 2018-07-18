@@ -1,5 +1,7 @@
 package org.tax.service.impl;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -8,6 +10,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -720,7 +723,15 @@ TaxGuestService {
 		TaxQuestionExample q_example = new TaxQuestionExample();
 		q_example.createCriteria().andAuthorIdEqualTo(userId);
 		myModule.setQuestionNum(mapperFactory.getTaxQuestionMapper().countByExample(q_example ));
-		myModule.setQuestions(mapperFactory.getTaxQuestionMapper().selectQuestionBriefByUser(userId,true,0,4));
+		//fillAnswerNum(List<QuestionBrief> questionBriefs)
+		List<QuestionBrief> questionBriefs = mapperFactory.getTaxQuestionMapper().selectQuestionBriefByUser(userId,true,0,4);
+		for(QuestionBrief brief : questionBriefs){
+			TaxAnswerExample example = new TaxAnswerExample();
+			example.createCriteria().andQuestionIdEqualTo(brief.getId());
+			brief.setTotalAnswerNum(mapperFactory.getTaxAnswerMapper().countByExample(example));
+		}
+		
+		myModule.setQuestions(questionBriefs);
 		TaxAnswerExample a_example = new TaxAnswerExample();
 		a_example.createCriteria().andAuthorIdEqualTo(userId);
 		myModule.setAnswerNum(mapperFactory.getTaxAnswerMapper().countByExample(a_example ));
@@ -787,7 +798,28 @@ TaxGuestService {
 	}
 
 	@Override
-	public void getAvatar(String userId) {
+	public void getAvatar(String userId, HttpServletResponse response) {
+		String path = mapperFactory.getTaxUserMapper().getAvatar(userId);
+		ServletOutputStream outputStream = null;
+		FileInputStream inputStream = null;
+		try {
+			outputStream = response.getOutputStream();
+			inputStream = new FileInputStream(new File(path));
+			byte[] buf = new byte[1024];
+			int len = 0;
+			while((len = inputStream.read(buf)) != -1) {
+				outputStream.write(buf, 0, len);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				outputStream.close();
+				inputStream.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 

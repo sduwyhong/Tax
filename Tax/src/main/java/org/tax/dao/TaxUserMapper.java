@@ -148,4 +148,6 @@ public interface TaxUserMapper {
 
 	int updateAvatarAddress(@Param("filePath")String filePath, @Param("id")String userId);
 
+	String getAvatar(String userId);
+
 }

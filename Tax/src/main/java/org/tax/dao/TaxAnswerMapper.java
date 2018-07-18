@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.tax.VO.AnswerVO;
 import org.tax.model.TaxAnswer;
 import org.tax.model.TaxAnswerExample;
 import org.tax.model.TaxAnswerKey;
@@ -135,4 +136,6 @@ public interface TaxAnswerMapper {
 	int updateStatus(@Param("status")int status, @Param("id")int id);
 
 	int updateLike(int id);
+
+	List<AnswerVO> selectAnswerVOByUser(@Param("userId")String userId, @Param("pagination")boolean pagination, @Param("offset")int offset, @Param("num")int num);
 }

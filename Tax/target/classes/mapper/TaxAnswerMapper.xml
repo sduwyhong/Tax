@@ -294,4 +294,14 @@
   	SET like = like + 1
   	WHERE id = #{id}
   </update>
+  
+  <select id="selectAnswerVOByUser" resultType="org.tax.VO.AnswerVO">
+  	SELECT q.id questionId, q.title, q.click, a.content, a.likes
+  	FROM tax_question q, tax_answer a
+  	WHERE q.id = a.question_id
+  	AND a.author_id = #{userId}
+  	<if test="#{pagination} == true">
+  	limit #{offset},#{num}
+  	</if>
+  </select>
 </mapper>

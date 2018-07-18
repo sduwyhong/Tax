@@ -4,5 +4,9 @@ package org.tax.VO;
  * @date 2018-7-18
  */
 public class MessageVO {
-	//问题内容、接收人、发出人
+	//私信内容、接收人、发出人
+	private String id;
+	private String content;
+	private String sender;
+	private String receiver;
 }

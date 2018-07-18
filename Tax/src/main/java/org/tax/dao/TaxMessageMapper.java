@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.tax.VO.MessageVO;
 import org.tax.model.TaxMessage;
 import org.tax.model.TaxMessageExample;
 import org.tax.model.TaxMessageKey;
@@ -126,4 +127,8 @@ public interface TaxMessageMapper {
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(TaxMessage record);
+
+	List<MessageVO> selectMessageVOReceived(@Param("userId")String userId, @Param("pagination")boolean pagination, @Param("offset")int offset, @Param("num")int num);
+
+	List<MessageVO> selectMessageVOSent(@Param("userId")String userId, @Param("pagination")boolean pagination, @Param("offset")int offset, @Param("num")int num);
 }

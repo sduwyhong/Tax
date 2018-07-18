@@ -356,4 +356,23 @@
   	SET click = click + 1
   	WHERE id = #{questionId}
   </update>
+  
+  <select id="selectQuestionBriefByUser" resultType="org.tax.VO.QuestionBrief">
+  	SELECT id,title,click,favourite,type,publishDate,status,prize
+  	FROM tax_question
+  	WHERE author_id = #{userId}
+  	<if test="#{pagination == true}">
+  	limit #{offset},#{num}
+  	</if>
+  </select>
+  
+  <select id="selectByFavourite" resultType="org.tax.model.TaxQuestion">
+  	SELECT q.*
+  	FROM tax_question q, tax_favourite f
+  	WHERE f.question_id = q.id
+  	AND f.user_id = #{userId}
+  	<if test="#{pagination} == true">
+  	limit #{offset},#{num}
+  	</if>
+  </select>
 </mapper>

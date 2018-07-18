@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.tax.VO.QuestionBrief;
 import org.tax.model.TaxQuestion;
 import org.tax.model.TaxQuestionExample;
 import org.tax.model.TaxQuestionKey;
@@ -141,5 +142,9 @@ public interface TaxQuestionMapper {
 	int getLastInsertId();
 
 	int click(int questionId);
+
+	List<QuestionBrief> selectQuestionBriefByUser(@Param("userId")String userId, @Param("pagination")boolean pagination, @Param("offset")int offset, @Param("num")int num);
+
+	List<TaxQuestion> selectByFavourite(@Param("userId")String userId, @Param("pagination")boolean pagination, @Param("offset")int offset, @Param("num")int num);
 
 }

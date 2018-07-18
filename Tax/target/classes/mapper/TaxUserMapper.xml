@@ -340,4 +340,9 @@
   	WHERE id = #{id}
   </update>
   
+  <select id="getAvatar">
+  	SELECT image
+  	FROM tax_user
+  	WHERE id = #{userId}
+  </select>
 </mapper>

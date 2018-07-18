@@ -60,6 +60,6 @@ public interface TaxGuestService {
 	
 	String getMessagesReceivedByUser(String userId);
 	
-	void getAvatar(String userId);
+	void getAvatar(String userId, HttpServletResponse response);
 	
 }

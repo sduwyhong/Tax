@@ -218,4 +218,28 @@
   	WHERE i.question_id = q.id
   	AND q.author_id = #{senderId}
   </select>
+  
+  <select id="selectInvitationVOReceived" resultType="org.tax.VO.InvitationVO">
+  	SELECT q.id questionId, q.title, q.publishDate, u1.username userReceived, u2.username userSent
+  	FROM tax_question q, tax_user u1, tax_user u2, tax_invitation i
+  	WHERE q.author_id = u2.id
+  	AND q.id = i.question_id
+  	AND u1.id = i.user_id
+  	AND u1.id = #{userId}
+  	<if test="#{pagination} == true">
+  	limit #{offset},#{num}
+  	</if>
+  </select>
+  
+  <select id="selectInvitationVOSent" resultType="org.tax.VO.InvitationVO">
+  	SELECT q.id questionId, q.title, q.publishDate, u1.username userReceived, u2.username userSent
+  	FROM tax_question q, tax_user u1, tax_user u2, tax_invitation i
+  	WHERE q.author_id = u2.id
+  	AND q.id = i.question_id
+  	AND u1.id = i.user_id
+  	AND u2.id = #{userId}
+  	<if test="#{pagination} == true">
+  	limit #{offset},#{num}
+  	</if>
+  </select>
 </mapper>
