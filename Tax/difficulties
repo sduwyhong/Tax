@@ -7,3 +7,5 @@
 4、js里出现一次button点击提交两次请求（明显特征是页面自己reload）==》①绑定了两个click事件②button的type为submit
 
 5、后台用URLEncoder以utf-8 encode的cookie中文，在前端可以通过调用decodeURI获得解码后的中文
+
+6、jquery中的:not选择器后的expr要用括号包裹？==》$("input:not(:checked)")

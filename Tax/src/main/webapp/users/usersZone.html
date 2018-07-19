@@ -382,9 +382,19 @@
 			template.find('span:odd:eq(1)').text(getDate(user.last_visit));
 			template.find('span:odd:eq(2)').text(user.scores);
 			template.find('span:odd:eq(3)').text(user.answerNum);
-			template.find('a:eq(2)').attr('href','message.html?id='+user.id);
-			template.find('a:eq(3)').attr('href','invitation.html?id='+user.id);
+			//登录验证
+			console.log("auth:"+auth);
+			template.find('a:eq(2)').attr('href','javascript:turnToMessagePage(\''+user.id+'\')');
+			template.find('a:eq(3)').attr('href','javascript:turnToInvitationPage(\''+user.id+'\')');
 			$('.center_first:last').after(template);
+		}
+		function turnToMessagePage(id){
+			if(!auth) alert('请先登录！');
+			else location.href = 'message.html?id='+id;
+		}
+		function turnToInvitationPage(id){
+			if(!auth) alert('请先登录！');
+			else location.href = 'invitation.html?id='+id;
 		}
 		function appendRank(user){
 			/*

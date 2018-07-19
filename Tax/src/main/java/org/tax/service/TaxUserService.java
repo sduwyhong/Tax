@@ -48,7 +48,7 @@ public interface TaxUserService {
 	
 	String likeAnswer(int answerId);
 	
-	String sendMessage(TaxMessage message);
+	String sendMessage(TaxMessage message, HttpServletRequest request);
 
 	String cancelCollectQuestion(int questionId, HttpServletRequest request);
 

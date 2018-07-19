@@ -198,11 +198,10 @@ public class TaxUserServiceImpl implements TaxUserService {
 	public synchronized String publishQuestion(TaxQuestion question, String invitationList, HttpServletRequest request) {
 		Result result = new Result();
 		TaxUser author = getUserFromRequest(request);
-		//新增功能：发一个咨询花费10积分
 		//判断积分是否足够
 		//session缓存中的scores可能不够新，还是从数据库获取
 		long scores = mapperFactory.getTaxUserMapper().selectScoresById(author.getId());
-		if(scores < 10){
+		if(scores < question.getPrize()){
 			//不够：返回充值提示信息
 			result.setMessage(Message.SCORES_NOT_ENOUGH);
 			result.setStatus(StatusCode.SCORES_NOT_ENOUGH);
@@ -223,8 +222,8 @@ public class TaxUserServiceImpl implements TaxUserService {
 			return JSON.toJSONString(result);
 		}
 
-		//足够：成功发布后扣除10积分
-		mapperFactory.getTaxUserMapper().minusScores(10,author.getId());
+		//足够：成功发布后扣除响应悬赏积分
+		mapperFactory.getTaxUserMapper().minusScores(question.getPrize(),author.getId());
 		//lucene创建索引
 		question.setId(mapperFactory.getTaxQuestionMapper().getLastInsertId());
 		LuceneUtil.creatIndex(question);
@@ -293,7 +292,7 @@ public class TaxUserServiceImpl implements TaxUserService {
 			mapperFactory.getTaxQuestionMapper().updateByPrimaryKey(question);
 			mapperFactory.getTaxAnswerMapper().updateStatus(1, answerId);
 			//被采纳回答者积分+该问题的悬赏分数
-			//帖子发布者-该问题的悬赏分数
+			//帖子发布者-该问题的悬赏分数（发布咨询时已经扣除）
 			int scores = question.getPrize();
 			String answerAuthorId = ""; 
 			TaxAnswerKey _key = new TaxAnswerKey();
@@ -301,7 +300,7 @@ public class TaxUserServiceImpl implements TaxUserService {
 			TaxAnswer answer = mapperFactory.getTaxAnswerMapper().selectByPrimaryKey(_key);
 			if(scores > 0) {
 				mapperFactory.getTaxUserMapper().addScores(scores, answer.getAuthorId());
-				mapperFactory.getTaxUserMapper().minusScores(scores, question.getAuthorId());
+				//mapperFactory.getTaxUserMapper().minusScores(scores, question.getAuthorId());
 			}
 		}
 		return JSONObject.toJSONString(result);
@@ -411,7 +410,8 @@ public class TaxUserServiceImpl implements TaxUserService {
 	}
 
 	@Override
-	public String sendMessage(TaxMessage message) {
+	public String sendMessage(TaxMessage message, HttpServletRequest request) {
+		message.setSenderId(getUserIdFromRequest(request));
 		mapperFactory.getTaxMessageMapper().insert(message);
 		return JSONObject.toJSONString(OK);
 	}

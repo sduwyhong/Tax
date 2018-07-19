@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.tax.VO.PasswordModification;
 import org.tax.constant.MediaType;
 import org.tax.model.TaxAnswer;
+import org.tax.model.TaxMessage;
 import org.tax.model.TaxQuestion;
 import org.tax.model.TaxUser;
 import org.tax.service.TaxUserService;
@@ -67,6 +68,12 @@ public class TaxUserAction {
 	@ResponseBody
 	public String publishAnswer(TaxAnswer answer, HttpServletRequest request) {
 		return taxUserService.publishAnswer(answer, request);
+	}
+	
+	@RequestMapping(value="/message",method=RequestMethod.POST,produces=JSON)
+	@ResponseBody
+	public String sendMessage(TaxMessage message, HttpServletRequest request) {
+		return taxUserService.sendMessage(message, request);
 	}
 	
 	@RequestMapping(value="/confirm/{questionId}/{answerId}",method=RequestMethod.POST,produces=JSON)

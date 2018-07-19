@@ -556,17 +556,21 @@ public class TaxGuestServiceImpl implements TaxGuestService {
 			qb.setStatus(question.getStatus());
 			qb.setReward(question.getPrize());
 			//分类名称
-			String[] questionTypeNameList = getQuestionTypeNameList(question
-					.getType());
-			StringBuilder questionBriefTypeSB = new StringBuilder();
-			for (int i = 0; i < questionTypeNameList.length; i++) {
-				if (i == questionTypeNameList.length - 1)
-					questionBriefTypeSB.append(questionTypeNameList[i]);
-				else
-					questionBriefTypeSB.append(questionTypeNameList[i]).append(
-							SeperatorConst.QUESTION_BRIEF_TYPE_SEPERATOR);
+			//无专业分类的情况
+			if("-".equals(question.getType())) qb.setType(question.getType());
+			else{
+				String[] questionTypeNameList = getQuestionTypeNameList(question
+						.getType());
+				StringBuilder questionBriefTypeSB = new StringBuilder();
+				for (int i = 0; i < questionTypeNameList.length; i++) {
+					if (i == questionTypeNameList.length - 1)
+						questionBriefTypeSB.append(questionTypeNameList[i]);
+					else
+						questionBriefTypeSB.append(questionTypeNameList[i]).append(
+								SeperatorConst.QUESTION_BRIEF_TYPE_SEPERATOR);
+				}
+				qb.setType(questionBriefTypeSB.toString());// 种类
 			}
-			qb.setType(questionBriefTypeSB.toString());// 种类
 			qb.setPublishDate(question.getPublishDate());// 发布日期
 			/** 从answer表中查询时该qid的总数 */
 			TaxAnswerExample exampleOfAnswer = new TaxAnswerExample();

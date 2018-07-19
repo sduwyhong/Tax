@@ -22,7 +22,7 @@ public class TaxQuestion extends TaxQuestionKey {
      * @mbg.generated Tue Jul 10 18:08:12 CST 2018
      */
     //=pro_list
-    private String type;
+    private String type = "-";
 
     /**
      *
