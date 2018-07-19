@@ -361,7 +361,7 @@ body {
 											</a>
 										</li>
 										<li style="width:100%;float:none;">
-											回答:纳税人的实际经营期不足一年的，应当以实际月份换算其减免税限额。换算公式为：减免税限额=年度减免税限额÷12×实际经营月数。
+											<span>回答:</span>&nbsp;<span>-</span>
 										</li>
 										<li>
 											<span>浏览：</span>
@@ -532,11 +532,11 @@ body {
 									<ul class="message_sent_template" hidden="hidden" style="border-bottom: 1px dashed #ccc; height: 80px; padding-top: 10px;">
 										<li class="fl jianjie">
 											<a href="/lagsms/letter/lett_1530877350840/details">
-												<span>问题：你好帅</span>
+												<span>私信内容：</span>&nbsp;<span>你好帅</span>
 											</a>
 										</li>
 										<li class="fr createtime">
-											<span>2018-07-06</span>
+											<span></span>
 										</li>
 										<li>
 											<span>接收人：</span>
@@ -548,11 +548,11 @@ body {
 									<ul class="message_received_template" hidden="hidden" style="border-bottom: 1px dashed #ccc; height: 80px; padding-top: 10px;">
 										<li class="fl jianjie">
 											<a href="/lagsms/letter/lett_1530877350840/details">
-												<span>问题：你好帅</span>
+												<span>私信内容：</span><span>你好帅</span>
 											</a>
 										</li>
 										<li class="fr createtime">
-											<span>2018-07-06</span>
+											<span></span>
 										</li>
 										<li>
 											<span>发送人：</span>
@@ -700,9 +700,9 @@ body {
 			template.find('a').attr('href','../consult/ConsultSub.html?id='+answer.questionId);
 			template.find('p').text(answer.title);
 			template.find('span:eq(2)').text(getDate(answer.publishDate));
-			template.find('li:eq(1)').html(answer.content);
-			template.find('span:eq(4)').text(answer.click);
-			template.find('span:eq(6)').text(answer.likes);
+			template.find('span:eq(4)').text(answer.content.replace('<p>','').replace('</p>',''));
+			template.find('span:eq(6)').text(answer.click);
+			template.find('span:eq(7)').text(answer.likes);
 			$('.answer_template:last').after(template);
 		}
 		function appendInvitationSent(invitation){
@@ -806,6 +806,13 @@ body {
 				</li>
 			</ul>
 			*/
+			var template = $('.message_sent_template:first').clone();
+			template.removeAttr('hidden');
+			template.find('a:eq(0)').attr('href','messageDetailStuff');
+			template.find('span:eq(1)').text(message.content.replace('<p>','').replace('</p>',''));
+			template.find('a:eq(1)').attr('href','per_data.html?id='+message.receiverId);
+			template.find('a:eq(1)').text(message.receiver);
+			$('.message_sent_template:last').after(template);
 		}
 		function appendMessageReceived(message){
 			/*
@@ -824,7 +831,13 @@ body {
 				</li>
 			</ul>
 			*/
-			
+			var template = $('.message_received_template:first').clone();
+			template.removeAttr('hidden');
+			template.find('a:eq(0)').attr('href','messageDetailStuff');
+			template.find('span:eq(1)').text(message.content.replace('<p>','').replace('</p>',''));
+			template.find('a:eq(1)').attr('href','per_data.html?id='+message.senderId);
+			template.find('a:eq(1)').text(message.sender);
+			$('.message_received_template:last').after(template);
 		}
 		
 	</script>

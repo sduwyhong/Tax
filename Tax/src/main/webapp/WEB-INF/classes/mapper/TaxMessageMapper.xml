@@ -241,22 +241,22 @@
   </update>
   
   <select id="selectMessageVOReceived" resultType="org.tax.VO.MessageVO">
-  	SELECT m.id, m.content, u1.username sender, u2.username receiver
+  	SELECT m.id, m.content, u1.id senderId, u1.username sender, u2.id receiverId, u2.username receiver
   	FROM tax_message m, tax_user u1, tax_user u2
   	WHERE m.sender_id = u1.id
   	AND m.receiver_id = u2.id
-  	AND u1.id = #{userId}
+  	AND u2.id = #{userId}
   	<if test="pagination">
   	limit #{offset},#{num}
   	</if>
   </select>
   
   <select id="selectMessageVOSent" resultType="org.tax.VO.MessageVO">
-  	SELECT m.id, m.content, u1.username sender, u2.username receiver
+  	SELECT m.id, m.content, u1.id senderId, u1.username sender, u2.id receiverId, u2.username receiver
   	FROM tax_message m, tax_user u1, tax_user u2
   	WHERE m.sender_id = u1.id
   	AND m.receiver_id = u2.id
-  	AND u2.id = #{userId}
+  	AND u1.id = #{userId}
   	<if test="pagination">
   	limit #{offset},#{num}
   	</if>

@@ -11,6 +11,8 @@ public class MessageVO {
 	//私信内容、接收人、发出人
 	private String id;
 	private String content;
+	private String senderId;
 	private String sender;
+	private String receiverId;
 	private String receiver;
 }
