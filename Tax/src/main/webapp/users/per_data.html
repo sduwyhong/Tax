@@ -259,7 +259,7 @@ body {
                     <div class="center_left_header_left">
                         <p>个人资料</p>
                         
-                        		<a href="../UserEditor/user_edit.html">编辑<img src="../image/personmore.png"></a>
+                        		<a id="edit_a" href="../UserEditor/user_edit.html">编辑<img src="../image/personmore.png"></a>
                         
                     </div>
                 </div>
@@ -632,14 +632,20 @@ body {
 					appendShare(data.result.shares[i]);
 				}
 				*/
-				for(var i in data.result.favourites){
-					appendFavourite(data.result.favourites[i]);
-				}
-				for(var i in data.result.message_sents){
-					appendMessageSent(data.result.message_sents[i]);
-				}
-				for(var i in data.result.message_receiveds){
-					appendMessageReceived(data.result.message_receiveds[i]);
+				if(getUserIdFromCookie() == getIdFromURL()){
+					for(var i in data.result.favourites){
+						appendFavourite(data.result.favourites[i]);
+					}
+					for(var i in data.result.message_sents){
+						appendMessageSent(data.result.message_sents[i]);
+					}
+					for(var i in data.result.message_receiveds){
+						appendMessageReceived(data.result.message_receiveds[i]);
+					}
+				}else{
+					$('.tab_a:eq(2)').hide();
+					$('.tab_a:eq(3)').hide();
+					$('#edit_a').hide();
 				}
 			}
 		})
@@ -702,7 +708,7 @@ body {
 			template.find('span:eq(2)').text(getDate(answer.publishDate));
 			template.find('span:eq(4)').text(answer.content.replace('<p>','').replace('</p>',''));
 			template.find('span:eq(6)').text(answer.click);
-			template.find('span:eq(7)').text(answer.likes);
+			template.find('span:eq(8)').text(answer.likes);
 			$('.answer_template:last').after(template);
 		}
 		function appendInvitationSent(invitation){
@@ -808,7 +814,7 @@ body {
 			*/
 			var template = $('.message_sent_template:first').clone();
 			template.removeAttr('hidden');
-			template.find('a:eq(0)').attr('href','messageDetailStuff');
+			template.find('a:eq(0)').attr('href','../myData/myLetterDetail.html?id='+message.id);;
 			template.find('span:eq(1)').text(message.content.replace('<p>','').replace('</p>',''));
 			template.find('a:eq(1)').attr('href','per_data.html?id='+message.receiverId);
 			template.find('a:eq(1)').text(message.receiver);
@@ -833,7 +839,7 @@ body {
 			*/
 			var template = $('.message_received_template:first').clone();
 			template.removeAttr('hidden');
-			template.find('a:eq(0)').attr('href','messageDetailStuff');
+			template.find('a:eq(0)').attr('href','../myData/myLetterDetail.html?id='+message.id);
 			template.find('span:eq(1)').text(message.content.replace('<p>','').replace('</p>',''));
 			template.find('a:eq(1)').attr('href','per_data.html?id='+message.senderId);
 			template.find('a:eq(1)').text(message.sender);

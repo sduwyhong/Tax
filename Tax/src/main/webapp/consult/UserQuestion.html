@@ -458,7 +458,7 @@ body {
 		var majorParam = params.split('&')[1].split('=')[1];
 		var majorArr = majorParam.split(';');
 		console.log(majorArr);
-		if(majorArr.length > 0){
+		if(majorArr.length > 0 && majorArr[0] != ''){	
 			for(var i in majorArr){
 				$('input[type=checkbox][value='+majorArr[i]+']').attr('checked','checked');
 			}
@@ -478,16 +478,20 @@ body {
 			success:function(data){
 				console.log(data);
 				var list = data.result.list;
-				for(var i in list){
-					fillTable(list[i]);
+				if(list != undefined){
+					for(var i in list){
+						fillTable(list[i]);
+					}
+					totalPage = data.result.totalPage;
+					totalCount = data.result.totalCount;
 				}
-				totalPage = data.result.totalPage;
-				totalCount = data.result.totalCount;
 			}
 		})
 		console.log(totalPage);
 		console.log(totalCount);
-		initPagination(totalPage, totalCount);
+		if(totalCount > 0){
+			initPagination(totalPage, totalCount);
+		}
 		function selectedMajor(){//点击搜索 和 选中checkbox 皆调用此函数
 			var checked = $('input[type=checkbox]:checked');
 			var list = '';

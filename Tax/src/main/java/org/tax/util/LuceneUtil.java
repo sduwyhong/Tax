@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
@@ -39,6 +40,7 @@ import org.wltea.analyzer.lucene.IKAnalyzer;
 
 /** 有一个基本假设是，这里的question都是合法的实体 id不为空s */
 public class LuceneUtil {
+	final static Logger LOGGER = Logger.getLogger(LuceneUtil.class);
 	// 存放索引库的位置
 	private static String INDEX_LIB_PATH = "E:\\temp\\tax\\lucene\\index";
 	//private static String INDEX_LIB_PATH = "D:\\temp\\tax\\lucene\\index_db";
@@ -204,32 +206,44 @@ public class LuceneUtil {
 		// 根据关键词与种类搜索
 		// 注意调用时默认传入的type是形式为只有数字(数字应该保持唯一，且递增书写)与';'分割的形式 如: "1;2;4;5"
 		// 或者type.equals("")或者type==null
-		// 若这里keyword为null不应该使用这个方法查****************************************************
-		if (keyword == null || keyword.equals("") || keyword.split("\\s+").length == 0) return new ArrayList<TaxQuestion>();
-		// 为了使后面处理的type肯定不是null 
-		if (type == null) type = "";
+		// 若这里keyword为null不应该使用这个方法查
+		if (keyword == null || keyword.equals("")
+				|| keyword.split("\\s+").length == 0) {
+			return search(type, pageIdx, pageSize);
+		}
+		if (type == null)// 为了使后面处理的type肯定不是null
+			type = "";
 		try {
+			LOGGER.debug("111");
 			Directory idxDir = FSDirectory.open(new File(INDEX_LIB_PATH));
 			IndexReader idxReader = DirectoryReader.open(idxDir);
 			IndexSearcher idxSearcher = new IndexSearcher(idxReader);
 			// 对问题的title content中含有keyword先查询出来
 			String[] queries = { keyword, keyword };
 			String[] fields = { "questionTitle", "questionContent" };
-			BooleanClause.Occur[] clauses = { BooleanClause.Occur.SHOULD,BooleanClause.Occur.SHOULD };
-			Query query = MultiFieldQueryParser.parse(queries, fields, clauses,new IKAnalyzer());
+			BooleanClause.Occur[] clauses = { BooleanClause.Occur.SHOULD,
+					BooleanClause.Occur.SHOULD };
+			Query query = MultiFieldQueryParser.parse(queries, fields, clauses,
+					new IKAnalyzer());
 			TopDocs topDocs = null;
 			if (type.equals("")) {
-				ScoreDoc lastScoreDoc = getLastScoreDoc(pageIdx, pageSize,query, null, idxSearcher);
-				topDocs = idxSearcher.searchAfter(lastScoreDoc, query, pageSize);
+				ScoreDoc lastScoreDoc = getLastScoreDoc(pageIdx, pageSize,
+						query, null, idxSearcher);
+				topDocs = idxSearcher
+						.searchAfter(lastScoreDoc, query, pageSize);
 			} else {
 				String negativeWord = type;// 比如筛选负面或者正面词的新闻就是这么用
-				QueryParser qp = new QueryParser("questionType", new IKAnalyzer());
+				QueryParser qp = new QueryParser("questionType",
+						new IKAnalyzer());
 				try {
 					Query kwQuery = qp.parse(negativeWord);
-					QueryWrapperFilter qwFilter = new QueryWrapperFilter(kwQuery);
+					QueryWrapperFilter qwFilter = new QueryWrapperFilter(
+							kwQuery);
 					// 通过最后一个元素去搜索下一页的元素
-					ScoreDoc lastScoreDoc = getLastScoreDoc(pageIdx, pageSize, query, qwFilter, idxSearcher);
-					topDocs = idxSearcher.searchAfter(lastScoreDoc, query, qwFilter, pageSize);
+					ScoreDoc lastScoreDoc = getLastScoreDoc(pageIdx, pageSize,
+							query, qwFilter, idxSearcher);
+					topDocs = idxSearcher.searchAfter(lastScoreDoc, query,
+							qwFilter, pageSize);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -257,6 +271,8 @@ public class LuceneUtil {
 				question.setType(questionType);
 				// 添加到队列
 				questionList.add(question);
+				LOGGER.debug("********debug in luceneUtil questionId: "+question.getId());
+				
 			}
 			if (idxReader != null)
 				idxReader.close();
@@ -265,6 +281,60 @@ public class LuceneUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// 不返回null是因为防止空指针异常
+		return new ArrayList<TaxQuestion>();
+	}
+
+	private static List<TaxQuestion> search(String type, int pageIdx,
+			int pageSize) {
+		if (type == null || type.equals("") || type.split("\\s+").length == 0) {
+			return new ArrayList<TaxQuestion>();
+		}
+		try {
+			Directory idxDir = FSDirectory.open(new File(INDEX_LIB_PATH));
+			IndexReader idxReader = DirectoryReader.open(idxDir);
+			IndexSearcher idxSearcher = new IndexSearcher(idxReader);
+			QueryParser qp = new QueryParser("questionType", new IKAnalyzer());
+			try {
+				Query query = qp.parse(type);
+				ScoreDoc lastScoreDoc = getLastScoreDoc(pageIdx, pageSize,
+						query, null, idxSearcher);
+				TopDocs topDocs = idxSearcher.searchAfter(lastScoreDoc, query,
+						pageSize);
+				// 根据搜索结果包装好返回的问题列表
+				List<TaxQuestion> questionList = new ArrayList<TaxQuestion>();
+				ScoreDoc[] scoreDocs = topDocs.scoreDocs;
+				for (ScoreDoc scoreDoc : scoreDocs) {
+					int doc = scoreDoc.doc;
+					Document document = idxSearcher.doc(doc);
+					TaxQuestion question = new TaxQuestion();
+					// 设置问题id
+					String questionIdStr = document.get("questionId");
+					Integer questionId = Integer.parseInt(questionIdStr);
+					question.setId(questionId);
+					// 设置问题标题
+					String questionTitle = document.get("questionTitle");
+					question.setTitle(questionTitle);
+					// 设置问题内容
+					String questionContent = document.get("questionContent");
+					question.setContent(questionContent);
+					// 设置问题分类
+					String questionType = document.get("questionType");
+					question.setType(questionType);
+					// 添加到队列
+					questionList.add(question);
+				}
+				if (idxReader != null)
+					idxReader.close();
+				return questionList;
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -226,6 +226,7 @@ public class TaxUserServiceImpl implements TaxUserService {
 		mapperFactory.getTaxUserMapper().minusScores(question.getPrize(),author.getId());
 		//lucene创建索引
 		question.setId(mapperFactory.getTaxQuestionMapper().getLastInsertId());
+		LOGGER.debug("LAST_INSERT_ID:"+question.getId());
 		LuceneUtil.creatIndex(question);
 		//存放邀请列表
 		if(invitationList != null && !"".equals(invitationList)) {

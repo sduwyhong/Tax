@@ -260,10 +260,10 @@ public class TaxGuestServiceImpl implements TaxGuestService {
 	@Override
 	public String search(String keyword, String type, int page) {
 		try {
-			//			From OnlineShop:
-			//			5.js以GET方式提交中文参数到后台出现乱码?????
-			//			原因：get方式提交的参数编码，只支持iso-8859-1编码，而且出现“?”也表明编码为iso-8859-1。
-			//			解决：以iso-8859-1编码为原始字节，再以utf-8解码即可
+//			From OnlineShop:
+//			5.js以GET方式提交中文参数到后台出现乱码?????
+//			原因：get方式提交的参数编码，只支持iso-8859-1编码，而且出现“?”也表明编码为iso-8859-1。
+//			解决：以iso-8859-1编码为原始字节，再以utf-8解码即可
 			keyword = keyword = new String(keyword.getBytes("ISO-8859-1"),"UTF-8");
 		} catch (UnsupportedEncodingException e2) {
 			e2.printStackTrace();
@@ -271,39 +271,40 @@ public class TaxGuestServiceImpl implements TaxGuestService {
 		LOGGER.debug("keyword:"+keyword+";type:"+type);
 		// 每个页的搜索栏，根据关键字搜索问题
 		Result result = new Result();
-		if(keyword!=null && type!=null){//待删
-			try {
-				List<TaxQuestion> questionLuceneList = LuceneUtil.search(keyword, type,
-						page, PageConst.NUM_PER_PAGE);
-				List<TaxQuestion> questionList = new ArrayList<TaxQuestion>();
-				for(TaxQuestion questionLucene:questionLuceneList){
-					TaxQuestionKey questionKey = new TaxQuestionKey();
-					//7/17 20:37
-					questionKey.setId(questionLucene.getId());
-					TaxQuestion question = mapperFactory.getTaxQuestionMapper().selectByPrimaryKey(questionKey);
-					questionList.add(question);
-				}
-				//List<QuestionBrief> questionBriefList = getQuestionBriefList(questionLuceneList);
-				List<QuestionBrief> questionBriefList = getQuestionBriefList(questionList);
-				//设置PageInfo
-				PageInfo pageInfo = new PageInfo();
-				pageInfo.setCurrentPage(page);
-				pageInfo.setCurrentCount(questionBriefList.size());
-				// 要计算一下
-				TaxQuestionExample exampleOfQuestion = new TaxQuestionExample();
-				//???????????????
-				long totalCount = mapperFactory.getTaxQuestionMapper().countByExample(exampleOfQuestion);
-				long totalPage = totalCount / PageConst.NUM_PER_PAGE
-						+ ((totalCount % PageConst.NUM_PER_PAGE == 0) ? 0 : 1);
-				// 设置pageInfo
-				pageInfo.setList(questionBriefList);
-				// 设置result
-				result.setResult(pageInfo);
-				return JSON.toJSONString(result);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		try {
+			List<TaxQuestion> questionLuceneList = LuceneUtil.search(keyword, type,
+					page, Integer.MAX_VALUE);
+			LOGGER.debug("size of search result:"+questionLuceneList.size());
+			if(questionLuceneList == null || questionLuceneList.size() == 0) return JSONObject.toJSONString(result);
+			List<TaxQuestion> questionList = new ArrayList<TaxQuestion>();
+			for(TaxQuestion questionLucene:questionLuceneList){
+				TaxQuestionKey questionKey = new TaxQuestionKey();
+				//7/17 20:37
+				questionKey.setId(questionLucene.getId());
+				TaxQuestion question = mapperFactory.getTaxQuestionMapper().selectByPrimaryKey(questionKey);
+				if(question != null) questionList.add(question);
 			}
+			//List<QuestionBrief> questionBriefList = getQuestionBriefList(questionLuceneList);
+			LOGGER.debug("size of questionList:"+questionList.size());
+			List<QuestionBrief> questionBriefList = getQuestionBriefList(questionList);
+			//设置PageInfo
+			PageInfo pageInfo = new PageInfo();
+			pageInfo.setCurrentPage(page);
+			pageInfo.setCurrentCount(questionBriefList.size());
+			// 要计算一下
+			TaxQuestionExample exampleOfQuestion = new TaxQuestionExample();
+			//???????????????
+			long totalCount = mapperFactory.getTaxQuestionMapper().countByExample(exampleOfQuestion);
+			long totalPage = totalCount / PageConst.NUM_PER_PAGE
+					+ ((totalCount % PageConst.NUM_PER_PAGE == 0) ? 0 : 1);
+			// 设置pageInfo
+			pageInfo.setList(questionBriefList);
+			// 设置result
+			result.setResult(pageInfo);
+			return JSON.toJSONString(result);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		result.setMessage(Message.INVALID_PARAMS);
 		result.setStatus(StatusCode.INVALID_PARAMS);
@@ -754,7 +755,7 @@ public class TaxGuestServiceImpl implements TaxGuestService {
 			example.createCriteria().andQuestionIdEqualTo(brief.getId());
 			brief.setTotalAnswerNum(mapperFactory.getTaxAnswerMapper().countByExample(example));
 		}
-		
+
 		myModule.setQuestions(questionBriefs);
 		TaxAnswerExample a_example = new TaxAnswerExample();
 		a_example.createCriteria().andAuthorIdEqualTo(userId);
