@@ -22,3 +22,7 @@ function isLogin(){
 function getIdFromURL(){
 	return location.search.substr(1,location.search.length-1).split('=')[1];
 }
+//转换时间戳
+function getDate(value){
+	 return new Date(parseInt(("/Date("+value+")/").substr(6, 13))).toLocaleDateString();  
+}

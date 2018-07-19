@@ -763,8 +763,10 @@ public class TaxGuestServiceImpl implements TaxGuestService {
 		//后面要装进VO，邀请列表要显示被邀请人用户名
 		//receive
 		List<InvitationVO> receiveds = mapperFactory.getTaxInvitationMapper().selectInvitationVOReceived(userId,true,0,4);
+		myModule.setInvitation_receiveds(receiveds);
 		//sents
 		List<InvitationVO> sents = mapperFactory.getTaxInvitationMapper().selectInvitationVOSent(userId,true,0,4);
+		myModule.setInvitation_sents(sents);
 		//shares：pass temporarily
 		myModule.setFavourites(mapperFactory.getTaxQuestionMapper().selectByFavourite(userId,true,0,4));
 		myModule.setMessage_receiveds(mapperFactory.getTaxMessageMapper().selectMessageVOReceived(userId,true,0,4));

@@ -17,3 +17,8 @@
 9、mybatis：For input string: "{true=null}"异常==》在<when test=""></when>标签中接收参数的时候test中去掉#{}直接写上参数的名称就可以了<if test=""></if>也是一样！！！！
 <if test="#{pagination} == true"></if> ×
 <if test="pagination"></if> √
+
+10、js（jquery）输出空格的方法:module_2.find('span:odd:eq(2)').html('&nbsp;&nbsp;'+data.result.answerNum);
+	注意要用html()将字符串解析，text()只会原样输出字符串
+	
+11、mybatis中的select的resultType类对应属性一定要有set方法，不然无法设值而且不报错

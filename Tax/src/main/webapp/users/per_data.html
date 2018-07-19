@@ -277,14 +277,11 @@ body {
                     </div>
                     <div class="center_left_content_right">
                         <ul>
-                            <li><span>邮箱：</span><span>184415385@qq.com </span></li>
-							<li><span>最近访问：</span><span>2018-07-04 10:18:54</span></li>
-							
+                            <li><span>邮箱：</span><span>-</span></li>
+							<li><span>最近访问：</span><span>-</span></li>
 							<li style="height:100px;overflow: auto;text-overflow:ellipsis;">
 								<span>专业：</span>
-									
-											<span> 发票系统故障及操作指导、 </span>			
-								
+								<span>-</span>
 							</li>
                         </ul>
                     </div>
@@ -300,14 +297,13 @@ body {
                 <div class="center_left_contentone">
                     <div class="center_left_content_right">
                         <div>
-                            <span>总积分:</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100</span>
+                            <span>总积分:</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-</span>
                         </div>
                         <div>
-                            <span>提问数量:</span><span style="padding-right:30px">&nbsp;&nbsp;0</span>
-						
+                            <span>提问数量:</span><span style="padding-right:30px">&nbsp;&nbsp;-</span>
                         </div>  
                         <div>
-                            <span>回答数量:</span><span style="padding-right:30px">&nbsp;&nbsp;0</span>
+                            <span>回答数量:</span><span style="padding-right:30px">&nbsp;&nbsp;-</span>
 						
                         </div>  
                     </div>
@@ -598,8 +594,84 @@ body {
 			url:path+'guest/personData/'+getIdFromURL(),
 			success:function(data){
 				console.log(data);
+				/*
+				<div class="center_left_content_right">
+                      <ul>
+                          <li><span>邮箱：</span><span>-</span></li>
+					<li><span>最近访问：</span><span>-</span></li>
+					<li style="height:100px;overflow: auto;text-overflow:ellipsis;">
+						<span>专业：</span>
+						<span>-</span>
+					</li>
+                      </ul>
+                  </div>
+				*/
+				var module_1 = $('.center_left_content_right:eq(0)');
+				module_1.find('span:odd:eq(0)').text(data.result.email);
+				module_1.find('span:odd:eq(1)').text(getDate(data.result.last_visit));
+				module_1.find('span:odd:eq(2)').text(data.result.pro_list);
+				
+				var module_2 = $('.center_left_content_right:eq(1)');
+				module_2.find('span:odd:eq(0)').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+data.result.score);
+				module_2.find('span:odd:eq(1)').html('&nbsp;&nbsp;'+data.result.questionNum);
+				module_2.find('span:odd:eq(2)').html('&nbsp;&nbsp;'+data.result.answerNum);
+				
+				for(var i in data.result.questions){
+					appendQuestion(data.result.questions[i]);
+				}
+				for(var i in data.result.answers){
+					appendAnswer(data.result.answers[i]);
+				}
+				for(var i in data.result.invitation_receiveds){
+					appendInvitationReceived(data.result.invitation_receiveds[i]);
+				}
+				for(var i in data.result.invitation_sents){
+					appendInvitationSent(data.result.invitation_sents[i]);
+				}
+				/*
+				for(var i in data.result.shares){
+					appendShare(data.result.shares[i]);
+				}
+				*/
+				for(var i in data.result.questions){
+					appendFavourite(data.result.questions[i]);
+				}
+				for(var i in data.result.message_sents){
+					appendMessageSent(data.result.message_sents[i]);
+				}
+				for(var i in data.result.message_receiveds){
+					appendMessageReceived(data.result.message_receiveds[i]);
+				}
 			}
 		})
+	</script>
+	<script type="text/javascript">
+		function appendQuestion(question){
+			
+		}
+		function appendAnswer(answer){
+			
+		}
+		function appendInvitationSent(invitation){
+			
+		}
+		function appendInvitationReceived(invitation){
+			
+		}
+		/*
+		function appendShare(share){
+		}
+		*/
+		function appendFavourite(favourite){
+			
+		}
+		function appendMessageSent(message){
+			
+		}
+		function appendMessageReceived(message){
+			
+		}
+		
 	</script>
 <script type="text/javascript"> 
 	init_i();
