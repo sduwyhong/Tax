@@ -246,7 +246,7 @@
   	WHERE m.sender_id = u1.id
   	AND m.receiver_id = u2.id
   	AND u1.id = #{userId}
-  	<if test="#{pagination} == true">
+  	<if test="pagination">
   	limit #{offset},#{num}
   	</if>
   </select>
@@ -257,7 +257,7 @@
   	WHERE m.sender_id = u1.id
   	AND m.receiver_id = u2.id
   	AND u2.id = #{userId}
-  	<if test="#{pagination} == true">
+  	<if test="pagination">
   	limit #{offset},#{num}
   	</if>
   </select>

@@ -10,6 +10,7 @@
     <link rel="icon" href="../image/home/favicon.gif" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="../css/myData/personCenter.css">
     <link rel="stylesheet" href="../css/zeroModal.css">
+    
     <style type="text/css">
     	#five {
 			border-bottom: 1px solid #fff;
@@ -244,80 +245,6 @@ body {
 		<!-- header end -->
 	
 	
-		<script>
-			// 窗体加载完成时轮询
-			var t, notifyNum = 0;
-			window.onload = function() {
-				loadNotifies();
-				t = setInterval(loadNotifies, 10000); //每10秒执行一次
-			}
-			// 窗体关闭之前清除此定时器
-			window.onbeforeunload = function() {
-				clearInterval(t);
-			}
-			
-			//消息提示
-			function loadNotifies() {
-				var param = {
-					pagingOrNot : "not",
-					readOrUnread : "0"
-				};
-				// 获取所有的通知
-				$.get('../notifies/count', param, function(data) {
-					if(notifyNum == data) {
-						return;
-					}
-					notifyNum = data;
-					var numTxt = "";
-					if(notifyNum >= 100) {
-						numTxt = "99+";
-					} else if(notifyNum == 0) {
-						numTxt = "";
-					}
-					$("#news").text(numTxt);
-				});
-			}
-		</script>
-	
-	<script>
-        $(function(){
-           $(".user_text").hover(function(){
-               var width_a = $(this).width();
-               var width_b = $(this).find(".user_id").width();
-               var indent_px = width_a - width_b;
-               if( width_a <= width_b ){
-                   $(this).css("text-indent",indent_px);
-               }
-           },function(){
-               $(this).css("text-indent","0");
-           });
-        });
-    </script>
-      <!-- input点击清除value值 -->
-    <script type="text/javascript">
-		wap_val = [];
-		$(".ssearch").each(function(i) {
-			wap_val[i] = $(this).val();
-			$(this).focusin(function() {
-				if ($(this).val() == wap_val[i]) {
-					$(this).val("");
-				}
-			}).focusout(function() {
-				if ($.trim($(this).val()) == "") {
-					$(this).val(wap_val[i]);
-				}
-			});
-		});
-		//  用户名显示
-		 $(".user_id").each(function(){
-		  var maxwidth=4;
-		  if($(this).text().length > maxwidth){
-		    $(this).text($(this).text().substring(0,maxwidth));
-		    $(this).html($(this).html()+'...');
-		  }
-		}); 
-	</script>
-
 
     <!-- header end -->
 
@@ -415,9 +342,40 @@ body {
 						</div>
 						<div class="tab_conOne">
 							<div style="display: block;height:auto;overflow:hidden;">
-								
+								<ul style="border-bottom: 1px dashed #ccc; height: 79px; padding-top: 10px;">
+										<li class="fl jianjie">
+											<a href="/lagsms/questions/ques_1526450928136/details">
+												<span>问题：</span><span>111</span>
+											</a>
+											<span style="float:right">2018-05-16</span>
+										</li>
+										<li><span>浏览：</span><span>14</span></li>
+										<li><span>收藏：</span><span>0</span></li>
+										<li><span>回答：</span><span>0</span></li>
+										<li><span>分类：</span><span>普通提问</span></li>
+									</ul>
 							</div>
 							<div>
+								<ul style="border-bottom: 1px dashed #ccc; height: 110px; padding-top: 10px;">
+										<li class="fl jianjie" style="float:none;">
+											<a href="/lagsms/questions/ques_1508981146452/details">
+												<span style="float:left;">问题：</span>
+												<span style="float:left;"><p>所得税征收</p></span>
+												<span style="float:right">2018-12-19</span>
+											</a>
+										</li>
+										<li style="width:100%;float:none;">
+											回答:纳税人的实际经营期不足一年的，应当以实际月份换算其减免税限额。换算公式为：减免税限额=年度减免税限额÷12×实际经营月数。
+										</li>
+										<li>
+											<span>浏览：</span>
+											<span>0</span>
+										</li>
+										<li >
+											<span>点赞：</span>
+											<span>0</span>
+										</li>
+									</ul>
 								
 							</div>
 						</div>
@@ -453,11 +411,45 @@ body {
 						<div class="tab_conTwo">
 							<!-- 我发出的邀请 -->
 							<div style="display: block">
-								
+								<ul style="border-bottom: 1px dashed #ccc; height: 79px; padding-top: 10px;">
+										<li class="fl jianjie">
+											<a href="/lagsms/questions/ques_1513225657288/details">
+												<span>问题：</span>
+												<span>请问企业自用具备房屋功能的地下建筑应如何计缴房产税？</span>
+											</a>
+										</li>
+										<li class="fr createtime">
+											<span>2017-12-14</span>
+										</li>
+										<li>
+											<span>被邀请人：</span>
+											<span>
+												<a href="/lagsms/users/u0001/zone" style="color:#000;">
+													管理员
+												</a>
+											</span>
+										</li>
+									</ul>
 							</div>
 							<!-- 我收到的邀请 -->
 							<div>
-								
+								<ul style="border-bottom: 1px dashed #ccc; height: 79px; padding-top: 10px;">
+									<li class="fl jianjie">
+										<a href="/lagsms/questions/ques_1513392823785/details">
+											<span>问题：</span>
+											<span>电子税务局</span>
+										</a>
+									</li>
+									<li class="fr createtime">
+										<span>2017-12-16</span>
+									</li>
+									<li>
+										<span>邀请人：</span>
+										<a href="/lagsms/users/u0001/zone">
+											<span>管理员</span>
+										</a>
+									</li>
+								</ul>
 							</div>
 						</div>
 					</div>
@@ -491,11 +483,25 @@ body {
 							<div class="blue"></div>
 						</div>
 						<div class="tab_conThree  tab_confour">
-								<div style="display: block">
-									
-								</div>
+							<div style="display: block">
+								<ul style="border-bottom: 1px dashed #ccc; height: 80px; padding-top: 10px;">
+									<li class="fl jianjie">
+										<a href="/lagsms/posts/post_1525945371366"><span>问题：经验分享测试</span></a>
+									</li>
+									<li class="fr createtime"><span>2018-05-10</span></li>
+									<li><span>浏览：</span><span>8</span></li>
+									<li><span>收藏：</span><span>0</span></li>
+								</ul>
+							</div>
 							<div>
-								
+								<ul style="border-bottom: 1px dashed #ccc; height: 80px; padding-top: 10px;">
+									<li class="fl jianjie">									
+									<a href="/lagsms/posts/post_1513478006486"><span>问题：分享车船税</span></a>
+									</li>
+									<li class="fr createtime"><span>2018-07-05</span></li>
+									<li><span>浏览：</span><span>69</span></li>
+									<li><span>收藏：</span><span>3</span></li>
+								</ul>
 							</div>
 						</div>
 					</div>
@@ -528,10 +534,36 @@ body {
 							</div>
 							<div class="tab_conFour tabconfour">
 								<div style="display: block; height: 480px; overflow: hidden;">
-									
+									<ul style="border-bottom: 1px dashed #ccc; height: 80px; padding-top: 10px;">
+										<li class="fl jianjie">
+											<a href="/lagsms/letter/lett_1530877350840/details">
+												<span>问题：你好帅</span>
+											</a>
+										</li>
+										<li class="fr createtime">
+											<span>2018-07-06</span>
+										</li>
+										<li>
+											<span>接收人：</span>
+											<a href="/lagsms/users/u0001/zone" style="color:#000;">管理员</a>
+										</li>
+									</ul>
 								</div>
 								<div style="display: none;">
-									
+									<ul style="border-bottom: 1px dashed #ccc; height: 80px; padding-top: 10px;">
+										<li class="fl jianjie">
+											<a href="/lagsms/letter/lett_1530877350840/details">
+												<span>问题：你好帅</span>
+											</a>
+										</li>
+										<li class="fr createtime">
+											<span>2018-07-06</span>
+										</li>
+										<li>
+											<span>发送人：</span>
+											<a href="/lagsms/users/u0001/zone" style="color:#000;">管理员</a>
+										</li>
+									</ul>
 								</div>
 							</div>
 						</div>
@@ -555,89 +587,89 @@ body {
 	<script type="text/javascript" src="../js/zeroModel.min.js" charset="utf-8"></script>
 	<script type="text/javascript" src="../js/Materialize/materialize.min.js"></script>
 	<script type="text/javascript" src="../js/Materialize/adbeus.js"></script>
-	
+	<script type="text/javascript" src="../js/path.js"></script>
 	<!-- load header and footer -->
 	<script type="text/javascript">
 		$("#headerpage").load("../header.html");
 		$("#footerpage").load("../footer.html");
 	</script>
-	
+	<script type="text/javascript">
+		$.ajax({
+			url:path+'guest/personData/'+getIdFromURL(),
+			success:function(data){
+				console.log(data);
+			}
+		})
+	</script>
 <script type="text/javascript"> 
-				function current(){ 
-				var d=new Date(),str=''; 
-				str +=d.getFullYear()+'/'; //获取当前年份 
-				str +=d.getMonth()+1+'/'; //获取当前月份（0——11） 
-				str +=d.getDate()+' '; 
-				str +=d.getHours()+':'; 
-				str +=d.getMinutes()+':'; 
-				str +=d.getSeconds()+''; 
-				return str; } 
-				setInterval(function(){$("#nowTime").html(current)},1000);
-				
-				$(function() {
-					var $li = $('#tabOne li');
-					var $ul = $('.tab_conOne div');
-					var $span = $('.myQuesAndAnswer span');
-					$li.click(function() {
-						var $this = $(this);
-						var $t = $this.index();
-						$li.removeClass();
-						$this.addClass('active')
-						 .siblings().removeClass("active");
-						$ul.css('display','none')
-						$ul.eq($t).css('display', 'block');
-						$span.css('display','none');
-						$span.eq($t).css('display', 'block');
-					});
-				});
-				$(function() {
-					var $li = $('#tabTwo li');
-					var $ul = $('.tab_conTwo div');
-					var $span = $('.myInviOutAndPut span');
-					$li.click(function() {
-						var $this = $(this);
-						var $t = $this.index();
-						$li.removeClass();
-						$this.addClass('active')
-						 .siblings().removeClass("active");
-						$ul.css('display','none')
-						$ul.eq($t).css('display', 'block');
-						$span.css('display','none');
-						$span.eq($t).css('display', 'block');
-					});
-				});
-				$(function() {
-					var $li = $('#tabThree li');
-					var $ul = $('.tab_conThree div');
-					var $span = $('.myShareAndColl span');
-					$li.click(function() {
-						var $this = $(this);
-						var $t = $this.index();
-						$li.removeClass();
-						$this.addClass('active')
-						 .siblings().removeClass("active");
-						$ul.css('display','none')
-						$ul.eq($t).css('display', 'block');
-						$span.css('display','none');
-						$span.eq($t).css('display', 'block');
-					});
-				});
-				$(function() {
-					var $li = $('#tabFour li');
-					var $ul = $('.tabconfour div');
-					var $span = $('.myLettOutAndPut span');
-					$li.click(function() {
-						var $this = $(this);
-						var $t = $this.index();
-						$li.removeClass();
-						$this.addClass('active')
-						 .siblings().removeClass("active");
-						$ul.css('display','none')
-						$ul.eq($t).css('display', 'block');
-						$span.css('display','none');
-						$span.eq($t).css('display', 'block');
-					});
-				});
-		</script>
+	init_i();
+	init_l();
+	init_qa();
+	init_s();
+	function init_qa(){
+		var $li = $('#tabOne li');
+		var $ul = $('.tab_conOne div');
+		var $span = $('.myQuesAndAnswer span');
+		$li.click(function() {
+			var $this = $(this);
+			var $t = $this.index();
+			$li.removeClass();
+			$this.addClass('active')
+			 .siblings().removeClass("active");
+			$ul.css('display','none')
+			$ul.eq($t).css('display', 'block');
+			$span.css('display','none');
+			$span.eq($t).css('display', 'block');
+		});
+	}
+	function init_i(){
+		var $li = $('#tabTwo li');
+		var $ul = $('.tab_conTwo div');
+		var $span = $('.myInviOutAndPut span');
+		$li.click(function() {
+			var $this = $(this);
+			var $t = $this.index();
+			$li.removeClass();
+			$this.addClass('active')
+			 .siblings().removeClass("active");
+			$ul.css('display','none')
+			$ul.eq($t).css('display', 'block');
+			$span.css('display','none');
+			$span.eq($t).css('display', 'block');
+		});
+	}
+	function init_s(){
+		var $li = $('#tabThree li');
+		var $ul = $('.tab_conThree div');
+		var $span = $('.myShareAndColl span');
+		$li.click(function() {
+			var $this = $(this);
+			var $t = $this.index();
+			$li.removeClass();
+			$this.addClass('active')
+			 .siblings().removeClass("active");
+			$ul.css('display','none')
+			$ul.eq($t).css('display', 'block');
+			$span.css('display','none');
+			$span.eq($t).css('display', 'block');
+		});
+	}
+	function init_l(){
+		var $li = $('#tabFour li');
+		var $ul = $('.tabconfour div');
+		var $span = $('.myLettOutAndPut span');
+		$li.click(function() {
+			var $this = $(this);
+			var $t = $this.index();
+			$li.removeClass();
+			$this.addClass('active')
+			 .siblings().removeClass("active");
+			$ul.css('display','none')
+			$ul.eq($t).css('display', 'block');
+			$span.css('display','none');
+			$span.eq($t).css('display', 'block');
+		});
+	}
+</script>
 
 </body></html>

@@ -358,7 +358,7 @@
   </update>
   
   <select id="selectQuestionBriefByUser" resultType="org.tax.VO.QuestionBrief">
-  	SELECT id,title,click,favourite,type,publishDate,status,prize
+  	SELECT id,title,click,favourite,type,publish_date,status,prize
   	FROM tax_question
   	WHERE author_id = #{userId}
   	<if test="#{pagination == true}">
@@ -371,7 +371,7 @@
   	FROM tax_question q, tax_favourite f
   	WHERE f.question_id = q.id
   	AND f.user_id = #{userId}
-  	<if test="#{pagination} == true">
+  	<if test="pagination">
   	limit #{offset},#{num}
   	</if>
   </select>

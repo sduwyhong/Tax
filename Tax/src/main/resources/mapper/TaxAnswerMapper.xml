@@ -300,7 +300,7 @@
   	FROM tax_question q, tax_answer a
   	WHERE q.id = a.question_id
   	AND a.author_id = #{userId}
-  	<if test="#{pagination} == true">
+  	<if test="pagination">
   	limit #{offset},#{num}
   	</if>
   </select>

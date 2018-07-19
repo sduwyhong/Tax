@@ -9,3 +9,11 @@
 5、后台用URLEncoder以utf-8 encode的cookie中文，在前端可以通过调用decodeURI获得解码后的中文
 
 6、jquery中的:not选择器后的expr要用括号包裹？==》$("input:not(:checked)")
+
+7、springmvc接口对象参数里不能有数组类型，不然会报for input string:""
+
+8、访问不到引入的js的函数（一般是刚添加）的解决方法：浏览器缓存没有更新js文件，刷新源码的引用没用，关闭浏览器重新打开，让浏览器重新获取最新的js即可
+
+9、mybatis：For input string: "{true=null}"异常==》在<when test=""></when>标签中接收参数的时候test中去掉#{}直接写上参数的名称就可以了<if test=""></if>也是一样！！！！
+<if test="#{pagination} == true"></if> ×
+<if test="pagination"></if> √

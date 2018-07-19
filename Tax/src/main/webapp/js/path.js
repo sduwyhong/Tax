@@ -9,3 +9,16 @@ function getUserIdFromCookie(){
 		}
 	}
 }
+function isLogin(){
+	var cookies = document.cookie;
+	var cookieArray = cookies.split(';');
+	for(var i in cookieArray){
+		if(cookieArray[i].split('=')[0].trim() == '_user'){
+			return true;
+		}
+	}
+	return false;
+}
+function getIdFromURL(){
+	return location.search.substr(1,location.search.length-1).split('=')[1];
+}

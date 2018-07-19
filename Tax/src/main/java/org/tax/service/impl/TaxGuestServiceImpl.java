@@ -733,6 +733,7 @@ public class TaxGuestServiceImpl implements TaxGuestService {
 			String[] proIds = proList.split(";");
 			TaxProKey p_key = new TaxProKey();
 			for (int i = 0; i < proIds.length; i++) {
+				p_key.setId(Integer.parseInt(proIds[i]));
 				String proName = mapperFactory.getTaxProMapper().selectByPrimaryKey(p_key).getName();
 				if(i == proIds.length - 1) {
 					sb.append(proName);
@@ -768,7 +769,9 @@ public class TaxGuestServiceImpl implements TaxGuestService {
 		myModule.setFavourites(mapperFactory.getTaxQuestionMapper().selectByFavourite(userId,true,0,4));
 		myModule.setMessage_receiveds(mapperFactory.getTaxMessageMapper().selectMessageVOReceived(userId,true,0,4));
 		myModule.setMessage_sents(mapperFactory.getTaxMessageMapper().selectMessageVOSent(userId,true,0,4));
-		return null;
+		Result result = new Result();
+		result.setResult(myModule);
+		return JSONObject.toJSONString(result);
 	}
 
 	@Override

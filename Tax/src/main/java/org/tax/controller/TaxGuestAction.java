@@ -83,6 +83,12 @@ public class TaxGuestAction {
 		return taxGuestService.getUserModule();
 	}
 	
+	@RequestMapping(value="/personData/{userId}",method=RequestMethod.GET,produces=JSON)
+	@ResponseBody
+	public String getPersonData(@PathVariable("userId") String userId) {
+		return taxGuestService.getUserDetail(userId);
+	}
+	
 	@RequestMapping(value="/share/{page}",method=RequestMethod.GET,produces=JSON)
 	@ResponseBody
 	public String getShares(@PathVariable("page") int page) {
