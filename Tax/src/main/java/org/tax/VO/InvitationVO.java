@@ -14,6 +14,8 @@ public class InvitationVO {
 	private Integer questionId;
 	private String title;
 	private Date publishDate;
+	private String userReceivedId;
 	private String userReceived;
+	private String userSentId;
 	private String userSent;
 }

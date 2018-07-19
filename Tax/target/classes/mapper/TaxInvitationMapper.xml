@@ -220,7 +220,7 @@
   </select>
   
   <select id="selectInvitationVOReceived" resultType="org.tax.VO.InvitationVO">
-  	SELECT q.id questionId, q.title, q.publish_date publishDate, u1.username userReceived, u2.username userSent
+  	SELECT q.id questionId, q.title, q.publish_date publishDate, u1.id userReceivedId, u1.username userReceived, u2.id userSentId, u2.username userSent
   	FROM tax_question q, tax_user u1, tax_user u2, tax_invitation i
   	WHERE q.author_id = u2.id
   	AND q.id = i.question_id
@@ -232,7 +232,7 @@
   </select>
   
   <select id="selectInvitationVOSent" resultType="org.tax.VO.InvitationVO">
-  	SELECT q.id questionId, q.title, q.publish_date publishDate, u1.username userReceived, u2.username userSent
+  	SELECT q.id questionId, q.title, q.publish_date publishDate, u1.id userReceivedId, u1.username userReceived, u2.id userSentId, u2.username userSent
   	FROM tax_question q, tax_user u1, tax_user u2, tax_invitation i
   	WHERE q.author_id = u2.id
   	AND q.id = i.question_id

@@ -358,7 +358,7 @@
   </update>
   
   <select id="selectQuestionBriefByUser" resultType="org.tax.VO.QuestionBrief">
-  	SELECT id,title,click,favourite,type,publish_date,status,prize
+  	SELECT id,title,click,favourite,type,publish_date publishDate,status,prize reward
   	FROM tax_question
   	WHERE author_id = #{userId}
   	<if test="#{pagination == true}">
@@ -366,7 +366,7 @@
   	</if>
   </select>
   
-  <select id="selectByFavourite" resultType="org.tax.model.TaxQuestion">
+  <select id="selectByFavourite" resultMap="BaseResultMap">
   	SELECT q.*
   	FROM tax_question q, tax_favourite f
   	WHERE f.question_id = q.id
