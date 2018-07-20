@@ -557,6 +557,10 @@ body {
 						location.href = 'login.html';
 					}else if(data.status == 400){
 						alert('参数有误！');
+					}else if(data.status == 401){
+						alert('验证码有误！');
+					}else{
+						alert('服务器忙！');
 					}
 				}	
 			})

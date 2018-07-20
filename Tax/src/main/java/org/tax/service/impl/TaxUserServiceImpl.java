@@ -102,6 +102,9 @@ public class TaxUserServiceImpl implements TaxUserService {
 		//		}
 		//修改基本信息
 		String userId = getUserFromRequest(request).getId();
+		user.setImage(null);
+		user.setScore(null);
+		user.setPrivilege(null);
 		TaxUserExample exampleOfUser = new TaxUserExample();
 		exampleOfUser.createCriteria().andIdEqualTo(userId);
 		int flag=mapperFactory.getTaxUserMapper().updateByExampleSelective(user, exampleOfUser);

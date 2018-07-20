@@ -554,6 +554,7 @@ body {
 					console.log(data);
 					if(data.status == 200){
 						alert('修改成功！');
+						location.reload();
 					}else if(data.status == 400){
 						alert('参数有误！请重新填写！');
 					}
