@@ -170,7 +170,7 @@
 
         注意，table里面很多参数都是对javaModelGenerator，context等元素的默认属性的一个复写；
      -->
-    <table tableName="tax_favourite_answer" >
+    <table tableName="tax_message_reply" >
 
         <!-- 参考 javaModelGenerator 的 constructorBased属性-->
         <property name="constructorBased" value="false"/>

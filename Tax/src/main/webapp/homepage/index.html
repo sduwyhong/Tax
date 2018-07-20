@@ -33,69 +33,27 @@
 	<div id="headerpage"></div>
 	<!-- header end -->
 
-	<script>
-        $(function(){
-           $(".user_text").hover(function(){
-               var width_a = $(this).width();
-               var width_b = $(this).find(".user_id").width();
-               var indent_px = width_a - width_b;
-               if( width_a <= width_b ){
-                   $(this).css("text-indent",indent_px);
-               }
-           },function(){
-               $(this).css("text-indent","0");
-           });
-        });
-    </script>
-	<!-- input点击清除value值 -->
-	<script type="text/javascript">
-		wap_val = [];
-		$(".ssearch").each(function(i) {
-			wap_val[i] = $(this).val();
-			$(this).focusin(function() {
-				if ($(this).val() == wap_val[i]) {
-					$(this).val("");
-				}
-			}).focusout(function() {
-				if ($.trim($(this).val()) == "") {
-					$(this).val(wap_val[i]);
-				}
-			});
-		});
-		//  用户名显示
-		 $(".user_id").each(function(){
-		  var maxwidth=4;
-		  if($(this).text().length > maxwidth){
-		    $(this).text($(this).text().substring(0,maxwidth));
-		    $(this).html($(this).html()+'...');
-		  }
-		}); 
-	</script>
-
-
 	<!-- 轮播图 start -->
-	<div class="banner" id="myBanner" style="width: 100%">
+	<div id="myImg" style="width: 100%;min-height: 680px;">
 	    <ul>
-	        <li style="float: left; width: 50%"><img src="../image/home/banner.png" alt="" width="100%" height="518px"></li>
-	        <li style="float: left; width: 50%"><img src="../image/home/banner2.png" alt="" width="100%" height="518px"></li>
+	        <li style="float: left; width: 100%"><img src="../image/home/banner.png" alt="" width="100%" style="min-height: 680px;width: 100%;"></li>
 	    </ul>
-	    <a href="javascript:void(0);" class="my_unslider-arrow prev"><img class="arrow" id="al" src="../image/icon/left.png" alt="prev" width="60" height="60"></a>
-	    <a href="javascript:void(0);" class="my_unslider-arrow next"><img class="arrow" id="ar" src="../image/icon/right.png" alt="next" width="60" height="60"></a>
 	</div>
 	
 	<!-- 轮播图上的搜索框 start -->
+	<!-- 
 	<div class="row" id="search_row">
          <div class="col offset-m3 m3 input-field" id="home_float_search">              		
               <input type="search" class="banner_search" placeholder="   搜索" 
-              		 style="width: 100%;margin-top: 0px;border-bottom-style: hidden;padding-left:0px;border-radius: 20px;padding-left:30px">
+              		 style="width: 100%;margin-bottom: 100px;border-bottom-style: hidden;padding-left:0px;border-radius: 20px;padding-left:30px">
          </div>
     </div>
+     -->
     <!-- 轮播图上的搜索框 end -->
 	
 	<script type="text/javascript">
 		$(document).ready(function(e) {
 		    var myslider = $('#myBanner').unslider({
-		        dots: true,
 		        keys: true,
 		        fluid: false
 		    }),
@@ -127,12 +85,20 @@
 
 	<!-- 用户登录  -->
 	<script>
-		$(function() {
-			$(".check_user_login").click(function(event) {
-				event.preventDefault();
-				zeroModal.alert('请登录用户!');
-			});
-		});
+		var i = 0;
+		function changeImg(){
+			$('#myImg li img').fadeOut(300);
+			if(i % 3 == 0){
+				$('#myImg li img').attr('src','../image/home/banner2.png?'+Math.random());
+			}else if(i % 3 == 1){
+				$('#myImg li img').attr('src','../image/home/banner 1.png?'+Math.random());
+			}else{
+				$('#myImg li img').attr('src','../image/home/banner.png?'+Math.random());
+			}
+			$('#myImg li img').fadeIn(300);
+			i++;
+		}
+		setInterval(changeImg,4000);
 	</script>
 
 	<!-- 轮播图 -->
@@ -202,22 +168,6 @@
 
 	})
 </script> -->
-	<!-- 清除value -->
-	<script type="text/javascript">
-	wap_val = [];
-	$(".sousuo").each(function(i) {
-		wap_val[i] = $(this).val();
-		$(this).focusin(function() {
-			if ($(this).val() == wap_val[i]) {
-				$(this).val("");
-			}
-		}).focusout(function() {
-			if ($.trim($(this).val()) == "") {
-				$(this).val(wap_val[i]);
-			}
-		});
-	});
-</script>
 
 
 

@@ -16,6 +16,7 @@ import org.tax.VO.PasswordModification;
 import org.tax.constant.MediaType;
 import org.tax.model.TaxAnswer;
 import org.tax.model.TaxMessage;
+import org.tax.model.TaxMessageReply;
 import org.tax.model.TaxQuestion;
 import org.tax.model.TaxUser;
 import org.tax.service.TaxUserService;
@@ -135,4 +136,18 @@ public class TaxUserAction {
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
 		return taxUserService.logout(request, response);
 	}
+	
+	@RequestMapping(value="/reply",method=RequestMethod.POST,produces=JSON)
+	@ResponseBody
+	public String reply(TaxMessageReply reply) {
+		return taxUserService.replyMessage(reply);
+	}
+	
+	@RequestMapping(value="/messageDetail/{messageId}",method=RequestMethod.GET,produces=JSON)
+	@ResponseBody
+	public String getMessageDetail(@PathVariable("messageId")int messageId) {
+		return taxUserService.getMessageDetail(messageId);
+	}
+	
+	
 }

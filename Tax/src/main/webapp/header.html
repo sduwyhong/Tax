@@ -72,15 +72,17 @@
 	   							</a>
 	   						</li>
 	    					<li>
-	   							<a href="#!">
+	   							<a href="../UserEditor/user_edit.html">
 	   								<span class="UIMenuItem-inner">设置</span>
 	   							</a>
 	   						</li>
+	   						<!-- 
 	   						<li>
-	   							<a href="#!">
+	   							<a href="users">
 	   								<span class="UIMenuItem-inner">修改密码</span>
 	   							</a>
 	   						</li>
+	   						 -->
 	    					<li class="divider"></li>
 	    					<li>
 	   							<a href="javascript:logout()">
@@ -116,6 +118,7 @@
 	 							var id = value[0];
 	 							$('#drop').attr('href','../users/per_data.html?id='+id);
 	 							$('.user_img').attr('src',path+'guest/avatar/'+id);
+	 							$('#dropdown').find('a:eq(0)').attr('href','../users/per_data.html?id='+id);
 	 							//console.log(id);
 	 							var name = decodeURI(value[1]);
 	 							//console.log(name);

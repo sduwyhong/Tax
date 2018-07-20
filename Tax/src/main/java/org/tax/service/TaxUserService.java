@@ -9,6 +9,7 @@ import org.tax.VO.LoginInfo;
 import org.tax.VO.PasswordModification;
 import org.tax.model.TaxAnswer;
 import org.tax.model.TaxMessage;
+import org.tax.model.TaxMessageReply;
 import org.tax.model.TaxQuestion;
 import org.tax.model.TaxUser;
 
@@ -58,4 +59,7 @@ public interface TaxUserService {
 
 	String cancelCollectAnswer(int answerId, HttpServletRequest request);
 	
+	String replyMessage(TaxMessageReply reply);
+	
+	String getMessageDetail(int messageId);
 }

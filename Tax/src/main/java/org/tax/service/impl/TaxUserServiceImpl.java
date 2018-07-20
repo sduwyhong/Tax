@@ -6,7 +6,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +19,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 import org.tax.VO.Candidate;
+import org.tax.VO.MessageReplyVO;
+import org.tax.VO.MessageVO;
 import org.tax.VO.PasswordModification;
 import org.tax.VO.UserInfo;
 import org.tax.constant.CookieConst;
@@ -35,6 +39,7 @@ import org.tax.model.TaxFavouriteAnswerExample;
 import org.tax.model.TaxFavouriteExample;
 import org.tax.model.TaxInvitation;
 import org.tax.model.TaxMessage;
+import org.tax.model.TaxMessageReply;
 import org.tax.model.TaxQuestion;
 import org.tax.model.TaxQuestionKey;
 import org.tax.model.TaxUser;
@@ -470,6 +475,26 @@ public class TaxUserServiceImpl implements TaxUserService {
 			mapperFactory.getTaxAnswerMapper().minusFavourite(answerId);
 		}
 		
+		return JSONObject.toJSONString(result);
+	}
+
+	@Override
+	public String replyMessage(TaxMessageReply reply) {
+		reply.setPublishDate(new Date());
+		mapperFactory.getTaxMessagereplyMapper().insert(reply);
+		mapperFactory.getTaxMessageMapper().updateStatus(reply.getMessageId());
+		return JSONObject.toJSONString(OK);
+	}
+
+	@Override
+	public String getMessageDetail(int messageId) {
+		Result result = new Result();
+		MessageVO mvo = mapperFactory.getTaxMessageMapper().selectVOById(messageId);
+		List<MessageReplyVO> rvos = mapperFactory.getTaxMessagereplyMapper().selectByMessage(messageId);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("message", mvo);
+		map.put("reply", rvos);
+		result.setResult(map);
 		return JSONObject.toJSONString(result);
 	}
 

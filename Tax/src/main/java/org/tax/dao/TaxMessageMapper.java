@@ -131,4 +131,8 @@ public interface TaxMessageMapper {
 	List<MessageVO> selectMessageVOReceived(@Param("userId")String userId, @Param("pagination")boolean pagination, @Param("offset")int offset, @Param("num")int num);
 
 	List<MessageVO> selectMessageVOSent(@Param("userId")String userId, @Param("pagination")boolean pagination, @Param("offset")int offset, @Param("num")int num);
+
+	MessageVO selectVOById(int messageId);
+
+	int updateStatus(Integer messageId);
 }

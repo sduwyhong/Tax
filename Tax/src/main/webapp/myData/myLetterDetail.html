@@ -286,81 +286,6 @@ body {
 		<div id="headerpage"></div>
 		<!-- header end -->
 
-	<script>
-		// 窗体加载完成时轮询
-		var t, notifyNum = 0;
-		window.onload = function() {
-			loadNotifies();
-			t = setInterval(loadNotifies, 10000); //每10秒执行一次
-		}
-		// 窗体关闭之前清除此定时器
-		window.onbeforeunload = function() {
-			clearInterval(t);
-		}
-
-		//消息提示
-		function loadNotifies() {
-			var param = {
-				pagingOrNot : "not",
-				readOrUnread : "0"
-			};
-			// 获取所有的通知
-			$.get('/lagsms/notifies/count', param, function(data) {
-				if (notifyNum == data) {
-					return;
-				}
-				notifyNum = data;
-				var numTxt = "";
-				if (notifyNum >= 100) {
-					numTxt = "99+";
-				} else if (notifyNum == 0) {
-					numTxt = "";
-				}
-				$("#news").text(numTxt);
-			});
-		}
-	</script>
-
-	<script>
-		$(function() {
-			$(".user_text").hover(function() {
-				var width_a = $(this).width();
-				var width_b = $(this).find(".user_id").width();
-				var indent_px = width_a - width_b;
-				if (width_a <= width_b) {
-					$(this).css("text-indent", indent_px);
-				}
-			}, function() {
-				$(this).css("text-indent", "0");
-			});
-		});
-	</script>
-	<!-- input点击清除value值 -->
-	<script type="text/javascript">
-		wap_val = [];
-		$(".ssearch").each(function(i) {
-			wap_val[i] = $(this).val();
-			$(this).focusin(function() {
-				if ($(this).val() == wap_val[i]) {
-					$(this).val("");
-				}
-			}).focusout(function() {
-				if ($.trim($(this).val()) == "") {
-					$(this).val(wap_val[i]);
-				}
-			});
-		});
-		//  用户名显示
-		$(".user_id").each(function() {
-			var maxwidth = 4;
-			if ($(this).text().length > maxwidth) {
-				$(this).text($(this).text().substring(0, maxwidth));
-				$(this).html($(this).html() + '...');
-			}
-		});
-	</script>
-
-
 	<!-- header end -->
 
 	<!-- 中间部分start -->
@@ -379,9 +304,9 @@ body {
 						<ul>
 							<li><img src="../image/u2815.png"
 								alt="Avatar"></li>
-							<li>temp01</li>
-							<li><span>2018-07-05</span></li>
-							<li><p>this is a test</p></li>
+							<li style="font-weight: bold;">{username}</li>
+							<li><span>{date}</span></li>
+							<li>{content}</li>
 							<!-- <li id="huifu"><a onclick="huifu()">点击回复</a></li> -->
 						</ul>
 					</div>
@@ -401,11 +326,11 @@ body {
 							<textarea name="content" id="content" placeholder="你的回复"
 								style="visibility: hidden; display: none;"></textarea>
 							<script type="text/javascript">
-								CKEDITOR.replace('content')
+								
 							</script>
 						</div>
 						<div class="liuan_content_four_button">
-							<button type="submit">提交</button>
+							<button type="button" onclick="reply()">提交</button>
 						</div>
 					</div>
 				</div>
@@ -420,13 +345,12 @@ body {
 			<div class="user_messageTwo">
 				<div class="user_messageTwo_list" id="lettersResponseContainer">
 					<div class="user_messageTwo_list_content letters-list-content">
-						<ul
-							style="border-bottom: 1px dashed rgb(238, 238, 238); height: 136px;">
+						<ul class="reply_template" hidden="hidden" style="border-bottom: 1px dashed rgb(238, 238, 238); height: 136px;">
 							<li><img src="../image/u2815.png"
 								alt="Avatar"></li>
-							<li>temp01</li>
-							<li><span>2018-07-05</span></li>
-							<li><p>hhhhh</p></li>
+							<li style="font-weight: bold;">{username}</li>
+							<li><span>{date}</span></li>
+							<li>{Reply content}</li>
 						</ul>
 					</div>
 				</div>
@@ -472,6 +396,7 @@ body {
 	<script type="text/javascript" src="../js/Materialize/materialize.min.js"></script>
 	<script type="text/javascript" src="../js/Materialize/adbeus.js"></script>
 	<script type="text/javascript" src="../js/paging.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/path.js" charset="utf-8"></script>
 	
 	<!-- load header and footer -->
 	<script type="text/javascript">
@@ -480,122 +405,76 @@ body {
 	</script>
 
 	<script type="text/javascript">
-		// 全部回复
-		var count = 1;
-		var page = Math.ceil(count / 10);
-		$('#lettersResponsePage')
-				.paging(
-						{
-							initPageNo : 1, // 初始页码
-							totalPages : page, // 总页数
-							totalCount : '合计1条数据', // 条目总数
-							slideSpeed : 600, // 缓动速度。单位毫秒
-							jump : true, // 是否支持跳转
-							callback : function(page) { // 回调函数
-								$
-										.get(
-												"/lagsms/letters/lett_1530774900679/allResponses",
-												{
-													page : page,
-													rows : 10,
-												},
-												function(data) {
-													var dataHTML = data
-															.map(function(
-																	value,
-																	index,
-																	array) {
-																var userAvatar;
-																if (value.fromUser
-																		&& value.fromUser.avatar) {
-																	userAvatar = '<img src="/lagsms/file/showPicFile?fileId='
-																			+ value.fromUser.avatar
-																			+ '" alt="Avatar">';
-																} else {
-																	userAvatar = '<img src="../image/u2815.png" alt="Avatar">';
-																}
-																return '<ul style="border-bottom:1px dashed rgb(238,238,238);height:136px;">'
-																		+ '<li>'
-																		+ userAvatar
-																		+ '</li>'
-																		+ '<li>'
-																		+ value.fromUser.userName
-																		+ '</li>'
-																		+ '<li><span>'
-																		+ value.createdTime
-																		+ '</span></li>'
-																		+ '<li><p>'
-																		+ value.content
-																		+ '</p></li>'
-																		+ '</ul>';
-															});
-													$(
-															"#lettersResponseContainer>.letters-list-content")
-															.html(
-																	dataHTML
-																			.join(""));
-												});
-							}
-						})
-
-		//点击回到顶部下500px 时间0
-		jQuery(function() {
-			$('#nextPage').click(function() {
-				$('html,body').animate({
-					scrollTop : '500px'
-				}, 0);
-				return false;
-			});
-			$('#prePage').click(function() {
-				$('html,body').animate({
-					scrollTop : '500px'
-				}, 0);
-				return false;
-			});
-			$('#firstPage').click(function() {
-				$('html,body').animate({
-					scrollTop : '500px'
-				}, 0);
-				return false;
-			});
-			$('#lastPage').click(function() {
-				$('html,body').animate({
-					scrollTop : '500px'
-				}, 0);
-				return false;
-			});
-			$('.sel-page').click(function() {
-				$('html,body').animate({
-					scrollTop : '500px'
-				}, 0);
-				return false;
-			});
-			$('.selpage').click(function() {
-				$('html,body').animate({
-					scrollTop : '500px'
-				}, 0);
-				return false;
-			});
-			$('.jump-button').click(function() {
-				$('html,body').animate({
-					scrollTop : '500px'
-				}, 0);
-				return false;
-			});
-			$('.turnPage').click(function() {
-				$('html,body').animate({
-					scrollTop : '500px'
-				}, 0);
-				return false;
-			});
-			$('.last-page').click(function() {
-				$('html,body').animate({
-					scrollTop : '500px'
-				}, 0);
-				return false;
-			});
-		});
-
+		$.ajax({
+			url:path+'user/messageDetail/'+getIdFromURL(),
+			type:'get',
+			success:function(data){
+				console.log(data);
+				appendContent(data.result);
+			}
+		})
+		function appendContent(result){
+			/*
+			<div class="user_messageone_list_content">
+				<ul>
+					<li><img src="../image/u2815.png"
+						alt="Avatar"></li>
+					<li>{username}</li>
+					<li><span>{date}</span></li>
+					<li>{content}</li>
+					<!-- <li id="huifu"><a onclick="huifu()">点击回复</a></li> -->
+				</ul>
+			</div>
+			*/
+			var message = result.message;
+			$('.user_messageone_list_content').find('img').attr('src',path+'guest/avatar/'+message.senderId);
+			$('.user_messageone_list_content').find('li:eq(1)').text(message.sender);
+			$('.user_messageone_list_content').find('span').text(getDate(Date.now()));
+			$('.user_messageone_list_content').find('li:eq(3)').html(message.content);
+			if(message.receiverId == getUserIdFromCookie()) {
+				CKEDITOR.replace('content');
+			}
+			/*
+			<ul class="reply_template" hidden="hidden" style="border-bottom: 1px dashed rgb(238, 238, 238); height: 136px;">
+				<li><img src="../image/u2815.png"
+					alt="Avatar"></li>
+				<li>{username}</li>
+				<li><span>{date}</span></li>
+				<li>{Reply content}</li>
+			</ul>
+			*/
+			var replys = result.reply;
+			for(var i in replys){
+				var reply = replys[i];
+				var template = $('.reply_template:first').clone();
+				template.removeAttr('hidden');
+				template.find('img').attr('src',path+'guest/avatar/'+message.receiverId);
+				template.find('li:eq(1)').text(reply.username);
+				template.find('span').text(getDate(reply.publishDate));
+				template.find('li:last').html(reply.content);
+				$('.reply_template:last').after(template);
+			}
+		}
+		function reply(){
+			var replyContent = CKEDITOR.instances.content.getData();
+			$.ajax({
+				url:path+'user/reply',
+				type:'post',
+				data:{
+					messageId:getIdFromURL(),
+					content:replyContent
+				},
+				success:function(data){
+					console.log(data);
+					if(data.status == 200){
+						alert('回复成功！');
+						location.reload();
+					}else{
+						alert('error');
+					}
+				}
+			})
+		}
 	</script>
 </body>
 </html>
