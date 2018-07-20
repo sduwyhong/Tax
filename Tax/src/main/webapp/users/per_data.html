@@ -269,7 +269,7 @@ body {
 						    
 						    
 						    <a href="../users/edit">
-						        <img src="../image/u2815.png" alt="Avatar">
+						        <img id="avatar_img" src="../image/u2815.png" alt="Avatar">
 						    </a>
 						    
 						
@@ -605,6 +605,7 @@ body {
                       </ul>
                   </div>
 				*/
+				$('#avatar_img').attr('src',path+'guest/avatar/'+getUserIdFromCookie());
 				var module_1 = $('.center_left_content_right:eq(0)');
 				module_1.find('span:odd:eq(0)').text(data.result.email);
 				module_1.find('span:odd:eq(1)').text(getDate(data.result.last_visit));
@@ -788,7 +789,7 @@ body {
 			*/
 			var template = $('.favourite_template:first').clone();
 			template.removeAttr('hidden');
-			template.find('a').attr('href','../consult/ConsultSub?id='+favourite.id);
+			template.find('a').attr('href','../consult/ConsultSub.html?id='+favourite.id);
 			template.find('span:eq(0)').text('问题：'+favourite.title);
 			template.find('span:eq(1)').text(getDate(favourite.publishDate));
 			template.find('span:eq(3)').text(favourite.click);

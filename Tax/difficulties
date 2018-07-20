@@ -22,3 +22,7 @@
 	注意要用html()将字符串解析，text()只会原样输出字符串
 	
 11、mybatis中的select的resultType类对应属性一定要有set方法，不然无法设值而且不报错
+
+12、导入了jquery.form.js但仍报$().ajaxSubmit() is not a function的解决办法
+①存在多个jquery引用（子页面、load进来的页面里有jquery引用）
+②实验表明zeroModal.min.js会产生冲突（子页面中的也算）

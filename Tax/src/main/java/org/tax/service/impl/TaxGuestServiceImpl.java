@@ -264,7 +264,7 @@ public class TaxGuestServiceImpl implements TaxGuestService {
 //			5.js以GET方式提交中文参数到后台出现乱码?????
 //			原因：get方式提交的参数编码，只支持iso-8859-1编码，而且出现“?”也表明编码为iso-8859-1。
 //			解决：以iso-8859-1编码为原始字节，再以utf-8解码即可
-			keyword = keyword = new String(keyword.getBytes("ISO-8859-1"),"UTF-8");
+			keyword = new String(keyword.getBytes("ISO-8859-1"),"UTF-8");
 		} catch (UnsupportedEncodingException e2) {
 			e2.printStackTrace();
 		}
@@ -294,9 +294,8 @@ public class TaxGuestServiceImpl implements TaxGuestService {
 			// 要计算一下
 			TaxQuestionExample exampleOfQuestion = new TaxQuestionExample();
 			//???????????????
-			long totalCount = mapperFactory.getTaxQuestionMapper().countByExample(exampleOfQuestion);
-			long totalPage = totalCount / PageConst.NUM_PER_PAGE
-					+ ((totalCount % PageConst.NUM_PER_PAGE == 0) ? 0 : 1);
+			//long totalCount = mapperFactory.getTaxQuestionMapper().countByExample(exampleOfQuestion);
+			//long totalPage = totalCount / PageConst.NUM_PER_PAGE + ((totalCount % PageConst.NUM_PER_PAGE == 0) ? 0 : 1);
 			// 设置pageInfo
 			pageInfo.setList(questionBriefList);
 			// 设置result

@@ -12,6 +12,11 @@
 	
 	<mvc:default-servlet-handler/>
 	
+	<!-- 声明上传请求 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10485760"></property>
+	</bean>
+	
 	<context:component-scan base-package="org.tax.controller"/>
 	
 	<mvc:interceptors>

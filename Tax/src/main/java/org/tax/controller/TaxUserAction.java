@@ -127,7 +127,7 @@ public class TaxUserAction {
 	
 	@RequestMapping(value="/avatar/{userId}",method=RequestMethod.POST,produces=JSON)
 	@ResponseBody
-	public String modifyAvatar(@PathVariable("userId") String userId, @RequestParam MultipartFile multipartFile) {
+	public String modifyAvatar(@PathVariable("userId") String userId, @RequestParam("avatar") MultipartFile multipartFile) {
 		return taxUserService.modifyAvatar(userId, multipartFile);
 	}
 	

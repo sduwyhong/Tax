@@ -6,8 +6,6 @@
 <link type="text/css" rel="stylesheet" href="../css/Materialize/style.css" media="screen,projection" />
 <link type="text/css" rel="stylesheet" href="../css/Materialize/mystyle.css" media="screen,projection" />
 <!-- load js -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="../js/zeroModel.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="../js/Materialize/materialize.min.js"></script>
 <script type="text/javascript" src="../js/Materialize/adbeus.js"></script>
 <script type="text/javascript" src="../js/path.js"></script>
@@ -57,11 +55,11 @@
 							<img src="../image/bell-alt.png" style="vertical-align: middle; margin-right:10px;" alt>
 						</a>
 						<!-- 下拉菜单栏 start -->
-						<a class="btn-small dropdown-button" id="drop" href="../users/per_data.html" data-activates="dropdown" data-hover="false" data-beloworigin="true"
+						<a class="btn-small dropdown-button" id="drop" data-activates="dropdown" data-hover="false" data-beloworigin="true"
 							style="background-color:transparent">
 							<img class="user_img" src="../image/cat.jpg">
 							<span class="user_name">-</span>
-							<span style="color: #ffaf26bf;vertical-align: middle;">&#9660</span>
+							<span style="color: #ffaf26bf;vertical-align: middle;" onclick="myToggle()">&#9660</span>
 							<i class="mdi-navigation-arrow-drop-down right"></i>
 						</a>
 	  					<!-- Dropdown Structure -->
@@ -93,6 +91,23 @@
   						<!-- 下拉菜单栏 end -->
 					</div>
 					<script type="text/javascript">
+						function myToggle(){
+							if($('#dropdown').css('opacity') == 0) {
+								showList();
+							}else{
+								hideList();
+							}
+						}
+						function showList(){
+							$('#dropdown').show();
+							$('#dropdown').css('opacity','1');
+						}
+						function hideList(){
+							$('#dropdown').hide();
+							$('#dropdown').css('opacity','0');
+						}
+					</script>
+					<script type="text/javascript">
 						function logout(){
 							$.ajax({
 								url:path+'user/logout',
@@ -100,7 +115,7 @@
 								success:function(data){
 									if(data.status == 200) {
 										alert('goodbye');
-										location.href = '../homepage/index.html';
+										location.href = '../register/login.html';
 									}
 								}
 							})
@@ -116,7 +131,7 @@
 	 							var value = cookieArray[i].split('=')[1].split('%3B');
 	 							//console.log(value);
 	 							var id = value[0];
-	 							$('#drop').attr('href','../users/per_data.html?id='+id);
+	 							//$('#drop').attr('href','../users/per_data.html?id='+id);
 	 							$('.user_img').attr('src',path+'guest/avatar/'+id);
 	 							$('#dropdown').find('a:eq(0)').attr('href','../users/per_data.html?id='+id);
 	 							//console.log(id);

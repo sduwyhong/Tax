@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>安徽省国家税务局税企互助交流平台</title>
-<script type="text/javascript" src="../js/jquery.min.js "> </script>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width">
@@ -260,82 +259,6 @@ body {
 	<div id="headerpage"></div>
 	<!-- header end -->
 
-	<script>
-		// 窗体加载完成时轮询
-		/*
-		var t, notifyNum = 0;
-		window.onload = function() {
-			loadNotifies();
-			t = setInterval(loadNotifies, 10000); //每10秒执行一次
-		}
-		// 窗体关闭之前清除此定时器
-		window.onbeforeunload = function() {
-			clearInterval(t);
-		}
-		*/
-		//消息提示
-		function loadNotifies() {
-			var param = {
-				pagingOrNot : "not",
-				readOrUnread : "0"
-			};
-			// 获取所有的通知
-			$.get('/lagsms/notifies/count', param, function(data) {
-				if (notifyNum == data) {
-					return;
-				}
-				notifyNum = data;
-				var numTxt = "";
-				if (notifyNum >= 100) {
-					numTxt = "99+";
-				} else if (notifyNum == 0) {
-					numTxt = "";
-				}
-				$("#news").text(numTxt);
-			});
-		}
-	</script>
-
-	<script>
-		$(function() {
-			$(".user_text").hover(function() {
-				var width_a = $(this).width();
-				var width_b = $(this).find(".user_id").width();
-				var indent_px = width_a - width_b;
-				if (width_a <= width_b) {
-					$(this).css("text-indent", indent_px);
-				}
-			}, function() {
-				$(this).css("text-indent", "0");
-			});
-		});
-	</script>
-	<!-- input点击清除value值 -->
-	<script type="text/javascript">
-		wap_val = [];
-		$(".ssearch").each(function(i) {
-			wap_val[i] = $(this).val();
-			$(this).focusin(function() {
-				if ($(this).val() == wap_val[i]) {
-					$(this).val("");
-				}
-			}).focusout(function() {
-				if ($.trim($(this).val()) == "") {
-					$(this).val(wap_val[i]);
-				}
-			});
-		});
-		//  用户名显示
-		$(".user_id").each(function() {
-			var maxwidth = 4;
-			if ($(this).text().length > maxwidth) {
-				$(this).text($(this).text().substring(0, maxwidth));
-				$(this).html($(this).html() + '...');
-			}
-		});
-	</script>
-
-
 	<!-- 头部标题end -->
 
 	<!-- 中间部分start -->
@@ -369,7 +292,10 @@ body {
 
 
 							<img src="../image/u2815.png" id="avatarImg" alt="Avatar">
-
+							<form id="avatar-form" method="post" enctype="multipart/form-data">
+								<input type="file" name="avatar">
+								<button type="button" onclick="changeAvatar()">更换</button>
+							</form>
 
 						</div>
 						<!-- Cropping modal -->
@@ -537,26 +463,30 @@ body {
 	<div id="footerpage"></div>
 	<!-- footer end -->
 	
-	<!-- load js -->
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script type="text/javascript" src="../js/zeroModel.min.js" charset="utf-8"></script>
-	<script type="text/javascript" src="../js/Materialize/materialize.min.js"></script>
-	<script type="text/javascript" src="../js/Materialize/adbeus.js"></script>
-	<script type="text/javascript" src="../js/path.js"></script>
-	 
 	<!-- load header and footer -->
 	<script type="text/javascript">
 		$("#headerpage").load("../header.html");
 		$("#footerpage").load("../footer.html");
 	</script>
-
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="../js/cropper.min.js"></script> 
-	<script src="../js/main.js"></script> 
-	<script type="text/javascript">
-		function updateVerifyCode() {
-			event.target.src = event.target.src + "?t=" + Date.now();
+	<!-- load js -->
+	<script type="text/javascript" src="../js/path.js"></script>
+	<script type="text/javascript" src="../js/jquery.form.js"></script>
+	 <script type="text/javascript">
+	 	function changeAvatar(){
+			$('#avatar-form').ajaxSubmit({
+				url:path+'user/avatar/'+getUserIdFromCookie(),
+				success:function(data){
+					console.log(data);
+					if(data.status == 200){
+						alert('上传成功！');
+						location.reload();
+					}
+				}
+			})
 		}
+	 </script>
+	<script type="text/javascript">
 		/*
 		var boxObj = $('#selectMajor').find("input"); //获取所有的复选框值  
 		var userMajor = '040001'; //用el表达式获取在控制层存放的复选框的值为字符串类型  
@@ -586,6 +516,8 @@ body {
 							$('input[value='+proIds[i]+']').trigger('click');
 						}
 					}
+					//avatar
+					$('#avatarImg').attr('src',path+'guest/avatar/'+getUserIdFromCookie());
 				}
 			}
 		})
@@ -628,6 +560,7 @@ body {
 				}
 			})
 		}
+		
 	</script>
 </body>
 </html>
