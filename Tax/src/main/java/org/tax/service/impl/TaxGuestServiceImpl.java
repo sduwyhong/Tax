@@ -46,6 +46,7 @@ import org.tax.model.TaxProKey;
 import org.tax.model.TaxQuestion;
 import org.tax.model.TaxQuestionExample;
 import org.tax.model.TaxQuestionKey;
+import org.tax.model.TaxQuestionProExample;
 import org.tax.model.TaxShare;
 import org.tax.model.TaxShareExample;
 import org.tax.model.TaxUser;
@@ -260,10 +261,10 @@ public class TaxGuestServiceImpl implements TaxGuestService {
 	@Override
 	public String search(String keyword, String type, int page) {
 		try {
-//			From OnlineShop:
-//			5.js以GET方式提交中文参数到后台出现乱码?????
-//			原因：get方式提交的参数编码，只支持iso-8859-1编码，而且出现“?”也表明编码为iso-8859-1。
-//			解决：以iso-8859-1编码为原始字节，再以utf-8解码即可
+			//			From OnlineShop:
+			//			5.js以GET方式提交中文参数到后台出现乱码?????
+			//			原因：get方式提交的参数编码，只支持iso-8859-1编码，而且出现“?”也表明编码为iso-8859-1。
+			//			解决：以iso-8859-1编码为原始字节，再以utf-8解码即可
 			keyword = new String(keyword.getBytes("ISO-8859-1"),"UTF-8");
 		} catch (UnsupportedEncodingException e2) {
 			e2.printStackTrace();
@@ -848,6 +849,127 @@ public class TaxGuestServiceImpl implements TaxGuestService {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public String searchByWyhong(String keyword, String proId, int page) {
+		try {
+			keyword = new String(keyword.getBytes("ISO-8859-1"), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		LOGGER.debug("*****************keyword:"+keyword+";proId:"+proId);
+		Result result = new Result();
+		boolean searchByPro = (proId == null || proId.trim().equals("")) ? false : true;
+		boolean searchByKeyword = (keyword == null || keyword.trim().equals("")) ? false : true;
+		List<QuestionBrief> brief = null;
+		long totalCount = 0;
+		TaxQuestionProExample example = new TaxQuestionProExample();
+		example.setDistinct(true);
+		if(searchByPro || searchByKeyword) {
+			if(searchByPro && !searchByKeyword) {
+				brief = getQuestionBriefList(searchByPro(proId, page));
+				example.createCriteria().andProIdIn(stringToIntegerList(proId));
+				totalCount = mapperFactory.getTaxQuestionProMapper().countByCustomedCondition(example);
+			}else if(!searchByPro && searchByKeyword){
+				brief = getQuestionBriefList(searchByKeyword(keyword, page));
+				mapperFactory.getTaxQuestionMapper().countByKeyword(keyword);
+			}else{
+				brief = getQuestionBriefList(searchByProAndKeyword(proId, keyword, page));
+				example.createCriteria().andProIdIn(stringToIntegerList(proId));
+				example.setKeyword(keyword);
+				totalCount = mapperFactory.getTaxQuestionProMapper().countByCustomedCondition(example);
+			}
+		}
+		if(brief != null){
+			PageInfo pageInfo = new PageInfo<QuestionBrief>();
+			pageInfo.setCurrentCount(brief.size());
+			pageInfo.setCurrentPage(page);
+			pageInfo.setTotalCount(totalCount);
+			pageInfo.setTotalPage(totalCount%PageConst.NUM_PER_PAGE == 0 ? totalCount/PageConst.NUM_PER_PAGE : totalCount/PageConst.NUM_PER_PAGE + 1);
+			pageInfo.setList(brief);
+			result.setResult(pageInfo);
+		}
+		return JSONObject.toJSONString(result);
+	}
+
+	private List<Integer> stringToIntegerList(String str){
+		List<Integer> values = new ArrayList<Integer>();
+		String[] strArr = str.split(";");
+		for(String s : strArr){
+			values.add(Integer.parseInt(s));
+		}
+		return values;
+	}
+	
+	private List<TaxQuestion> searchByProAndKeyword(String proIds,
+			String keyword, int page) {
+		TaxQuestionProExample example = new TaxQuestionProExample();
+		List<Integer> values = stringToIntegerList(proIds);
+		example.createCriteria().andProIdIn(values );
+		example.setLimitClause((page - 1)*PageConst.NUM_PER_PAGE+","+PageConst.NUM_PER_PAGE);
+		example.setKeyword(keyword);
+		example.setDistinct(true);
+		return mapperFactory.getTaxQuestionProMapper().selectByExample(example);
+	}
+
+	private List<TaxQuestion> searchByKeyword(String keyword, int page) {
+		TaxQuestionExample example = new TaxQuestionExample();
+		example.createCriteria().andTitleLike("%"+keyword+"%");
+		example.setLimitClause((page - 1)*PageConst.NUM_PER_PAGE+","+PageConst.NUM_PER_PAGE);
+		return mapperFactory.getTaxQuestionMapper().selectByExample(example);
+	}
+
+	private List<TaxQuestion> searchByPro(String proIds, int page) {
+		List<Integer> values = new ArrayList<Integer>();
+		String[] proArr = proIds.split(";");
+		for(String proId : proArr){
+			values.add(Integer.parseInt(proId));
+		}
+		TaxQuestionProExample example = new TaxQuestionProExample();
+		example.createCriteria().andProIdIn(values );
+		example.setLimitClause((page - 1)*PageConst.NUM_PER_PAGE+","+PageConst.NUM_PER_PAGE);
+		example.setDistinct(true);
+		return mapperFactory.getTaxQuestionProMapper().selectByExample(example);
+	}
+
+	@Override
+	public String ultimateSearch(String keyword, String proId, int page) {
+		try {
+			keyword = new String(keyword.getBytes("ISO-8859-1"), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		LOGGER.debug("*****************keyword:"+keyword+";proId:"+proId);
+		Result result = new Result();
+		boolean searchByPro = (proId == null || proId.trim().equals("")) ? false : true;
+		boolean searchByKeyword = (keyword == null || keyword.trim().equals("")) ? false : true;
+		List<QuestionBrief> brief = null;
+		long totalCount = 0;
+		
+		TaxQuestionProExample example = new TaxQuestionProExample();
+		example.setDistinct(true);
+		if(searchByPro) {
+			example.setProId(true);
+			example.createCriteria().andProIdIn(stringToIntegerList(proId));
+		}
+		if(searchByKeyword) example.setKeyword(keyword);
+		example.setLimitClause((page - 1)*PageConst.NUM_PER_PAGE+","+PageConst.NUM_PER_PAGE);
+		brief = getQuestionBriefList(mapperFactory.getTaxQuestionProMapper().ultimateSelect(example));
+		
+		totalCount = mapperFactory.getTaxQuestionProMapper().ultimateCount(example);
+		
+		if(brief != null){
+			PageInfo<QuestionBrief> pageInfo = new PageInfo<QuestionBrief>();
+			pageInfo.setCurrentCount(brief.size());
+			pageInfo.setCurrentPage(page);
+			pageInfo.setTotalCount(totalCount);
+			pageInfo.setTotalPage(totalCount%PageConst.NUM_PER_PAGE == 0 ? totalCount/PageConst.NUM_PER_PAGE : totalCount/PageConst.NUM_PER_PAGE + 1);
+			pageInfo.setList(brief);
+			result.setResult(pageInfo);
+		}
+		
+		return JSONObject.toJSONString(result);
 	}
 
 

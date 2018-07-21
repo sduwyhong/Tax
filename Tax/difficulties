@@ -26,3 +26,19 @@
 12、导入了jquery.form.js但仍报$().ajaxSubmit() is not a function的解决办法
 ①存在多个jquery引用（子页面、load进来的页面里有jquery引用）
 ②实验表明zeroModal.min.js会产生冲突（子页面中的也算）
+
+13、Mybatis异常There is no getter for property named 'XXX' in 'class java.lang.String'
+错误示例：
+long countByKeyword(String keyword);
+<select id="countByKeyword" resultType="Long">
+  	SELECT count(*)
+  	FROM tax_question
+  	WHERE title like '%${keyword}%'
+ </select>
+解决方法一:把#{xxx}修改为 #{_parameter} 即可
+<select id="countByKeyword" resultType="Long">
+  	SELECT count(*)
+  	FROM tax_question
+  	WHERE title like '%${_parameter}%'
+ </select>
+解决方法二:可以在方法中提前定义:long countByKeyword(@Param("keyword")String keyword);

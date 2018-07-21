@@ -42,6 +42,7 @@ import org.tax.model.TaxMessage;
 import org.tax.model.TaxMessageReply;
 import org.tax.model.TaxQuestion;
 import org.tax.model.TaxQuestionKey;
+import org.tax.model.TaxQuestionPro;
 import org.tax.model.TaxUser;
 import org.tax.model.TaxUserExample;
 import org.tax.model.TaxUserKey;
@@ -238,7 +239,7 @@ public class TaxUserServiceImpl implements TaxUserService {
 		LuceneUtil.creatIndex(question);
 		//存放邀请列表
 		if(invitationList != null && !"".equals(invitationList)) {
-			int questionId = mapperFactory.getTaxQuestionMapper().getLastInsertId();
+			int questionId = question.getId();
 			String[] invitations = invitationList.split(";");
 			TaxInvitationMapper taxInvitationMapper = mapperFactory.getTaxInvitationMapper();
 			for (int i = 0; i < invitations.length; i++) {
@@ -499,6 +500,55 @@ public class TaxUserServiceImpl implements TaxUserService {
 		map.put("reply", rvos);
 		result.setResult(map);
 		return JSONObject.toJSONString(result);
+	}
+
+	@Override
+	public String publishQuestionByWyhong(TaxQuestion question,
+			String invitationList, HttpServletRequest request) {
+		Result result = new Result();
+		TaxUser author = getUserFromRequest(request);
+		//判断积分是否足够
+		//session缓存中的scores可能不够新，还是从数据库获取
+		long scores = mapperFactory.getTaxUserMapper().selectScoresById(author.getId());
+		if(scores < question.getPrize()){
+			//不够：返回充值提示信息
+			result.setMessage(Message.SCORES_NOT_ENOUGH);
+			result.setStatus(StatusCode.SCORES_NOT_ENOUGH);
+			return JSONObject.toJSONString(result);
+		}
+		//设置问题的authorId
+		question.setAuthorId(author.getId());
+		//设置问题的date
+		question.setPublishDate(new Date());
+		//存放问题
+		int flag = mapperFactory.getTaxQuestionMapper().insert(question);
+		//足够：成功发布后扣除响应悬赏积分
+		mapperFactory.getTaxUserMapper().minusScores(question.getPrize(),author.getId());
+		//构建分类查询表
+		question.setId(mapperFactory.getTaxQuestionMapper().getLastInsertId());
+		LOGGER.debug("******************last insert id:"+question.getId());
+		if(!question.getType().equals("-")) {
+			String[] proArr = question.getType().split(";");
+			for(String proId : proArr){
+				TaxQuestionPro record = new TaxQuestionPro();
+				record.setProId(Integer.parseInt(proId));
+				record.setQuestionId(question.getId());
+				mapperFactory.getTaxQuestionProMapper().insert(record );
+			}
+		}
+		//存放邀请列表
+		if(invitationList != null && !"".equals(invitationList)) {
+			int questionId = question.getId();
+			String[] invitations = invitationList.split(";");
+			TaxInvitationMapper taxInvitationMapper = mapperFactory.getTaxInvitationMapper();
+			for (int i = 0; i < invitations.length; i++) {
+				TaxInvitation record = new TaxInvitation();
+				record.setUserId(invitations[i]);
+				record.setQuestionId(questionId);
+				taxInvitationMapper.insert(record);
+			}
+		}
+		return JSON.toJSONString(result);
 	}
 
 	

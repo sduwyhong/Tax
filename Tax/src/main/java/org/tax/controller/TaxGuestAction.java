@@ -62,7 +62,9 @@ public class TaxGuestAction {
 	@RequestMapping(value="/search",method={RequestMethod.GET,RequestMethod.POST},produces=JSON)
 	@ResponseBody
 	public String search(@RequestParam("keyword") String keyword,@RequestParam("proId") String proId,@RequestParam("page") int page) {
-		return taxGuestService.search(keyword, proId, page);
+//		return taxGuestService.search(keyword, proId, page);
+//		return taxGuestService.searchByWyhong(keyword, proId, page);
+		return taxGuestService.ultimateSearch(keyword, proId, page);
 	}
 	
 	@RequestMapping(value="/question/{type}/{page}",method=RequestMethod.GET,produces=JSON)

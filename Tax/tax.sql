@@ -126,6 +126,11 @@ create table tax_user_pro (
 	pro_id int unsigned not null,
 	user_id varchar(32) not null
 );
+create table tax_question_pro (
+	id int unsigned primary key auto_increment,
+	question_id int unsigned not null,
+	pro_id int unsigned not null
+);
 /*--the end of creating tables--*/
 
 /*--the beginning of creating views--*/

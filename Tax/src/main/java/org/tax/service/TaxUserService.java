@@ -31,6 +31,8 @@ public interface TaxUserService {
 	//邀请回答可以用这个
 	String publishQuestion(TaxQuestion question, String invitationList, HttpServletRequest request);
 	
+	String publishQuestionByWyhong(TaxQuestion question, String invitationList, HttpServletRequest request);
+	
 	String publishAnswer(TaxAnswer answer, HttpServletRequest request);
 	
 	String confirmSolution(int questionId, int answerId, HttpServletRequest request);

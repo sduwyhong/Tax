@@ -62,7 +62,8 @@ public class TaxUserAction {
 	@RequestMapping(value="/question",method=RequestMethod.POST,produces=JSON)
 	@ResponseBody
 	public String publishQuestion(TaxQuestion question, String invitationList, HttpServletRequest request) {
-		return taxUserService.publishQuestion(question, invitationList, request);
+//		return taxUserService.publishQuestion(question, invitationList, request);
+		return taxUserService.publishQuestionByWyhong(question, invitationList, request);
 	}
 	
 	@RequestMapping(value="/answer",method=RequestMethod.POST,produces=JSON)

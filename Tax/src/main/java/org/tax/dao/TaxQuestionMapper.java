@@ -149,4 +149,6 @@ public interface TaxQuestionMapper {
 
 	int minusFavourite(int questionId);
 
+	long countByKeyword(String keyword);
+
 }

@@ -381,4 +381,10 @@
   	SET favourite = favourite -1
   	WHERE id = #{questionId}
   </update>
+  
+  <select id="countByKeyword" resultType="Long">
+  	SELECT count(*)
+  	FROM tax_question
+  	WHERE title like '%${_parameter}%'
+  </select>
 </mapper>

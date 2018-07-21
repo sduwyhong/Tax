@@ -374,9 +374,9 @@ body {
 									<span>收藏</span>
 								</li>
 							</ul>
-
+							
 						</div>
-						
+						<div id="searchPaging" class="box"></div>
 						<!-- 
 						<div id="quesPaging" class="box">
 							<button type="button" id="firstPage" class="turnPage first-page">首页</button>
@@ -400,30 +400,6 @@ body {
 					<!-- latest end -->
 				</div>
 										
-				<!-- 实现分页 start-->
-				<!-- 不满一页：设置pagination的display：none
-					  点击数字: 由class=waves-effect变成class=active 
-					  首页时:prePage为disabled；尾页时 :nextPage的class为disabled 其他情况时class为waves-effect-->						
-				<ul class="pagination" style="margin-top: 40px;display:none">
-					<li class="waves-effect waves-light btn-small" id="firstPage"><a href="#!" style="font-color: black">first</a></li>
-    				<li class="disabled" id="prePage">
-    					<a href="#!">
-    						<i class="material-icons">chevron_left</i>
-    					</a>
-    				</li>
-    				<li class="active"><a href="#!">1</a></li>
-    				<li class="waves-effect" id="onePage"><a href="#!" style="font-color: black">2</a></li>
-    				<li class="waves-effect" id="twoPage"><a href="#!" style="font-color: black">3</a></li>
-    				<li class="waves-effect" id="threePage"><a href="#!" style="font-color: black">4</a></li>
-   					<li class="waves-effect" id="fourPage"><a href="#!" style="font-color: black">5</a></li>
-    				<li class="waves-effect" id="nextPage">
-    					<a href="#!" style="font-color: black">
-    						<i class="material-icons">chevron_right</i>
-    					</a>
-    				</li>
-  				    <li class="waves-effect waves-light btn-small" id="lastPage"><a href="#!" style="font-color: black">last</a></li>
-  				</ul>	
-  				<!-- 实现分页 end-->
 			</div>
 		</div>
 	</div>
@@ -474,7 +450,7 @@ body {
 				proId:majorParam,
 				page:1
 			},
-			asycn:false,
+			async:false,
 			success:function(data){
 				console.log(data);
 				var list = data.result.list;
@@ -555,7 +531,7 @@ body {
 		}
 		function initPagination(totalPage,totalCount){
 			//分页，只有一页不分页
-			$('#quesPaging').paging({
+			$('#searchPaging').paging({
 			   initPageNo: 1, 			// 初始页码
 		       totalPages: totalPage, 	// 总页数
 		       totalCount: '合计 '+totalCount+'条数据', 			// 条目总数
@@ -566,7 +542,12 @@ body {
 			       	// 回调函数
 			       	$('.questions[hidden!=hidden]').remove();
 			       	$.ajax({
-			       		url:path+'guest/search/'+keyword+'/'+majorParam+'/'+page,
+			       		url:path+'guest/search',
+						data:{
+							keyword:keyword,
+							proId:majorParam,
+							page:page
+						},
 			       		success:function(data){
 			       			console.log(data);
 			       			if(data.status == 200) {

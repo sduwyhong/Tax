@@ -23,6 +23,8 @@ public interface TaxGuestService {
 	
 	String search(String keyword, String proId, int page);
 	
+	String searchByWyhong(String keyword, String proId, int page);
+	
 	String getByCondition(String type, int page);//type=latest|hot|reward
 	
 	/**动态专区*/
@@ -61,5 +63,7 @@ public interface TaxGuestService {
 	String getMessagesReceivedByUser(String userId);
 	
 	void getAvatar(String userId, HttpServletResponse response);
+
+	String ultimateSearch(String keyword, String proId, int page);
 	
 }
