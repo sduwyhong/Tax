@@ -108,10 +108,6 @@ public class TaxGuestServiceImpl implements TaxGuestService {
 	@Override
 	public String register(TaxUser user, String code, HttpServletRequest request) {
 		Result result = new Result();
-		/**
-		 * 未加验证码 
-		 * 未加验证:用户邮箱格式
-		 * */
 		//verifycode
 		String token  = getTokenFromCookie(request);
 		if(token != null && code != null && !ValidateCodeControl.getInstance().verify(token, code)) {
@@ -134,12 +130,6 @@ public class TaxGuestServiceImpl implements TaxGuestService {
 			result.setResult(errors);
 			return JSON.toJSONString(result);
 		}
-		//		if (user.getUsername() == null) {
-		//			// 用户名为空s
-		//			result.setMessage(Message.INVALID_USERNAME_OR_PASSWORD);
-		//			result.setStatus(StatusCode.INVALID_USERNAME_OR_PASSWORD);
-		//			return JSON.toJSONString(result);
-		//		}
 		//make sure the username hasn't been used yet
 		TaxUserExample exampleOfUser = new TaxUserExample();
 		exampleOfUser.createCriteria().andUsernameEqualTo(user.getUsername());
@@ -150,12 +140,6 @@ public class TaxGuestServiceImpl implements TaxGuestService {
 			result.setStatus(StatusCode.DUPLICATE_USERNAME);
 			return JSON.toJSONString(result);
 		}
-		//		else if(!FormatUtil.rexCheckPassword(user.getPassword())){
-		//			//密码不符合格式
-		//			result.setMessage(Message.PASSWORD_INVALID_FORMAT);
-		//			result.setStatus(StatusCode.PASSWORD_INVALID_FORMAT);
-		//			return JSON.toJSONString(result);
-		//		}
 		try {
 			// 添加注册时间字段(不知道是否需要)
 			user.setId(UUIDUtil.genUUID());
@@ -174,9 +158,6 @@ public class TaxGuestServiceImpl implements TaxGuestService {
 	public String login(LoginInfo loginInfo, HttpServletRequest request,
 			HttpServletResponse response) {
 		Result result = new Result();
-		/**
-		 * 未添加功能： 验证码
-		 * */
 		String token  = getTokenFromCookie(request);
 		String code = loginInfo.getVerifyCode();
 		if(token != null && code != null && !ValidateCodeControl.getInstance().verify(token, code)) {
