@@ -521,11 +521,14 @@ public class TaxUserServiceImpl implements TaxUserService {
 		//设置问题的date
 		question.setPublishDate(new Date());
 		//存放问题
-		int flag = mapperFactory.getTaxQuestionMapper().insert(question);
+		//int flag = mapperFactory.getTaxQuestionMapper().insert(question);
+		LOGGER.debug("***********插入前咨询id："+question.getId());
+		int flag = mapperFactory.getTaxQuestionMapper().insertSelective(question);
+		LOGGER.debug("***********插入后咨询id："+question.getId());
 		//足够：成功发布后扣除响应悬赏积分
 		mapperFactory.getTaxUserMapper().minusScores(question.getPrize(),author.getId());
 		//构建分类查询表
-		question.setId(mapperFactory.getTaxQuestionMapper().getLastInsertId());
+		//question.setId(mapperFactory.getTaxQuestionMapper().getLastInsertId());
 		LOGGER.debug("******************last insert id:"+question.getId());
 		if(!question.getType().equals("-")) {
 			String[] proArr = question.getType().split(";");

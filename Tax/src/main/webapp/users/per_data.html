@@ -605,7 +605,7 @@ body {
                       </ul>
                   </div>
 				*/
-				$('#avatar_img').attr('src',path+'guest/avatar/'+getUserIdFromCookie());
+				$('#avatar_img').attr('src',path+'guest/avatar/'+getIdFromURL());
 				var module_1 = $('.center_left_content_right:eq(0)');
 				module_1.find('span:odd:eq(0)').text(data.result.email);
 				module_1.find('span:odd:eq(1)').text(getDate(data.result.last_visit));

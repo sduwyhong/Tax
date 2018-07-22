@@ -145,6 +145,6 @@ create view invitationView as
 	where i.question_id = q.id and i.user_id = u.id;
 /*--the end of creating views--*/
 
-
+/*navicat导出数据字典*/
 
 
