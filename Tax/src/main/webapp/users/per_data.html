@@ -330,7 +330,7 @@ body {
 							</li>
 						</ul>
 						<div class="more myQuesAndAnswer">
-							<span class=""><a href="../question/myQuestions">更多</a></span>
+							<span id="more_questions"><a href="../question/myQuestions">更多</a></span>
 							<span class="mores"><a href="../answer/myAnswers">更多</a></span>
 						</div>
 						<div class="gary">
@@ -616,6 +616,8 @@ body {
 				module_2.find('span:odd:eq(1)').html('&nbsp;&nbsp;'+data.result.questionNum);
 				module_2.find('span:odd:eq(2)').html('&nbsp;&nbsp;'+data.result.answerNum);
 				
+				//初始化“更多咨询”的a标签跳转
+				$('#more_questions a').attr('href','../myData/myquestions.html?id='+getIdFromURL());
 				for(var i in data.result.questions){
 					appendQuestion(data.result.questions[i]);
 				}

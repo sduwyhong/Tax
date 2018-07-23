@@ -151,4 +151,6 @@ public interface TaxQuestionMapper {
 
 	long countByKeyword(String keyword);
 
+	List<TaxQuestion> selectByRecentAnswer(@Param("offset")int i, @Param("num")int numPerPage);
+
 }

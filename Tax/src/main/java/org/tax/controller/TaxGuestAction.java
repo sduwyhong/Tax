@@ -123,13 +123,19 @@ public class TaxGuestAction {
 	
 	@RequestMapping(value="/user",method=RequestMethod.GET,produces=JSON)
 	@ResponseBody
-	public void searchUserByName(@RequestParam("username") String username) {
-		taxGuestService.searchUserByName(username);
+	public String searchUserByName(@RequestParam("username") String username) {
+		return taxGuestService.searchUserByName(username);
 	}
 	
-	@RequestMapping(value="/question/user",method=RequestMethod.GET,produces=JSON)
+	@RequestMapping(value="/question/author",method=RequestMethod.GET,produces=JSON)
 	@ResponseBody
-	public void getAvatar(@RequestParam("userId") String userId) {
-		taxGuestService.getQuestionsByUser(userId);
+	public String getQuestionsByAuthor(@RequestParam("authorId") String authorId) {
+		return taxGuestService.getQuestionsByUser(authorId);
+	}
+	
+	@RequestMapping(value="/question/latestAnswer/{page}",method=RequestMethod.GET,produces=JSON)
+	@ResponseBody
+	public String getQuestionsByRecentAnswer(@PathVariable("page") int page) {
+		return taxGuestService.getQuestionsByRecentAnswer(page);
 	}
 }

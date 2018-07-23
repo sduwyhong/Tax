@@ -46,3 +46,6 @@ long countByKeyword(String keyword);
 14、mybatis获取自增ID不能直接SELECT LAST_INSERT_ID()，返回的ID不准确
 解决方法：在mapper中指定useGeneratedKeys和keyProperty属性，这样会把自增后的id set到对象的id字段上，示例如下：
 <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="org.tax.model.TaxQuestion">
+
+15、Mysql 5.0不支持子查询中使用LIMIT或IN/ALL/ANY/SOME
+原话：This version of MySQL doesn't yet support 'LIMIT & IN/ALL/ANY/SOME subquery'

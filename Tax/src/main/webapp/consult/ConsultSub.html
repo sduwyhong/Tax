@@ -599,6 +599,7 @@ body {
 			*/
 			var template = $('.answer_template:first').clone();
 			template.removeAttr('hidden');
+			template.find('a').attr('href','../users/per_data.html?id='+answer.authorId);
 			template.children('li:eq(0)').children().children().attr('src',path+'guest/avatar/'+answer.authorId);
 			template.children('li:eq(1)').children('p:eq(1)').html(answer.content);
 			template.children('li:eq(2)').children().text(getDate(answer.publishDate));

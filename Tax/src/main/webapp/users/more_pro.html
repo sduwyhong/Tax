@@ -250,13 +250,12 @@ body {
 		</div>
 		<div class="content_main" style="min-height:900px;">
 			<!-- 搜索用户 start  -->
-			<div class="liuan_center_search">			
+			<div >			
 				<form action="orgOrUserRankQuery">
-					<div class="search" style="display:block;margin-left:40px">
-						<div class="liuan_main_search">
-							<input placeholder="请输入您所需要的内容" name="userName" style="width:300px;margin-right: 30px;">
-							<input name="type" value="1" type="hidden">
-							<button class="searchbtn" onclick="search()"></button>
+					<div  style="display:block;margin-left:40px">
+						<div style="border: 1px solid #EEEEEE;">
+							<input placeholder="请输入您所需要的内容" name="userName" style="width:300px;float: left;">
+							<button type="button" class="searchbtn" onclick="search()"></button>
 						</div>
 					</div>
 				</form>	
@@ -269,8 +268,9 @@ body {
 					<div id="exSharingContainer">
 		    			<div class="exSharingContent">
 		    				<ul class="clearfix expert_ul" hidden="hidden">
+		    					<li class="fl" style="padding-right: 50px;"><img width="50px" src=""></li>
 		    					<li class="org_name fl">
-		    						<a href="users/u0001/zone">专家名:<span style="color: blue;">-</span></a>
+		    						专家名:<a href="users/u0001/zone"><span style="color: blue;">-</span></a>
 		    					</li>
 		    					<li class="jifen fl">积分:<span>-</span></li>
 		    				</ul>
@@ -305,16 +305,38 @@ body {
 	
 	<script type="text/javascript">
 		function search(){
-			var namePattern = $('input[name=userName]').val();
+			$('.expert_ul[hidden!=hidden]').remove();
 			$.ajax({
 				url:path+'guest/user',
 				data:{
-					username:namePattern
+					username:$('input[name=userName]').val()
 				},
 				success:function(data){
 					console.log(data);
+					for(var i in data.result){
+						var user = data.result[i];
+						appendTable(user);
+					}
 				}
 			})
+		}
+		function appendTable(user){
+			/*
+			<ul class="clearfix expert_ul" hidden="hidden">
+				<li><img src=""></li>
+				<li class="org_name fl">
+					<a href="users/u0001/zone">专家名:<span style="color: blue;">-</span></a>
+				</li>
+				<li class="jifen fl">积分:<span>-</span></li>
+			</ul>
+			*/
+			var template = $('.expert_ul:first').clone();
+			template.removeAttr('hidden');
+			template.find('img').attr('src',path+'guest/avatar/'+user.id);
+			template.find('span:eq(0)').text(user.username);
+			template.find('a').attr('href','../users/per_data.html?id='+user.id);
+			template.find('span:eq(1)').text(user.score);
+			$('.expert_ul:last').after(template);
 		}
 	</script>
 

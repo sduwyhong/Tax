@@ -962,6 +962,12 @@ public class TaxGuestServiceImpl implements TaxGuestService {
 
 	@Override
 	public String searchUserByName(String username) {
+		//GET来的中文一定要转码
+		try {
+			username = new String(username.getBytes("ISO-8859-1"),"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		TaxUserExample example = new TaxUserExample();
 		example.createCriteria().andUsernameLike("%"+username+"%");
 		List<TaxUser> users = mapperFactory.getTaxUserMapper().selectByExample(example);
@@ -975,6 +981,23 @@ public class TaxGuestServiceImpl implements TaxGuestService {
 		}
 		Result result = new Result();
 		result.setResult(userInfos);
+		return JSONObject.toJSONString(result);
+	}
+
+	@Override
+	public String getQuestionsByRecentAnswer(int page) {
+		Result result = new Result();
+		List<QuestionLive> liveList = getQuestionLiveList(mapperFactory.getTaxQuestionMapper().selectByRecentAnswer((page - 1) * PageConst.NUM_PER_PAGE, PageConst.NUM_PER_PAGE));
+		long totalCount = mapperFactory.getTaxAnswerMapper().countByExample(new TaxAnswerExample());
+		if(liveList != null){
+		PageInfo<QuestionLive> pageInfo = new PageInfo<QuestionLive>();
+		pageInfo.setCurrentCount(liveList.size());
+		pageInfo.setCurrentPage(page);
+		pageInfo.setTotalCount(totalCount);
+		pageInfo.setTotalPage(totalCount%PageConst.NUM_PER_PAGE == 0 ? totalCount/PageConst.NUM_PER_PAGE : totalCount/PageConst.NUM_PER_PAGE + 1);
+		pageInfo.setList(liveList);
+		result.setResult(pageInfo);
+		}
 		return JSONObject.toJSONString(result);
 	}
 

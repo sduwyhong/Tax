@@ -263,8 +263,25 @@
 		//答题动态
 		var totalPage = 0;
 		var totalCount = 0;
+		/*
 		$.ajax({
 			url:path+'guest/question?page=1',
+			async:false,
+			success:function(data){
+				console.log(data);
+				if(data.status == 200){
+					totalPage = data.result.totalPage;
+					totalCount = data.result.totalCount;
+					for(var i in data.result.list){
+						var question = data.result.list[i];
+						appendQuestion(question);
+					}
+				}
+			}
+		})
+		*/
+		$.ajax({
+			url:path+'guest/question/latestAnswer/'+1,
 			async:false,
 			success:function(data){
 				console.log(data);
@@ -291,8 +308,22 @@
 		       callback: function(page) { 
 			       	// 回调函数
 			       	$('.uesr_message[hidden!=hidden]').remove();
+			       	/*
 			       	$.ajax({
 			       		url:path+'guest/question?page='+page,
+			       		success:function(data){
+			       			console.log(data);
+			       			if(data.status == 200) {
+			       				var list = data.result.list;
+			       				for(var i in list){
+							       appendQuestion(list[i]);
+			       				}
+			       			}
+			       		}
+			       	})
+			       	*/
+			       	$.ajax({
+			       		url:path+'guest/question/latestAnswer/'+page,
 			       		success:function(data){
 			       			console.log(data);
 			       			if(data.status == 200) {
