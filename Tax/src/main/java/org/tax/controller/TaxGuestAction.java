@@ -120,4 +120,16 @@ public class TaxGuestAction {
 	public void getAvatar(@PathVariable("userId") String userId, HttpServletResponse response) {
 		taxGuestService.getAvatar(userId, response);
 	}
+	
+	@RequestMapping(value="/user",method=RequestMethod.GET,produces=JSON)
+	@ResponseBody
+	public void searchUserByName(@RequestParam("username") String username) {
+		taxGuestService.searchUserByName(username);
+	}
+	
+	@RequestMapping(value="/question/user",method=RequestMethod.GET,produces=JSON)
+	@ResponseBody
+	public void getAvatar(@RequestParam("userId") String userId) {
+		taxGuestService.getQuestionsByUser(userId);
+	}
 }

@@ -66,4 +66,5 @@ public interface TaxGuestService {
 
 	String ultimateSearch(String keyword, String proId, int page);
 	
+	String searchUserByName(String username);
 }

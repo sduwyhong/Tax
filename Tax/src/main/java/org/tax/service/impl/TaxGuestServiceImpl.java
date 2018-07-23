@@ -29,6 +29,7 @@ import org.tax.VO.QuestionBrief;
 import org.tax.VO.QuestionLive;
 import org.tax.VO.ShareExpertDetail;
 import org.tax.VO.TaxUserVO;
+import org.tax.VO.UserInfo;
 import org.tax.VO.UserModule;
 import org.tax.constant.CookieConst;
 import org.tax.constant.Message;
@@ -761,7 +762,13 @@ public class TaxGuestServiceImpl implements TaxGuestService {
 	@Override
 	public String getQuestionsByUser(String userId) {
 		Result result = new Result();
-		result.setResult(mapperFactory.getTaxQuestionMapper().selectQuestionBriefByUser(userId,false,0,0));
+		List<QuestionBrief> questionBriefs = mapperFactory.getTaxQuestionMapper().selectQuestionBriefByUser(userId,false,0,0);
+		for(QuestionBrief brief : questionBriefs){
+			TaxAnswerExample example = new TaxAnswerExample();
+			example.createCriteria().andQuestionIdEqualTo(brief.getId());
+			brief.setTotalAnswerNum(mapperFactory.getTaxAnswerMapper().countByExample(example));
+		}
+		result.setResult(questionBriefs);
 		return JSONObject.toJSONString(result);
 	}
 
@@ -950,6 +957,24 @@ public class TaxGuestServiceImpl implements TaxGuestService {
 			result.setResult(pageInfo);
 		}
 		
+		return JSONObject.toJSONString(result);
+	}
+
+	@Override
+	public String searchUserByName(String username) {
+		TaxUserExample example = new TaxUserExample();
+		example.createCriteria().andUsernameLike("%"+username+"%");
+		List<TaxUser> users = mapperFactory.getTaxUserMapper().selectByExample(example);
+		List<UserInfo> userInfos = new ArrayList<UserInfo>();
+		for(TaxUser user : users) {
+			UserInfo info = new UserInfo();
+			info.setId(user.getId());
+			info.setUsername(user.getUsername());
+			info.setScore(user.getScore());
+			userInfos.add(info);
+		}
+		Result result = new Result();
+		result.setResult(userInfos);
 		return JSONObject.toJSONString(result);
 	}
 

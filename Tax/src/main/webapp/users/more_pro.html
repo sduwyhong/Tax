@@ -237,81 +237,6 @@ body {
 		<!-- header start -->
 		<div id="headerpage"></div>
 		<!-- header end -->
-	
-	
-		<script>
-			// 窗体加载完成时轮询
-			var t, notifyNum = 0;
-			window.onload = function() {
-				loadNotifies();
-				t = setInterval(loadNotifies, 10000); //每10秒执行一次
-			}
-			// 窗体关闭之前清除此定时器
-			window.onbeforeunload = function() {
-				clearInterval(t);
-			}
-			
-			//消息提示
-			function loadNotifies() {
-				var param = {
-					pagingOrNot : "not",
-					readOrUnread : "0"
-				};
-				// 获取所有的通知
-				$.get('notifies/count', param, function(data) {
-					if(notifyNum == data) {
-						return;
-					}
-					notifyNum = data;
-					var numTxt = "";
-					if(notifyNum >= 100) {
-						numTxt = "99+";
-					} else if(notifyNum == 0) {
-						numTxt = "";
-					}
-					$("#news").text(numTxt);
-				});
-			}
-		</script>
-	
-	<script>
-        $(function(){
-           $(".user_text").hover(function(){
-               var width_a = $(this).width();
-               var width_b = $(this).find(".user_id").width();
-               var indent_px = width_a - width_b;
-               if( width_a <= width_b ){
-                   $(this).css("text-indent",indent_px);
-               }
-           },function(){
-               $(this).css("text-indent","0");
-           });
-        });
-    </script>
-      <!-- input点击清除value值 -->
-    <script type="text/javascript">
-		wap_val = [];
-		$(".ssearch").each(function(i) {
-			wap_val[i] = $(this).val();
-			$(this).focusin(function() {
-				if ($(this).val() == wap_val[i]) {
-					$(this).val("");
-				}
-			}).focusout(function() {
-				if ($.trim($(this).val()) == "") {
-					$(this).val(wap_val[i]);
-				}
-			});
-		});
-		//  用户名显示
-		 $(".user_id").each(function(){
-		  var maxwidth=4;
-		  if($(this).text().length > maxwidth){
-		    $(this).text($(this).text().substring(0,maxwidth));
-		    $(this).html($(this).html()+'...');
-		  }
-		}); 
-	</script>
 
 
 	<!-- 头部标题end -->
@@ -331,7 +256,7 @@ body {
 						<div class="liuan_main_search">
 							<input placeholder="请输入您所需要的内容" name="userName" style="width:300px;margin-right: 30px;">
 							<input name="type" value="1" type="hidden">
-							<button class="searchbtn"></button>
+							<button class="searchbtn" onclick="search()"></button>
 						</div>
 					</div>
 				</form>	
@@ -343,44 +268,11 @@ body {
 				<div class="lists">
 					<div id="exSharingContainer">
 		    			<div class="exSharingContent">
-		    				<ul class="clearfix expert_ul">
-		    					<li class="fl uesr_paihang">NO.1</li>
-		    					<li class="org_name fl" =""="">
-		    						<a href="users/u0001/zone">专家名:管理员</a>
+		    				<ul class="clearfix expert_ul" hidden="hidden">
+		    					<li class="org_name fl">
+		    						<a href="users/u0001/zone">专家名:<span style="color: blue;">-</span></a>
 		    					</li>
-		    					<li class="jifen fl">积分:89</li>
-		    				</ul>
-		    				<ul class="clearfix expert_ul">
-		    					<li class="fl uesr_paihang">NO.2</li>
-		    					<li class="org_name fl" =""="">
-		    						<a href="users/user_1513161147650/zone">专家名:admin3</a>
-		    					</li>
-		    					<li class="jifen fl">积分:4</li></ul><ul class="clearfix expert_ul">
-		    					<li class="fl uesr_paihang">NO.3</li>
-		    					<li class="org_name fl" =""="">
-		    						<a href="users/user_1513161184968/zone">专家名:admin4</a>
-		    					</li>
-		    					<li class="jifen fl">积分:3</li></ul>
-		    				<ul class="clearfix expert_ul">
-		    					<li class="fl uesr_paihang">NO.4</li>
-		    					<li class="org_name fl" =""="">
-		    						<a href="users/user_1513229299915/zone">专家名:admin9</a>
-		    					</li>
-		    					<li class="jifen fl">积分:</li>
-		    				</ul>
-		    				<ul class="clearfix expert_ul">
-		    					<li class="fl uesr_paihang">NO.5</li>
-		    					<li class="org_name fl" =""="">
-		    						<a href="users/user_1513590215567/zone">专家名:李志</a>
-		    					</li>
-		    					<li class="jifen fl">积分:</li>
-		    				</ul>
-		    				<ul class="clearfix expert_ul">
-		    					<li class="fl uesr_paihang">NO.6</li>
-		    					<li class="org_name fl" =""="">
-		    						<a href="users/user_1513739346529/zone">专家名:李志明</a>
-		    					</li>
-		    					<li class="jifen fl">积分:</li>
+		    					<li class="jifen fl">积分:<span>-</span></li>
 		    				</ul>
 		    	
 		    				</div>
@@ -392,31 +284,6 @@ body {
 		</div>
 	</div>
 				
-	<!-- 实现分页 start-->
-	<!-- 不满一页：设置pagination的display：none
-		  点击数字: 由class=waves-effect变成class=active 
-		  首页时:prePage为disabled；尾页时 :nextPage的class为disabled 其他情况时class为waves-effect-->						
-	<ul id="myInvitePutReply" class="pagination" style="margin-top: 40px; display:none">
-		<li class="waves-effect waves-light btn-small" id="firstPage"><a href="#!" style="font-color: black">first</a></li>
-    	<li class="disabled" id="prePage">
-    		<a href="#!">
-    			<i class="material-icons">chevron_left</i>
-    		</a>
-    	</li>
-    	<li class="active"><a href="#!">1</a></li>
-    	<li class="waves-effect" id="onePage"><a href="#!" style="font-color: black">2</a></li>
-    	<li class="waves-effect" id="twoPage"><a href="#!" style="font-color: black">3</a></li>
-    	<li class="waves-effect" id="threePage"><a href="#!" style="font-color: black">4</a></li>
-   		<li class="waves-effect" id="fourPage"><a href="#!" style="font-color: black">5</a></li>
-    	<li class="waves-effect" id="nextPage">
-    		<a href="#!" style="font-color: black">
-    			<i class="material-icons">chevron_right</i>
-    		</a>
-    	</li>
-  		 <li class="waves-effect waves-light btn-small" id="lastPage"><a href="#!" style="font-color: black">last</a></li>
-  	</ul>	
-  	<!-- 实现分页 end-->
-	<!-- 中间end -->
 
 	<!-- footer start -->
 	<div id="footerpage"></div>
@@ -427,6 +294,7 @@ body {
 	<script type="text/javascript" src="../js/zeroModel.min.js" charset="utf-8"></script>
 	<script type="text/javascript" src="../js/Materialize/materialize.min.js"></script>
 	<script type="text/javascript" src="../js/Materialize/adbeus.js"></script>
+	<script type="text/javascript" src="../js/path.js"></script>
 	<script src="../js/paging.js" type="text/javascript" charset="utf-8"></script>
 	
 	<!-- load header and footer -->
@@ -436,52 +304,18 @@ body {
 	</script>
 	
 	<script type="text/javascript">
-	var page = Math.ceil(7/10);
-	var type = '1';
-	var userName = '';
-	console.log(userName);
-	console.log("type="+type);
-	 $('#exSharingPage').paging({
-         initPageNo: 1, 							// 初始页码
-         totalPages: page, 							// 总页数
-         totalCount: '合计 7条数据', 			// 条目总数
-         slideSpeed: 600, 							// 缓动速度。单位毫秒
-         jump: true, 								// 是否支持跳转
-         callback: function(page) { 				// 回调函数
-        	 $.get("/lagsms/usersRank", {
-	            	page:page,
-	            	rows:10,
-	            	type:type,
-	            	userName:userName
-	            },function(data){
-	            		console.log(data);
-	            		var index=1;
-	            		var dataHTML = data.map(function(value, index, array){  
-	            			index++;
-	            			var name = type==1?"专家名:":"机构名:";
-	            			return '<ul class="clearfix expert_ul">' +
-										'<li class="fl uesr_paihang">NO.'+index+'</li>' +
-										'<li class="org_name fl"=""><a href="/lagsms/users/'+value.userId+'/zone">'+name+''+value.userName+'</a></li>' +
-										'<li class="jifen fl">积分:'+value.score+'</li>' +
-									'</ul>';
-	            		});
-	            		console.log(dataHTML);
-	            		/* $("#latestQuesContainer>.quesContent").remove(); */
-	            		$("#exSharingContainer>.exSharingContent").html(dataHTML.join(""));
-     			});
-         }
-     });
-	 jQuery(function(){  
-		  	$('#nextPage').click(function(){$('html,body').animate({scrollTop: '100px'}, 0);return false;});
-		  	$('#prePage').click(function(){$('html,body').animate({scrollTop: '100px'}, 0);return false;});
-		 	$('#firstPage').click(function(){$('html,body').animate({scrollTop: '100px'}, 0);return false;});
-		 	$('#lastPage').click(function(){$('html,body').animate({scrollTop: '100px'}, 0);return false;});
-		 	$('.sel-page').click(function(){$('html,body').animate({scrollTop: '100px'}, 0);return false;});
-		 	$('.selpage').click(function(){$('html,body').animate({scrollTop: '100px'}, 0);return false;});
-		 	$('.jump-button').click(function(){$('html,body').animate({scrollTop: '100px'}, 0);return false;});
-		 	$('.turnPage').click(function(){$('html,body').animate({scrollTop: '100px'}, 0);return false;});
-		 	$('.last-page').click(function(){$('html,body').animate({scrollTop: '100px'}, 0);return false;});
-		 });
+		function search(){
+			var namePattern = $('input[name=userName]').val();
+			$.ajax({
+				url:path+'guest/user',
+				data:{
+					username:namePattern
+				},
+				success:function(data){
+					console.log(data);
+				}
+			})
+		}
 	</script>
 
 </body></html>
