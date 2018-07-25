@@ -76,4 +76,12 @@ public interface TaxGuestService {
 	String searchUserByName(String username);
 	
 	String getQuestionsByRecentAnswer(int page);
+	
+	String getShareExps(int page);
+	
+	String getShareExpDetail(int shareExpId);
+	
+	String getProInterprets(int page);
+	
+	String getProInterpretDetail(int proInterpretId);
 }

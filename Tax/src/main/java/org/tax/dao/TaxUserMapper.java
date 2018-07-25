@@ -155,4 +155,6 @@ public interface TaxUserMapper {
 
 	List<TaxUser> selectByCondition(UserQuery query);
 
+	int selectPrivilegeByUserId(String userId);
+
 }

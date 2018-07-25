@@ -49,3 +49,5 @@ long countByKeyword(String keyword);
 
 15、Mysql 5.0不支持子查询中使用LIMIT或IN/ALL/ANY/SOME
 原话：This version of MySQL doesn't yet support 'LIMIT & IN/ALL/ANY/SOME subquery'
+
+16、用mybatis-generator的话，po的字段不要给默认值。不然更新很麻烦。

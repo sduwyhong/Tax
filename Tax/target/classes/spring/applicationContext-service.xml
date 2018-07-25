@@ -8,4 +8,5 @@
 	
 	<bean id="taxGuestService" class="org.tax.service.impl.TaxGuestServiceImpl"></bean>
 	<bean id="taxUserService" class="org.tax.service.impl.TaxUserServiceImpl"></bean>
+	<bean id="taxAdminService" class="org.tax.service.impl.TaxAdminServiceImpl"></bean>
 </beans>

@@ -19,6 +19,20 @@ function isLogin(){
 	}
 	return false;
 }
+function isAdmin(){
+	var flag = false;
+	if(isLogin()){
+		$.ajax({
+			url:path+'admin/checkAuthority/'+getUserIdFromCookie(),
+			async:false,
+			success:function(data){
+				console.log(data);
+				if(data.result == 1) flag = true;
+			}
+		})
+	}
+	return flag;
+}
 function getIdFromURL(){
 	return location.search.substr(1,location.search.length-1).split('=')[1];
 }

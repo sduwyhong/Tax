@@ -8,9 +8,11 @@ import org.springframework.web.multipart.MultipartRequest;
 import org.tax.VO.LoginInfo;
 import org.tax.VO.PasswordModification;
 import org.tax.model.TaxAnswer;
+import org.tax.model.TaxExpert;
 import org.tax.model.TaxMessage;
 import org.tax.model.TaxMessageReply;
 import org.tax.model.TaxQuestion;
+import org.tax.model.TaxShare;
 import org.tax.model.TaxUser;
 
 /**
@@ -64,4 +66,9 @@ public interface TaxUserService {
 	String replyMessage(TaxMessageReply reply);
 	
 	String getMessageDetail(int messageId);
+	
+	String publishShareExp(TaxShare record);
+	
+	String publishProInterpret(TaxExpert record);
+	
 }

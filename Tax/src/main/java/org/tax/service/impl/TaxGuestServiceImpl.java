@@ -42,6 +42,7 @@ import org.tax.model.TaxAnswer;
 import org.tax.model.TaxAnswerExample;
 import org.tax.model.TaxExpert;
 import org.tax.model.TaxExpertExample;
+import org.tax.model.TaxExpertKey;
 import org.tax.model.TaxPro;
 import org.tax.model.TaxProKey;
 import org.tax.model.TaxQuestion;
@@ -50,6 +51,7 @@ import org.tax.model.TaxQuestionKey;
 import org.tax.model.TaxQuestionProExample;
 import org.tax.model.TaxShare;
 import org.tax.model.TaxShareExample;
+import org.tax.model.TaxShareKey;
 import org.tax.model.TaxUser;
 import org.tax.model.TaxUserExample;
 import org.tax.model.TaxUserKey;
@@ -1001,5 +1003,30 @@ public class TaxGuestServiceImpl implements TaxGuestService {
 		return JSONObject.toJSONString(result);
 	}
 
+	@Override
+	public String getShareExps(int page) {
+		//计算offset、num啥的
+		return JSONObject.toJSONString(new Result(mapperFactory.getTaxShareMapper().selectByExample(new TaxShareExample())));
+	}
+
+	@Override
+	public String getShareExpDetail(int shareExpId) {
+		TaxShareKey key = new TaxShareKey();
+		key.setId(shareExpId);
+		return JSONObject.toJSONString(new Result(mapperFactory.getTaxShareMapper().selectByPrimaryKey(key )));
+	}
+	
+	@Override
+	public String getProInterprets(int page) {
+		//计算offset、num啥的
+		return JSONObject.toJSONString(new Result(mapperFactory.getTaxExpertMapper().selectByExample(new TaxExpertExample())));
+	}
+
+	@Override
+	public String getProInterpretDetail(int proInterpretId) {
+		TaxExpertKey key = new TaxExpertKey();
+		key.setId(proInterpretId);
+		return JSONObject.toJSONString(new Result(mapperFactory.getTaxExpertMapper().selectByPrimaryKey(key)));
+	}
 
 }

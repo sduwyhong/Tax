@@ -78,6 +78,13 @@
 						</font>
 					</a>
 				</li>
+				<li class="cat-item cat-item-307 admin_li" style="display: none">
+					<a href="../admin/index.html">
+						<font style="vertical-align: middle;">
+							<font style="vertical-align: middle;color:#ffffff">[后台管理]</font>
+						</font>
+					</a>
+				</li>
 			</ul>
 		</article>
 	</div>      
@@ -89,3 +96,7 @@
 	<!-- Import jQuery before materialize.js -->
 	<script type="text/javascript" src="../js/Materialize/materialize.min.js"></script>
 	<script type="text/javascript" src="../js/Materialize/adbeus.js"></script>
+	<script type="text/javascript">
+		if(isAdmin()) $('.admin_li').show();
+	</script>
+	

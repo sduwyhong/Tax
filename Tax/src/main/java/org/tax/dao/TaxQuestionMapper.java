@@ -156,4 +156,6 @@ public interface TaxQuestionMapper {
 
 	List<TaxQuestion> getUncheckedQuestion(@Param("offset")int i, @Param("num")int numPerPage);
 
+	int check(int questionId);
+
 }

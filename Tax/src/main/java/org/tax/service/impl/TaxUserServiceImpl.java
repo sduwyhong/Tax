@@ -33,6 +33,9 @@ import org.tax.dao.TaxUserProMapper;
 import org.tax.factory.MapperFactory;
 import org.tax.model.TaxAnswer;
 import org.tax.model.TaxAnswerKey;
+import org.tax.model.TaxExpert;
+import org.tax.model.TaxExpertExample;
+import org.tax.model.TaxExpertKey;
 import org.tax.model.TaxFavourite;
 import org.tax.model.TaxFavouriteAnswer;
 import org.tax.model.TaxFavouriteAnswerExample;
@@ -43,6 +46,9 @@ import org.tax.model.TaxMessageReply;
 import org.tax.model.TaxQuestion;
 import org.tax.model.TaxQuestionKey;
 import org.tax.model.TaxQuestionPro;
+import org.tax.model.TaxShare;
+import org.tax.model.TaxShareExample;
+import org.tax.model.TaxShareKey;
 import org.tax.model.TaxUser;
 import org.tax.model.TaxUserExample;
 import org.tax.model.TaxUserKey;
@@ -554,5 +560,17 @@ public class TaxUserServiceImpl implements TaxUserService {
 		return JSON.toJSONString(result);
 	}
 
-	
+	@Override
+	public String publishShareExp(TaxShare record) {
+		//authorId前端给
+		record.setPublishDate(new Date());
+		return JSONObject.toJSONString(new Result(mapperFactory.getTaxShareMapper().insert(record)));
+	}
+
+	@Override
+	public String publishProInterpret(TaxExpert record) {
+		record.setPublishDate(new Date());
+		return JSONObject.toJSONString(new Result(mapperFactory.getTaxExpertMapper().insert(record)));
+	}
+
 }

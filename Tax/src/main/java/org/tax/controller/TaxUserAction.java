@@ -15,9 +15,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.tax.VO.PasswordModification;
 import org.tax.constant.MediaType;
 import org.tax.model.TaxAnswer;
+import org.tax.model.TaxExpert;
 import org.tax.model.TaxMessage;
 import org.tax.model.TaxMessageReply;
 import org.tax.model.TaxQuestion;
+import org.tax.model.TaxShare;
 import org.tax.model.TaxUser;
 import org.tax.service.TaxUserService;
 
@@ -150,5 +152,16 @@ public class TaxUserAction {
 		return taxUserService.getMessageDetail(messageId);
 	}
 	
+	@RequestMapping(value="/share",method=RequestMethod.POST,produces=JSON)
+	@ResponseBody
+	public String publishShareExp(TaxShare share) {
+		return taxUserService.publishShareExp(share);
+	}
+	
+	@RequestMapping(value="/expert",method=RequestMethod.POST,produces=JSON)
+	@ResponseBody
+	public String publishProInterpret(TaxExpert expert) {
+		return taxUserService.publishProInterpret(expert);
+	}
 	
 }

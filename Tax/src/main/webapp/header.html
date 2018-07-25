@@ -155,11 +155,27 @@
  						console.log(curPage);
  						var ul = $('#menu-adbeus');
  						ul.find('li').removeAttr('style');
- 						if(curPage == 'homepage') ul.find('li:eq(0)').attr('style','background-color:#ffcd1f');
- 						else if(curPage == 'consult') ul.find('li:eq(1)').attr('style','background-color:#ffcd1f');
- 						else if(curPage == 'users') ul.find('li:eq(4)').attr('style','background-color:#ffcd1f');
- 						else if(location.pathname.split('/')[3] == 'share_exp.html') ul.find('li:eq(2)').attr('style','background-color:#ffcd1f');
- 						else ul.find('li:eq(3)').attr('style','background-color:#ffcd1f');
+ 						ul.find('li').find('a').removeAttr('style');
+ 						if(curPage == 'homepage') {
+ 							ul.find('li:eq(0)').attr('style','background-color:#0D3570');
+ 							ul.find('li:eq(0)').find('a').attr('style','color:#fff')
+ 						}
+ 						else if(curPage == 'consult') {
+ 							ul.find('li:eq(1)').attr('style','background-color:#0D3570');
+ 							ul.find('li:eq(1)').find('a').attr('style','color:#fff')
+ 						}
+ 						else if(curPage == 'users') {
+ 							ul.find('li:eq(4)').attr('style','background-color:#0D3570');
+ 							ul.find('li:eq(4)').find('a').attr('style','color:#fff')
+ 						}
+ 						else if(location.pathname.split('/')[3].substr(0,5) == 'share' || location.pathname.split('/')[3].substr(0,9) == 'add_share') {
+ 							ul.find('li:eq(2)').attr('style','background-color:#0D3570');
+ 							ul.find('li:eq(2)').find('a').attr('style','color:#fff')
+ 						}
+ 						else {
+ 							ul.find('li:eq(3)').attr('style','background-color:#0D3570');
+ 							ul.find('li:eq(3)').find('a').attr('style','color:#fff')
+ 						}
  					</script>
 				</div>
 			</nav>

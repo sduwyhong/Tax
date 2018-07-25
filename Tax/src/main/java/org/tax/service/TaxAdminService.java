@@ -18,4 +18,6 @@ public interface TaxAdminService {
 
 	String deleteUser(String userId);
 
+	String checkAuthority(String userId);
+
 }

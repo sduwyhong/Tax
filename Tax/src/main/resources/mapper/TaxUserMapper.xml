@@ -368,4 +368,10 @@
   	</where>
   	LIMIT ${offset},${num}
   </select>
+  
+  <select id="selectPrivilegeByUserId" resultType="Integer">
+  	SELECT privilege 
+  	FROM tax_user
+  	WHERE id = #{userId}
+  </select>
 </mapper>

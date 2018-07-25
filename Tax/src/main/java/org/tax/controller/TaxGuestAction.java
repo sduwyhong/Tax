@@ -90,7 +90,7 @@ public class TaxGuestAction {
 	public String getPersonData(@PathVariable("userId") String userId) {
 		return taxGuestService.getUserDetail(userId);
 	}
-	
+	/*
 	@RequestMapping(value="/share/{page}",method=RequestMethod.GET,produces=JSON)
 	@ResponseBody
 	public String getShares(@PathVariable("page") int page) {
@@ -102,7 +102,7 @@ public class TaxGuestAction {
 	public String getArticlesOfExperts(@PathVariable("page") int page) {
 		return taxGuestService.getArticlesOfExperts(page);
 	}
-	
+	*/
 	@RequestMapping(value="/question/{questionId}",method=RequestMethod.GET,produces=JSON)
 	@ResponseBody
 	public String getQuestion(@PathVariable("questionId") int questionId) {
@@ -137,5 +137,29 @@ public class TaxGuestAction {
 	@ResponseBody
 	public String getQuestionsByRecentAnswer(@PathVariable("page") int page) {
 		return taxGuestService.getQuestionsByRecentAnswer(page);
+	}
+	
+	@RequestMapping(value="/share",method=RequestMethod.GET,produces=JSON)
+	@ResponseBody
+	public String getShareExps() {
+		return taxGuestService.getShareExps(Integer.MAX_VALUE);
+	}
+	
+	@RequestMapping(value="/share/{shareId}",method=RequestMethod.GET,produces=JSON)
+	@ResponseBody
+	public String getShareExpDetail(@PathVariable("shareId")int shareId) {
+		return taxGuestService.getShareExpDetail(shareId);
+	}
+	
+	@RequestMapping(value="/expert",method=RequestMethod.GET,produces=JSON)
+	@ResponseBody
+	public String getProInterprets() {
+		return taxGuestService.getProInterprets(Integer.MAX_VALUE);
+	}
+	
+	@RequestMapping(value="/expert/{expertId}",method=RequestMethod.GET,produces=JSON)
+	@ResponseBody
+	public String getProInterpretDetail(@PathVariable("expertId")int expertId) {
+		return taxGuestService.getProInterpretDetail(expertId);
 	}
 }

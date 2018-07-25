@@ -5,6 +5,7 @@ import org.tax.VO.UserQuery;
 import org.tax.constant.PageConst;
 import org.tax.factory.MapperFactory;
 import org.tax.model.TaxQuestion;
+import org.tax.model.TaxQuestionExample;
 import org.tax.result.Result;
 import org.tax.service.TaxAdminService;
 
@@ -21,20 +22,17 @@ public class TaxAdminServiceImpl implements TaxAdminService {
 	
 	@Override
 	public String getUncheckedQuestion(int page) {
-		return JSONObject.toJSONString(new Result(mapperFactory.getTaxQuestionMapper().getUncheckedQuestion((page - 1) * PageConst.NUM_PER_PAGE, PageConst.NUM_PER_PAGE)));
+		return JSONObject.toJSONString(new Result(mapperFactory.getTaxQuestionMapper().getUncheckedQuestion(0, Integer.MAX_VALUE)));
 	}
 
 	@Override
 	public String check(int questionId) {
-		TaxQuestion record = new TaxQuestion();
-		record.setId(questionId);
-		record.setChecked(new Byte(Integer.toBinaryString(1)));
-		return JSONObject.toJSONString(new Result(mapperFactory.getTaxQuestionMapper().updateByPrimaryKey(record ) > 0 ? true : false));
+		return JSONObject.toJSONString(new Result(mapperFactory.getTaxQuestionMapper().check(questionId) > 0 ? true : false));
 	}
 
 	@Override
 	public String getUserList(int page) {
-		return JSONObject.toJSONString(new Result(mapperFactory.getTaxUserMapper().selectList((page - 1) * PageConst.NUM_PER_PAGE, PageConst.NUM_PER_PAGE)));
+		return JSONObject.toJSONString(new Result(mapperFactory.getTaxUserMapper().selectList(0, Integer.MAX_VALUE)));
 	}
 
 	@Override
@@ -47,6 +45,11 @@ public class TaxAdminServiceImpl implements TaxAdminService {
 	@Override
 	public String deleteUser(String userId) {
 		return null;
+	}
+
+	@Override
+	public String checkAuthority(String userId) {
+		return JSONObject.toJSONString(new Result(mapperFactory.getTaxUserMapper().selectPrivilegeByUserId(userId)));
 	}
 
 }

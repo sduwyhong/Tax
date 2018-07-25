@@ -406,4 +406,10 @@
   	WHERE checked = 0
   	LIMIT ${offset},${num}
   </select>
+  
+  <update id="check">
+  	UPDATE tax_question
+  	SET checked = 1
+  	WHERE id = #{questionId}
+  </update>
 </mapper>

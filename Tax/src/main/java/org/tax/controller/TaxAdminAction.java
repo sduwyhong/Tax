@@ -54,6 +54,12 @@ public class TaxAdminAction {
 		return taxAdminService.getUserByCondition(query, page);
 	}
 	
+	@RequestMapping(value="/checkAuthority/{userId}",method=RequestMethod.GET,produces=JSON)
+	@ResponseBody
+	public String checkAuthority(@PathVariable("userId")String userId){
+		return taxAdminService.checkAuthority(userId);
+	}
+	
 	public String deleteUser(String userId){
 		return taxAdminService.deleteUser(userId);
 	}
