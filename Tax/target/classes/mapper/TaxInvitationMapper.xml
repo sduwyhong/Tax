@@ -217,6 +217,7 @@
   	FROM tax_invitation i, tax_question q
   	WHERE i.question_id = q.id
   	AND q.author_id = #{senderId}
+  	AND q.checked = 1
   </select>
   
   <select id="selectInvitationVOReceived" resultType="org.tax.VO.InvitationVO">
@@ -226,6 +227,7 @@
   	AND q.id = i.question_id
   	AND u1.id = i.user_id
   	AND u1.id = #{userId}
+  	AND q.checked = 1
   	<if test="pagination">
   	limit #{offset},#{num}
   	</if>
@@ -238,6 +240,7 @@
   	AND q.id = i.question_id
   	AND u1.id = i.user_id
   	AND u2.id = #{userId}
+  	AND q.checked = 1
   	<if test="pagination">
   	limit #{offset},#{num}
   	</if>
