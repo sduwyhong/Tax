@@ -13,4 +13,11 @@ public class Result {
 	private String message = "SUCCESS";
 	private Object result = null;
 
+	public Result(){
+		
+	}
+	
+	public Result(Object obj){
+		result = obj;
+	}
 }

@@ -149,6 +149,18 @@
  							$('#guestStatus').show();
 	 					}
  					</script>
+ 					<script type="text/javascript">
+ 						//导航栏动态效果
+ 						var curPage = location.pathname.split('/')[2];
+ 						console.log(curPage);
+ 						var ul = $('#menu-adbeus');
+ 						ul.find('li').removeAttr('style');
+ 						if(curPage == 'homepage') ul.find('li:eq(0)').attr('style','background-color:#ffcd1f');
+ 						else if(curPage == 'consult') ul.find('li:eq(1)').attr('style','background-color:#ffcd1f');
+ 						else if(curPage == 'users') ul.find('li:eq(4)').attr('style','background-color:#ffcd1f');
+ 						else if(location.pathname.split('/')[3] == 'share_exp.html') ul.find('li:eq(2)').attr('style','background-color:#ffcd1f');
+ 						else ul.find('li:eq(3)').attr('style','background-color:#ffcd1f');
+ 					</script>
 				</div>
 			</nav>
 		</div>

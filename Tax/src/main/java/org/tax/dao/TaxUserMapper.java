@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.tax.VO.Candidate;
+import org.tax.VO.UserQuery;
 import org.tax.model.TaxUser;
 import org.tax.model.TaxUserExample;
 import org.tax.model.TaxUserKey;
@@ -149,5 +150,9 @@ public interface TaxUserMapper {
 	int updateAvatarAddress(@Param("filePath")String filePath, @Param("id")String userId);
 
 	String getAvatar(String userId);
+
+	List<TaxUser> selectList(@Param("offset")int i, @Param("num")int numPerPage);
+
+	List<TaxUser> selectByCondition(UserQuery query);
 
 }

@@ -345,4 +345,27 @@
   	FROM tax_user
   	WHERE id = #{userId}
   </select>
+  
+  <select id="selectList" resultMap="BaseResultMap">
+  	SELECT *
+  	FROM tax_user
+  	LIMIT ${offset},${num}
+  </select>
+  
+  <select id="selectByCondition" parameterType="org.tax.VO.UserQuery" resultMap="BaseResultMap">
+  	SELECT *
+  	FROM tax_user
+  	<where>
+  		<if test="username != null">
+  			and username like '%${username}%'
+  		</if>
+  		<if test="telephone != null">
+  			and telephone = #{telephone}
+  		</if>
+  		<if test="email != null">
+  			and email = #{email}
+  		</if>
+  	</where>
+  	LIMIT ${offset},${num}
+  </select>
 </mapper>

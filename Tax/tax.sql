@@ -54,6 +54,7 @@ create table tax_question(
 	constraint fk_author_id_question foreign key (author_id) references tax_user(id),
 	fulltext(content)
 )engine=MyISAM;
+alter table tax_question add column checked tinyint unsigned default 0;
 create table tax_invitation(
 	id int unsigned not null primary key auto_increment,
 	question_id int unsigned not null,

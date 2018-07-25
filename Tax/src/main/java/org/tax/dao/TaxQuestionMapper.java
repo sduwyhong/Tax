@@ -1,6 +1,7 @@
 package org.tax.dao;
 
 import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
@@ -152,5 +153,7 @@ public interface TaxQuestionMapper {
 	long countByKeyword(String keyword);
 
 	List<TaxQuestion> selectByRecentAnswer(@Param("offset")int i, @Param("num")int numPerPage);
+
+	List<TaxQuestion> getUncheckedQuestion(@Param("offset")int i, @Param("num")int numPerPage);
 
 }

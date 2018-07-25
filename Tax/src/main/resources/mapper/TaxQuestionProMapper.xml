@@ -162,6 +162,7 @@
 	   <if test="keyword != null">
 	    and title like '%${keyword}%'
 	   </if>
+       and checked = 1
     </where>
     <if test="limitClause != null">
       limit ${limitClause}
@@ -194,6 +195,7 @@
 	   <if test="keyword != null">
 	    and title like '%${keyword}%'
 	   </if>
+	    and checked = 1
     </where>
   </select>
   <select id="countByCustomedCondition" parameterType="org.tax.model.TaxQuestionProExample" resultType="Long">

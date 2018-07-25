@@ -51,6 +51,7 @@
           </trim>
         </if>
       </foreach>
+      and checked = 1
     </where>
   </sql>
   <sql id="Update_By_Example_Where_Clause">
@@ -233,7 +234,7 @@
       This element was generated on Sat Jul 07 16:08:58 CST 2018.
     -->
     select count(*) from tax_question
-    <if test="_parameter != null">
+   <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
@@ -361,6 +362,7 @@
   	SELECT id,title,click,favourite,type,publish_date publishDate,status,prize reward
   	FROM tax_question
   	WHERE author_id = #{userId}
+  	AND checked = 1
   	<if test="pagination">
   	limit #{offset},#{num}
   	</if>
@@ -386,14 +388,22 @@
   	SELECT count(*)
   	FROM tax_question
   	WHERE title like '%${_parameter}%'
+  	AND checked = 1
   </select>
   
   <select id="selectByRecentAnswer" resultMap="BaseResultMap">
   	SELECT q.*
   	FROM tax_question q, tax_answer a
   	WHERE q.id = a.question_id
+  	AND q.checked = 1
   	ORDER BY a.publish_date DESC
   	LIMIT ${offset},${num}
   </select>
   
+  <select id="getUncheckedQuestion" resultMap="BaseResultMap">
+  	SELECT *
+  	FROM tax_question
+  	WHERE checked = 0
+  	LIMIT ${offset},${num}
+  </select>
 </mapper>
